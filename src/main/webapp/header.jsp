@@ -7,16 +7,21 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Noto Sans KR', sans-serif;
       background-color: #0F111A;
     }
-
+    
     .navbar {
+      position: fixed;              
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;              
       display: flex;
       justify-content: space-between;
       align-items: center;
       background-color: #5D9CEC;
       padding: 12px 24px;
+      overflow-x: hidden;
     }
 
     .nav-left {
@@ -39,18 +44,18 @@
     }
 
     .nav-right .login-btn {
+      position: relative;
+      right: 90px;
       background-color: #E5EAF2;
       color: #5D9CEC;
+      margin-left: auto;
       font-weight: 500;
-      padding: 8px 18px;
+      padding: 10px 18px;
       border-radius: 20px;
       border: none;
       cursor: pointer;
     }
 
-    .nav-right .login-btn:hover {
-      background-color: #c7d2fe;
-    }
   </style>
 </head>
 <body>
