@@ -1,8 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <title>MOVIT</title>
   <style>
     body {
@@ -64,8 +65,8 @@
     <div class="nav-left">
       <div class="logo">movit</div>
       <a href="<c:url value='/home.jsp' />">홈</a>
-      <a href="<c:url value='/movies.jsp' />">영화</a>
-      <a href="<c:url value='/mylist.jsp' />">마이리스트</a>
+      <a href="<c:url value='/movie/movies.jsp' />">영화</a>
+      <a href="<c:url value='/mylist/mylists.jsp' />">마이리스트</a>
       <a href="<c:url value='/purchasesList.jsp' />">구매 목록</a>
       <a href="<c:url value='/community.jsp' />">커뮤니티</a>
     </div>
