@@ -32,11 +32,7 @@
 
 %>
 
-<sql:setDataSource var="ds"
-    driver="com.mysql.cj.jdbc.Driver"
-    url="jdbc:mysql://localhost:3306/movit"
-    user="root"
-    password="sean123214.." />
+<%@ include file="../dbconn.jsp" %>
 
 <sql:update dataSource="${ds}">
     INSERT INTO movie (title, content, price, score, image)
