@@ -59,7 +59,7 @@
         %>
         <div class="movie-box">
             <div class="movie-card">
-                <img src="<%=request.getContextPath()%>/resources/images/<%=rs.getString("filename")%>" alt="영화 포스터">
+                <img src="<%=request.getContextPath()%>/resources/images/<%=rs.getString("image")%>" alt="영화 포스터">
             </div>
         </div>
         <%
