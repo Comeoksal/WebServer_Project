@@ -16,10 +16,12 @@
         Class.forName("com.mysql.cj.jdbc.Driver");
         conn = DriverManager.getConnection(url, user, password);
         out.println("연결 성공");
-    } catch (Exception e) {
+    } 
+    catch (Exception e) {
         out.println("연결 실패");
         out.println("<pre>" + e.toString() + "</pre>");
-    } finally {
+    } 
+    finally {
         if (conn != null) try { conn.close(); } catch (Exception e) {}
     }
 %>
