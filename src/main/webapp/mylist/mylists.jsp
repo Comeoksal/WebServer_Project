@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="./resources/css/bootstrap.min.css" />
 <style>
 .container {
-    margin-top: 60px;
+    margin-top: 80px;
 }
 
 .clearfix {
@@ -48,23 +48,19 @@
 
 <div class="container">
     <%@ include file="../dbconn.jsp" %>
+
+    <sql:query dataSource="${ds}" var="result">
+        SELECT * FROM movie
+    </sql:query>
+
     <div class="clearfix">
-        <%
-            PreparedStatement pstmt = null;
-            ResultSet rs = null;
-            String sql = "select * from movie";
-            pstmt = conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-        %>
-        <div class="movie-box">
-            <div class="movie-card">
-                <img src="<%=request.getContextPath()%>/resources/images/<%=rs.getString("filename")%>" alt="영화 포스터">
+        <c:forEach var="row" items="${result.rows}">
+            <div class="movie-box">
+                <div class="movie-card">
+                    <img src="<c:url value='/resources/images/${row.image}' />" alt="영화 포스터">
+                </div>
             </div>
-        </div>
-        <%
-            }
-        %>
+        </c:forEach>
     </div>
 </div>
 </body>

@@ -25,39 +25,39 @@
       overflow-x: hidden;
     }
 
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
 
-    .nav-left .logo {
-      font-weight: bold;
-      font-size: 20px;
-      color: #E5EAF2;
-      font-family: 'Courier New', monospace;
-    }
+  .nav-left .logo {
+    font-weight: bold;
+    font-size: 20px;
+    color: #E5EAF2;
+    font-family: 'Courier New', monospace;
+  }
+  
 
-    .nav-left a {
-      text-decoration: none;
-      color: #E5EAF2;
-      font-size: 15px;
-    }
+  .nav-left a {
+    text-decoration: none;
+    color: #E5EAF2;
+    font-size: 15px;
+  }
 
-    .nav-right .login-btn {
-      position: relative;
-      right: 90px;
-      background-color: #E5EAF2;
-      color: #5D9CEC;
-      margin-left: auto;
-      font-weight: 500;
-      padding: 10px 18px;
-      border-radius: 20px;
-      border: none;
-      cursor: pointer;
-    }
-
-  </style>
+  .nav-right .login-btn {
+    position: relative;
+    right: 90px;
+    background-color: #E5EAF2;
+    color: #5D9CEC;
+    margin-left: auto;
+    font-weight: 500;
+    padding: 10px 18px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
 
