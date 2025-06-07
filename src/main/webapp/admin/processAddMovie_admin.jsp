@@ -25,6 +25,8 @@
 	String title = multi.getParameter("title");
 	String content = multi.getParameter("content");
 	String price = multi.getParameter("price");
+	String release_date = multi.getParameter("release_date");
+	String link = multi.getParameter("link");
 
 	Enumeration files = multi.getFileNames();
 	String fname = (String) files.nextElement();
@@ -35,12 +37,14 @@
 <%@ include file="../dbconn.jsp" %>
 
 <sql:update dataSource="${ds}">
-    INSERT INTO movie (title, content, price, score, image)
-    VALUES (?, ?, ?, 0, ?)
+    INSERT INTO movie (title, content, price, score, release_date, image, link)
+    VALUES (?, ?, ?, 0, ?, ?, ?)
     <sql:param value="<%= title %>" />
     <sql:param value="<%= content %>" />
     <sql:param value="<%= price %>" />
+    <sql:param value="<%= release_date %>" />
     <sql:param value="<%= image %>" />
+    <sql:param value="<%= link %>" />
 </sql:update>
 
 <script>

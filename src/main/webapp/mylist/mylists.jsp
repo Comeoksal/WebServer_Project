@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="java.sql.*"%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <link rel="stylesheet" href="./resources/css/bootstrap.min.css" />
 <style>
 .container {
     margin-top: 80px;

@@ -32,6 +32,7 @@
                     <th><fmt:message key="admin_movies_content" /></th>
                     <th><fmt:message key="admin_movies_price" /></th>
                     <th><fmt:message key="admin_movies_score" /></th>
+                    <th><fmt:message key="admin_movies_release_date" /></th>
                     <th><fmt:message key="admin_update" /></th>
                     <th><fmt:message key="admin_delete" /></th>
                 </tr>
