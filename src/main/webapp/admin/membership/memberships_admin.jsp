@@ -20,7 +20,7 @@
 
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-2">
-        	<h2 class="mb-0"><fmt:message key="admin_movies_membership" /></h2>
+        	<h2 class="mb-0"><fmt:message key="admin_membership_main" /></h2>
         	<a href="addMembership_admin.jsp" class="btn btn-success btn-sm"><fmt:message key="admin_membership_add" /></a>
     	</div>
 

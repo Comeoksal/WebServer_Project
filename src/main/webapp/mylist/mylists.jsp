@@ -1,11 +1,13 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
 <style>
 .container {
-    margin-top: 80px;
+    margin-top: 20px;
 }
 
 .clearfix {
@@ -38,29 +40,98 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: filter 0.3s ease;
 }
+
+/* 호버 시 블러 효과 */
+.movie-card:hover img {
+    filter: blur(2px) brightness(0.6);
+}
+
+.movie-desc {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%; /* 고정 너비 (예: 포스터의 85%) */
+    max-height: 60%; /* 최대 높이 */
+    background-color: rgba(0, 0, 0, 0.6); /* 반투명한 배경 */
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+.movie-card:hover .movie-desc {
+    opacity: 1;
+}
+.movie-card:hover img {
+    filter: blur(2px) brightness(0.4);
+}
+
 </style>
 
     <title>마이리스트 목록</title>
 </head>
 <body>
 <%@ include file="../header.jsp"%>
+<div style="margin-top: 60px;"></div>
+<%@ include file="../search_header.jsp" %>
+
+<%
+    String query = request.getParameter("query");
+    String sort = request.getParameter("sort");
+%>
 
 <div class="container">
     <%@ include file="../dbconn.jsp" %>
 
     <sql:query dataSource="${ds}" var="result">
-        SELECT * FROM movie
-    </sql:query>
+  		SELECT * FROM movie
+  		WHERE title LIKE '%${param.query}%' 
+  		<c:choose>
+    		<c:when test="${param.sort == 'popular'}">
+      			ORDER BY score DESC
+    		</c:when>
+    		<c:when test="${param.sort == 'oldest'}">
+      			ORDER BY created_at ASC
+    		</c:when>
+    		<c:otherwise>
+      			ORDER BY created_at DESC
+    		</c:otherwise>
+  		</c:choose>
+	</sql:query>
 
     <div class="clearfix">
         <c:forEach var="row" items="${result.rows}">
-            <div class="movie-box">
-                <div class="movie-card">
-                    <img src="<c:url value='/resources/images/${row.image}' />" alt="영화 포스터">
+    <div class="movie-box">
+        <div class="movie-card">
+            <a href="movie.jsp?id=${row.id}">
+                <img src="<c:url value='/resources/images/${row.image}' />" alt="영화 포스터">
+                <div class="movie-desc">
+                    <c:choose>
+                        <c:when test="${fn:length(row.content) > 50}">
+                            ${fn:substring(row.content, 0, 50)}...
+                        </c:when>
+                        <c:otherwise>
+                            ${row.content}
+                        </c:otherwise>
+                    </c:choose>
                 </div>
-            </div>
-        </c:forEach>
+            </a>
+        </div>
+    </div>
+</c:forEach>
+
     </div>
 </div>
 </body>
