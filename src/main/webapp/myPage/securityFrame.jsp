@@ -9,21 +9,21 @@
 			<div class="form-group">
 				<label>현재 비밀번호</label>
 				<div class="input-button-wrapper">
-					<input type="password" name="currentPw" required />
+					<input type="password" name="currentPw" required placeholder="현재 비밀번호를 입력해주세요."/>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label>새로운 비밀번호</label>
 				<div class="input-button-wrapper">
-					<input type="password" name="newPw" required />
+					<input type="password" name="newPw" required placeholder="새 비밀번호를 입력해주세요."/>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label>새로운 비밀번호 확인</label>
 				<div class="input-button-wrapper">
-					<input type="password" name="confirmPw" required />
+					<input type="password" name="confirmPw" required placeholder="새 비밀번호를 다시 입력해주세요."/>
 				</div>
 			</div>
 

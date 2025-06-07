@@ -41,43 +41,41 @@ String nickname = (String) session.getAttribute("nickname");
 	font-size: 15px;
 }
 
-
 .nav-right {
-  display: flex;
-  align-items: center;
-  height: 100%;
+	display: flex;
+	align-items: center;
+	height: 100%;
 }
 
 .nav-right form {
-  margin: 0; /* form의 기본 margin 제거 */
+	margin: 0; /* form의 기본 margin 제거 */
 }
 
 .nav-right .login-btn {
-  background-color: #E5EAF2;
-  color: #5D9CEC;
-  font-weight: 500;
-  padding: 8px 18px;
-  border-radius: 30px;
-  border: none;
-  font-size: 14px;
-  line-height: 1;           
-  vertical-align: middle;  
-  display: inline-block;   
-  box-sizing: border-box;
-  cursor: pointer;
+	background-color: #E5EAF2;
+	color: #5D9CEC;
+	font-weight: 500;
+	padding: 8px 18px;
+	border-radius: 30px;
+	border: none;
+	font-size: 14px;
+	line-height: 1;
+	vertical-align: middle;
+	display: inline-block;
+	box-sizing: border-box;
+	cursor: pointer;
 }
 </style>
 
 
 <nav class="navbar">
-
 	<div class="nav-left">
-		<div class="logo">movit</div>
-		<a href="<c:url value='/home.jsp' />">홈</a> <a
-			href="<c:url value='/movie/movies.jsp' />">영화</a> <a
-			href="<c:url value='/mylist/mylists.jsp' />">마이리스트</a> <a
-			href="<c:url value='/wishlist/wishlists.jsp' />">찜 목록</a> <a
-			href="<c:url value='/community.jsp' />">커뮤니티</a>
+		<a href ="<c:url value='/home.jsp'/>" class="logo">movit</a>
+		<a href="<c:url value='/home.jsp' />">홈</a> 
+		<a href="<c:url value='/movie/movies/movies.jsp' />">영화</a> 
+		<a href="<c:url value='/movie/mylist/mylists.jsp' />">마이리스트</a> 
+		<a href="<c:url value='/movie/wishlist/wishlists.jsp' />">찜 목록</a> 
+		<a href="<c:url value='/community.jsp' />">커뮤니티</a>
 	</div>
 	<div class="nav-right">
 		<%
@@ -90,12 +88,15 @@ String nickname = (String) session.getAttribute("nickname");
 		} else {
 		String displayName = (nickname != null && !nickname.trim().isEmpty()) ? nickname : userEmail;
 		%>
-		<span style="color: white; font-weight: bold; margin-right: 20px;"><%=displayName%>님</span>
-		<form action="/myPage/info.jsp">
+		<span
+			style="color: white; font-size: large; font-weight: bold; margin-right: 20px;"><%=displayName%>님</span>
+		<form action="<%=request.getContextPath()%>/myPage/info.jsp">
 			<button class="login-btn">마이페이지</button>
 		</form>
+
 		<%
 		}
 		%>
+
 	</div>
 </nav>

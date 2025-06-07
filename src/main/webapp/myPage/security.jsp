@@ -97,6 +97,8 @@ body {
 }
 
 .form-group {
+	margin-top: -20px;
+	margin-bottom: 30px;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
@@ -105,16 +107,20 @@ body {
 }
 
 .form-group label {
+margin-bottom:7px;
 	font-weight: bold;
 }
 
 .input-button-wrapper {
+	margin-bottom:15px;
+
 	display: flex;
 	gap: 12px;
 }
 
 .input-button-wrapper input {
 	flex: 1;
+	width: 350px;
 	padding: 10px;
 	border: 1px solid #5D9CEC;
 	border-radius: 8px;

@@ -106,7 +106,7 @@ h2 {
 			<div class="input-box">
 				<img src="<%=request.getContextPath()%>/resources/images/email.png"
 					class="input-icon-img" alt="이메일 아이콘" /> <input type="text"
-					name="username" placeholder="이메일" required />
+					name="email" placeholder="이메일" required />
 			</div>
 
 			<div class="input-box">

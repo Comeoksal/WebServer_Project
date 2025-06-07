@@ -61,7 +61,7 @@ html, body {
 }
 </style>
 
-<form action="movies.jsp" method="GET" class="search-header">
+<form action="<%= request.getRequestURI() %>" method="GET" class="search-header">
   <div class="search-title">검색</div>
 
   <div class="search-form">

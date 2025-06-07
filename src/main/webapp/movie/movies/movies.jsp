@@ -6,6 +6,19 @@
 <html>
 <head>
 <style>
+
+body {
+    margin: 0;
+    background-color: #0d1117; /* 어두운 배경색 */
+    color: #e0e0e0;
+    font-family: 'Arial', sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 .container {
     margin-top: 20px;
 }
@@ -80,12 +93,12 @@
 
 </style>
 
-    <title>마이리스트 목록</title>
+    <title>영화 목록</title>
 </head>
 <body>
-<%@ include file="../header.jsp"%>
+<%@ include file="../../header.jsp"%>
 <div style="margin-top: 60px;"></div>
-<%@ include file="../search_header.jsp" %>
+<%@ include file="../../search_header.jsp" %>
 
 <%
     String query = request.getParameter("query");
@@ -93,7 +106,7 @@
 %>
 
 <div class="container">
-    <%@ include file="../dbconn.jsp" %>
+    <%@ include file="../../dbconn.jsp" %>
 
     <sql:query dataSource="${ds}" var="result">
   		SELECT * FROM movie
@@ -103,10 +116,10 @@
       			ORDER BY score DESC
     		</c:when>
     		<c:when test="${param.sort == 'oldest'}">
-      			ORDER BY created_at ASC
+      			ORDER BY release_date ASC
     		</c:when>
     		<c:otherwise>
-      			ORDER BY created_at DESC
+      			ORDER BY release_date DESC
     		</c:otherwise>
   		</c:choose>
 	</sql:query>
@@ -115,7 +128,7 @@
         <c:forEach var="row" items="${result.rows}">
     <div class="movie-box">
         <div class="movie-card">
-            <a href="movie.jsp?id=${row.id}">
+            <a href="../movie.jsp?id=${row.id}">
                 <img src="<c:url value='/resources/images/${row.image}' />" alt="영화 포스터">
                 <div class="movie-desc">
                     <c:choose>
