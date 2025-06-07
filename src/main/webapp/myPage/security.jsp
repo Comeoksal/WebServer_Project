@@ -19,6 +19,12 @@ body {
 	text-align: left;
 }
 
+.info-panel h3{
+	position: relative;
+	top: -30px;
+	left: 30px;
+}
+
 .container {
 	font-size: large;
 	display: flex;
@@ -74,7 +80,7 @@ body {
 	background-color: white;
 	padding: 40px;
 	border-radius: 12px;
-	height: 410px;
+	height: 510px;
 }
 
 .info-panel h1 {
@@ -115,7 +121,7 @@ body {
 	font-size: 16px;
 }
 
-.input-button-wrapper button {
+.form-group button {
 	padding: 10px 16px;
 	background-color: #5D9CEC;
 	color: white;
@@ -124,9 +130,6 @@ body {
 	cursor: pointer;
 }
 
-.input-button-wrapper button:hover {
-	background-color: #2563eb;
-}
 </style>
 </head>
 <body>
@@ -134,7 +137,7 @@ body {
 	<div class="container">
 		<%@ include file="../header.jsp"%>
 		<%@ include file="sidebar.jsp"%>
-		<%@ include file="infoFrame.jsp"%>
+		<%@ include file="securityFrame.jsp"%>
 
 	</div>
 
