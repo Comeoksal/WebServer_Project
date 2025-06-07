@@ -1,23 +1,142 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page contentType="text/html; charset=utf-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>마이페이지</title>
+<style>
+body {
+	margin: 0;
+	font-family: 'Noto Sans KR', sans-serif;
+	background-color: #E5EAF2;
+	padding-top: 80px;
+}
 
-<div class="info-panel">
-  <h2>내 정보</h2>
+.info-panel h1 {	
+	position: relative;
+	top: -25px;
+	left: -280px;
+	margin-bottom: 32px;
+	text-align: left;
+}
 
-  <div class="form-group">
-    <label>닉네임</label>
-    <input type="text"/>
-    <button>변경</button>
-  </div>
+.container {
+	font-size: large;
+	display: flex;
+	gap: 40px;
+	padding: 80px 40px 40px 40px;
+	background-color: #E5EAF2;
+	justify-content: center;
+}
 
-  <div class="form-group">
-    <label>전화번호</label>
-    <input type="text"/>
-    <button>변경</button>
-  </div>
+.sidebar {
+	height: 170px;
+	width: 200px;
+	padding: 20px;
+	background-color: white;
+	border-radius: 12px;
+	font-weight: bold;
+	border: 2px solid #5D9CEC;
+}
 
-  <div class="form-group">
-    <label>이메일 주소</label>
-    <input type="email"/>
-    <button>변경</button>
-  </div>
-</div>
+.sidebar ul {
+	list-style: none;
+	padding: 0;
+}
+
+.sidebar ul li {
+	margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+	text-decoration: none;
+	color: black;
+}
+
+.sidebar ul li a:hover {
+	color: #3b82f6;
+}
+
+.sidebar button {
+	display: block;
+	font-size: large;
+	margin: 60px auto 0 auto;
+	padding: 6px 20px;
+	border-radius: 20px;
+	border: 1px solid #3b82f6;
+	background-color: white;
+	color: #3b82f6;
+	cursor: pointer;
+}
+
+.info-panel {
+	border: 2px solid #5D9CEC;
+	width: 700px;
+	background-color: white;
+	padding: 40px;
+	border-radius: 12px;
+	height: 410px;
+}
+
+.info-panel h1 {
+	font-size: 28px;
+	margin-bottom: 32px;
+	text-align: center;
+}
+
+.form-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 24px;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 500px;
+	gap: 6px;
+}
+
+.form-group label {
+	font-weight: bold;
+}
+
+.input-button-wrapper {
+	display: flex;
+	gap: 12px;
+}
+
+.input-button-wrapper input {
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #5D9CEC;
+	border-radius: 8px;
+	font-size: 16px;
+}
+
+.input-button-wrapper button {
+	padding: 10px 16px;
+	background-color: #5D9CEC;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+.input-button-wrapper button:hover {
+	background-color: #2563eb;
+}
+</style>
+</head>
+<body>
+
+	<div class="container">
+		<%@ include file="../header.jsp"%>
+		<%@ include file="sidebar.jsp"%>
+		<%@ include file="infoFrame.jsp"%>
+
+	</div>
+
+</body>
+</html>

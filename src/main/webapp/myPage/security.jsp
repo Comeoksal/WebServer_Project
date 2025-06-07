@@ -11,12 +11,26 @@ body {
 	padding-top: 80px;
 }
 
+.info-panel h1 {	
+	position: relative;
+	top: -25px;
+	left: -280px;
+	margin-bottom: 32px;
+	text-align: left;
+}
+
+.info-panel h3{
+	position: relative;
+	top: -30px;
+	left: 30px;
+}
+
 .container {
 	font-size: large;
 	display: flex;
 	gap: 40px;
 	padding: 80px 40px 40px 40px;
-	background-color: #e5eaf5;
+	background-color: #E5EAF2;
 	justify-content: center;
 }
 
@@ -62,51 +76,60 @@ body {
 
 .info-panel {
 	border: 2px solid #5D9CEC;
-	width: 800px;
+	width: 700px;
 	background-color: white;
 	padding: 40px;
 	border-radius: 12px;
+	height: 510px;
 }
 
-.info-panel h2 {
-	font-size: 24px;
-	margin-bottom: 30px;
+.info-panel h1 {
+	font-size: 28px;
+	margin-bottom: 32px;
+	text-align: center;
+}
+
+.form-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 24px;
 }
 
 .form-group {
-	margin-bottom: 24px;
-	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 500px;
+	gap: 6px;
 }
 
 .form-group label {
-	display: block;
 	font-weight: bold;
-	margin-bottom: 6px;
 }
 
-.form-group input {
-	width: 50%;
-	padding: 8px;
-	border: 1px solid #ccc;
+.input-button-wrapper {
+	display: flex;
+	gap: 12px;
+}
+
+.input-button-wrapper input {
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #5D9CEC;
 	border-radius: 8px;
 	font-size: 16px;
 }
 
 .form-group button {
-	position: absolute; 
-	top: 30px;
-	left: 500px; 
-	padding: 6px 14px;
-	background-color: #3b82f6;
+	padding: 10px 16px;
+	background-color: #5D9CEC;
 	color: white;
 	border: none;
-	border-radius: 6px;
+	border-radius: 8px;
 	cursor: pointer;
 }
 
-.form-group button:hover {
-	background-color: #2563eb;
-}
 </style>
 </head>
 <body>
@@ -114,7 +137,7 @@ body {
 	<div class="container">
 		<%@ include file="../header.jsp"%>
 		<%@ include file="sidebar.jsp"%>
-		<%@ include file="info.jsp"%>
+		<%@ include file="securityFrame.jsp"%>
 
 	</div>
 
