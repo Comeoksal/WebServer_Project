@@ -4,6 +4,16 @@
 <html>
 <head>
 <title>로그인</title>
+<%
+String registered = request.getParameter("registered");
+if ("true".equals(registered)) {
+%>
+<script>
+	alert("회원가입이 완료되었습니다. 로그인해주세요!");
+</script>
+<%
+}
+%>
 <style>
 body {
 	margin: 0;
@@ -88,7 +98,6 @@ h2 {
 	margin-top: 20px;
 	color: #aaa;
 }
-
 </style>
 </head>
 <body>
@@ -118,16 +127,22 @@ h2 {
 			<button type="submit" class="login-submit-btn">로그인</button>
 
 			<div class="link-row">
-				<span><a href="register.jsp" style="text-decoration: none; color: #aaa;'">회원가입</a></span> <span><a>아이디</a> | <a>비밀번호 찾기</a></span>
+				<span><a href="register.jsp"
+					style="text-decoration: none; color: #aaa;'">회원가입</a></span> <span><a>아이디</a>
+					| <a>비밀번호 찾기</a></span>
 			</div>
 
 		</form>
 	</div>
-	<% if (request.getParameter("error") != null) { %>
+	<%
+	if (request.getParameter("error") != null) {
+	%>
 	<script>
-      alert("아이디 또는 비밀번호가 잘못되었습니다.");
-    </script>
-	<% } %>
+		alert("아이디 또는 비밀번호가 잘못되었습니다.");
+	</script>
+	<%
+	}
+	%>
 
 </body>
 </html>

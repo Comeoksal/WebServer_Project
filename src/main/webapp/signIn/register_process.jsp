@@ -32,7 +32,6 @@ try {
 
     conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
 
-    // 이메일 중복 확인
     String checkSql = "SELECT COUNT(*) FROM user WHERE email = ?";
     pstmt = conn.prepareStatement(checkSql);
     pstmt.setString(1, email);
