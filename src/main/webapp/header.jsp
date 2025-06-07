@@ -88,7 +88,8 @@ String nickname = (String) session.getAttribute("nickname");
 		} else {
 		String displayName = (nickname != null && !nickname.trim().isEmpty()) ? nickname : userEmail;
 		%>
-		<span style="color: white; font-weight: bold; margin-right: 20px;"><%=displayName%>님</span>
+		<span
+			style="color: white; font-size: large; font-weight: bold; margin-right: 20px;"><%=displayName%>님</span>
 		<form action="<%=request.getContextPath()%>/myPage/info.jsp">
 			<button class="login-btn">마이페이지</button>
 		</form>
@@ -96,5 +97,6 @@ String nickname = (String) session.getAttribute("nickname");
 		<%
 		}
 		%>
+
 	</div>
 </nav>

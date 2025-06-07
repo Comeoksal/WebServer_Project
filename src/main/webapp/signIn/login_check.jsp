@@ -28,6 +28,7 @@ try {
 
     rs = pstmt.executeQuery();
 
+    
     if (rs.next()) {
         session.setAttribute("user_email", email);
         session.setAttribute("nickname", rs.getString("nickname"));  
