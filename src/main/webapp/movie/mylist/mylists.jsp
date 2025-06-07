@@ -108,21 +108,25 @@ a {
 <div class="container">
     <%@ include file="../../dbconn.jsp" %>
 
-    <sql:query dataSource="${ds}" var="result">
-  		SELECT * FROM movie
-  		WHERE title LIKE '%${param.query}%' 
-  		<c:choose>
-    		<c:when test="${param.sort == 'popular'}">
-      			ORDER BY score DESC
-    		</c:when>
-    		<c:when test="${param.sort == 'oldest'}">
-      			ORDER BY release_date ASC
-    		</c:when>
-    		<c:otherwise>
-      			ORDER BY release_date DESC
-    		</c:otherwise>
-  		</c:choose>
-	</sql:query>
+    <c:if test="${empty sessionScope.userId}">
+	    <script>
+	        alert("로그인 후 이용 가능합니다.");
+	        location.href = "${pageContext.request.contextPath}/signIn/login.jsp";
+	    </script>
+	</c:if>
+
+	<c:if test="${param.action == 'wish' && not empty sessionScope.userId}">
+	    <sql:update dataSource="${ds}" var="result">
+	        
+	        <sql:param value="${sessionScope.userId}" />
+	        <sql:param value="${param.id}" />
+	    </sql:update>
+	
+	    <script>
+	        alert("찜 목록에 추가되었습니다.");
+	        location.replace("${pageContext.request.contextPath}/movie/movie.jsp?id=${param.id}");
+	    </script>
+	</c:if>
 
     <div class="clearfix">
         <c:forEach var="row" items="${result.rows}">

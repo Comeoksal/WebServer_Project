@@ -2,22 +2,6 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-    String movieId = request.getParameter("id");
-%>
-
-<%@ include file="../dbconn.jsp" %>
-
-<sql:query dataSource="${ds}" var="detail">
-    SELECT * FROM movie WHERE id = ${param.id}
-</sql:query>
-
-<sql:query dataSource="${ds}" var="wishCount">
-    SELECT COUNT(*) AS count FROM wishlist WHERE movie_id = ${param.id}
-</sql:query>
-
-<%@ include file="../header.jsp" %>
-
 <style>
 body {
   margin: 0;
@@ -112,6 +96,43 @@ body {
 }
 </style>
 
+<%@ include file="../header.jsp" %>
+<%
+    String movieId = request.getParameter("id");
+%>
+
+<%@ include file="../dbconn.jsp" %>
+
+<sql:query dataSource="${ds}" var="detail">
+    SELECT * FROM movie WHERE id = ${param.id}
+</sql:query>
+
+<sql:query dataSource="${ds}" var="wishCount">
+    SELECT COUNT(*) AS count FROM wishlist WHERE movie_id = ${param.id}
+</sql:query>
+
+<c:if test="${empty sessionScope.userId}">
+    <script>
+        alert("로그인 후 이용 가능합니다.");
+        location.href = "${pageContext.request.contextPath}/signIn/login.jsp";
+    </script>
+</c:if>
+
+<c:if test="${param.action == 'wish' && not empty sessionScope.userId}">
+    <sql:update dataSource="${ds}">
+        INSERT INTO wishlist (user_id, movie_id)
+        VALUES (?, ?)
+        <sql:param value="${sessionScope.userId}" />
+        <sql:param value="${param.id}" />
+    </sql:update>
+
+    <script>
+        alert("찜 목록에 추가되었습니다.");
+        location.replace("${pageContext.request.contextPath}/movie/movie.jsp?id=${param.id}");
+    </script>
+</c:if>
+
+
 <div class="wrapper">
   <div class="movie-detail-container">
     <div class="movie-poster">
@@ -131,7 +152,10 @@ body {
       <div class="movie-bottom">
         <div class="meta-row">
           <span>찜한 수: ${wishCount.rows[0].count} 개</span>
-          <button class="btn">영화 찜하기</button>
+          <form method="post">
+  			<input type="hidden" name="action" value="wish" />
+  			<button type="submit" class="btn">영화 찜하기</button>
+		</form>
         </div>
 
         <div class="meta-row">

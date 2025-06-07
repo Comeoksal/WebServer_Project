@@ -107,10 +107,21 @@ a {
 
 <div class="container">
     <%@ include file="../../dbconn.jsp" %>
-
+    
+    <c:if test="${empty sessionScope.userId}">
+	    <script>
+	        alert("로그인 후 이용 가능합니다.");
+	        location.href = "${pageContext.request.contextPath}/signIn/login.jsp";
+	    </script>
+	</c:if>
+	
+	<c:if test="${not empty sessionScope.userId}">
     <sql:query dataSource="${ds}" var="result">
-  		SELECT * FROM movie
-  		WHERE title LIKE '%${param.query}%' 
+  				SELECT m.*
+			    FROM movie m
+			    JOIN wishlist w ON m.id = w.movie_id
+			    WHERE w.user_id = ? && m.title LIKE '%${param.query}%'
+			    <sql:param value="${sessionScope.userId}" />
   		<c:choose>
     		<c:when test="${param.sort == 'popular'}">
       			ORDER BY score DESC
@@ -123,6 +134,7 @@ a {
     		</c:otherwise>
   		</c:choose>
 	</sql:query>
+	</c:if>
 
     <div class="clearfix">
         <c:forEach var="row" items="${result.rows}">
