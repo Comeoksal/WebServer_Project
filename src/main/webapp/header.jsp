@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
   .navbar {
     position: fixed;
@@ -50,11 +51,11 @@
 <nav class="navbar">
   <div class="nav-left">
     <div class="logo">movit</div>
-    <a href="/mainPage/home.jsp">홈</a>
-    <a href="/movies.jsp">영화</a>
-    <a href="/mylist.jsp">마이리스트</a>
-    <a href="/purchasesList.jsp">구매 목록</a>
-    <a href="/community.jsp">커뮤니티</a>
+    <a href="<c:url value='/home.jsp' />">홈</a>
+      <a href="<c:url value='/movie/movies.jsp' />">영화</a>
+      <a href="<c:url value='/mylist/mylists.jsp' />">마이리스트</a>
+      <a href="<c:url value='/cart/carts.jsp' />">찜 목록</a>
+      <a href="<c:url value='/community.jsp' />">커뮤니티</a>
   </div>
   <div class="nav-right">
     <button class="login-btn">로그인</button>
