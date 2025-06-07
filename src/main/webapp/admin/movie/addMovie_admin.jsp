@@ -13,7 +13,7 @@
     <title><fmt:message key="admin_movies_add" /></title>
 </head>
 <body>
-    <%@ include file="header_admin.jsp" %>
+    <%@ include file="../header_admin.jsp" %>
 
     <div class="container mt-5">
         <h3><fmt:message key="admin_movies_add" /></h3>

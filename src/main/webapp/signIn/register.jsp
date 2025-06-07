@@ -64,7 +64,7 @@ h2 {
 	background-color: white;
 	border: 2px solid #5D9CEC;
 	border-radius: 8px;
-	width: 380px;
+	width: 400px;
 	padding: 12px 12px;
 	box-sizing: border-box;
 }
@@ -85,7 +85,7 @@ h2 {
 
 .form-group input {
 	width: 380px;
-	padding: 10px;
+	padding: 5px;
 	border-radius: 8px;
 	font-size: 16px;
 }
@@ -108,7 +108,7 @@ h2 {
 	font-size: 16px;
 	border: none;
 	border-radius: 10px;
-	width: 400px;
+	width: 410px;
 	cursor: pointer;
 }
 
@@ -218,7 +218,7 @@ h2 {
 				<div class="input-wrapper">
 					<img src="<%=request.getContextPath()%>/resources/images/lock.png"
 						alt="비밀번호 확인 아이콘"> <input type="password"
-						name="confirm_password" required placeholder="비밀번호를 다시 입력해주세요.">
+						name="confirm" required placeholder="비밀번호를 다시 입력해주세요.">
 				</div>
 			</div>
 
@@ -266,7 +266,16 @@ h2 {
       closeModal();
     }
   }
+ 
 </script>
+<script>
+  try {
+    navigator.mediaSession.setActionHandler("enterpictureinpicture", null);
+  } catch (e) {
+    console.warn("enterpictureinpicture is not supported.");
+  }
+</script>
+
 
 </body>
 </html>

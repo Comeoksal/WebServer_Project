@@ -34,7 +34,7 @@
 
 %>
 
-<%@ include file="../dbconn.jsp" %>
+<%@ include file="../../dbconn.jsp" %>
 
 <sql:update dataSource="${ds}">
     INSERT INTO movie (title, content, price, score, release_date, image, link)

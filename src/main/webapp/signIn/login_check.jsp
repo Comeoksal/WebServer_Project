@@ -3,12 +3,11 @@
 <%@ page session="true" %>
 
 <%
-String username = request.getParameter("username");
+String email = request.getParameter("email");
 String password = request.getParameter("password");
 
-String url = "jdbc:mysql://shortline.proxy.rlwy.net:58435/railway";
-String dbUser = "root";
-String dbPass = "pZCeLltpdUdDDzaYfEpPwBIIRTrIomgt";
+out.println("email: " + email + "<br>");
+out.println("password: " + password + "<br>");
 
 Connection conn = null;
 PreparedStatement pstmt = null;
@@ -16,26 +15,34 @@ ResultSet rs = null;
 
 try {
     Class.forName("com.mysql.cj.jdbc.Driver");
-    conn = DriverManager.getConnection(url, dbUser, dbPass);
+    String jdbcUrl = "jdbc:mysql://shortline.proxy.rlwy.net:58435/railway";
+    String dbUser = "root";
+    String dbPassword = "pZCeLltpdUdDDzaYfEpPwBIIRTrIomgt";
 
-    String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+    conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
+
+    String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
     pstmt = conn.prepareStatement(sql);
-    pstmt.setString(1, username);
-    pstmt.setString(2, password); 
+    pstmt.setString(1, email);
+    pstmt.setString(2, password);  
 
     rs = pstmt.executeQuery();
 
     if (rs.next()) {
-        session.setAttribute("username", username);
-        response.sendRedirect("home.jsp");
+        session.setAttribute("user_email", email);
+        session.setAttribute("nickname", rs.getString("nickname"));  
+        response.sendRedirect("../header.jsp");
     } else {
-        response.sendRedirect("login.jsp?error=true");
+        response.sendRedirect("login.jsp?error=1");
     }
+
 } catch (Exception e) {
-    out.println("DB 오류: " + e.getMessage());
+    e.printStackTrace();
+    response.sendRedirect("login.jsp?error=exception");
 } finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {}
-    try { if (pstmt != null) pstmt.close(); } catch (Exception e) {}
-    try { if (conn != null) conn.close(); } catch (Exception e) {}
+    if (rs != null) try { rs.close(); } catch (Exception e) {}
+    if (pstmt != null) try { pstmt.close(); } catch (Exception e) {}
+    if (conn != null) try { conn.close(); } catch (Exception e) {}
 }
 %>
+
