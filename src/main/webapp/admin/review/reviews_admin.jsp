@@ -7,6 +7,6 @@
 <title>관리자 페이지[리뷰]</title>
 </head>
 <body>
-    <%@ include file="header_admin.jsp" %>
+    <%@ include file="../header_admin.jsp" %>
 </body>
 </html>

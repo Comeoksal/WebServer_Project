@@ -13,7 +13,7 @@
     <title><fmt:message key="admin_movies_add" /></title>
 </head>
 <body>
-    <%@ include file="header_admin.jsp" %>
+    <%@ include file="../header_admin.jsp" %>
 
     <div class="container mt-5">
         <h3><fmt:message key="admin_movies_add" /></h3>
@@ -31,9 +31,17 @@
                 <input type="number" name="price" class="form-control" required />
             </div>
             <div class="mb-3">
+    			<label class="form-label"><fmt:message key="admin_movies_release_date" /></label>
+    			<input type="date" name="release_date" class="form-control" required />
+			</div>
+            <div class="mb-3">
         		<label class="form-label"><fmt:message key="admin_movies_image" /></label>
         		<input type="file" name="image" class="form-control" accept="image/*" required />
     		</div>
+    		<div class="mb-3">
+    			<label class="form-label"><fmt:message key="admin_movies_link" /></label>
+    			<input type="text" name="link" class="form-control" required />
+			</div>
             <button type="submit" class="btn btn-primary"><fmt:message key="admin_movies_add" /></button>
         </form>
     </div>

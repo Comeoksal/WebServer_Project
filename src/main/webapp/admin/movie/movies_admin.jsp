@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <link rel="stylesheet" href="./resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
     <title>관리자 페이지[영화]</title>
 </head>
 <body>
@@ -12,8 +12,8 @@
     	<fmt:setLocale value="${param.lang}" scope="session" />
 	</c:if>
 	<fmt:bundle basename="bundle.admin" >
-    <%@ include file="header_admin.jsp" %>
-   	<%@ include file="../dbconn.jsp" %>
+    <%@ include file="../header_admin.jsp" %>
+   	<%@ include file="../../dbconn.jsp" %>
     <sql:query dataSource="${ds}" var="result">
         SELECT * FROM movie
     </sql:query>
@@ -32,6 +32,7 @@
                     <th><fmt:message key="admin_movies_content" /></th>
                     <th><fmt:message key="admin_movies_price" /></th>
                     <th><fmt:message key="admin_movies_score" /></th>
+                    <th><fmt:message key="admin_movies_release_date" /></th>
                     <th><fmt:message key="admin_update" /></th>
                     <th><fmt:message key="admin_delete" /></th>
                 </tr>
@@ -44,11 +45,12 @@
                         <td>${row.content}</td>
                         <td>${row.price}</td>
                         <td>${row.score}</td>
+                        <td>${row.release_date}</td>
                          <td>
-                			<a href="editMovie.jsp?id=${row.id}" class="btn btn-primary btn-sm"><fmt:message key="admin_update" /></a>
+                			<a href="editMovie_admin.jsp?id=${row.id}" class="btn btn-primary btn-sm"><fmt:message key="admin_update" /></a>
             			</td>
             			<td>
-            				<a href="deleteMovie.jsp?id=${row.id}" class="btn btn-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');"><fmt:message key="admin_delete" /></a>
+            				<a href="processDeleteMovie_admin.jsp?id=${row.id}" class="btn btn-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');"><fmt:message key="admin_delete" /></a>
             			</td>
                     </tr>
                 </c:forEach>

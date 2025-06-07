@@ -11,9 +11,10 @@
 <header class="d-flex justify-content-between align-items-center px-4 py-3 bg-dark text-white">
     <div class="d-flex gap-3 align-items-center">
         <div class="fs-4 fw-bold"><fmt:message key="admin_header_title" /></div>
-        <a href="<c:url value='/admin/movies_admin.jsp' />" class="btn btn-outline-light"><fmt:message key="admin_header_movie" /></a>
-        <a href="<c:url value='/admin/users_admin.jsp' />" class="btn btn-outline-light"><fmt:message key="admin_header_user" /></a>
-        <a href="<c:url value='/admin/reviews_admin.jsp' />" class="btn btn-outline-light"><fmt:message key="admin_header_review" /></a>
+        <a href="<c:url value='/admin/movie/movies_admin.jsp' />" class="btn btn-outline-light"><fmt:message key="admin_header_movie" /></a>
+        <a href="<c:url value='/admin/user/users_admin.jsp' />" class="btn btn-outline-light"><fmt:message key="admin_header_user" /></a>
+        <a href="<c:url value='/admin/review/reviews_admin.jsp' />" class="btn btn-outline-light"><fmt:message key="admin_header_review" /></a>
+        <a href="<c:url value='/admin/membership/memberships_admin.jsp' />" class="btn btn-outline-light"><fmt:message key="admin_header_membership" /></a>
    </div>
    <div class="d-flex ms-auto">
         <a href="?lang=ko" class="btn btn-light btn-sm me-1"><fmt:message key="admin_header_korean" /></a>
