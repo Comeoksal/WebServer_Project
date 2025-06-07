@@ -28,45 +28,6 @@ body {
 	justify-content: center;
 }
 
-.sidebar {
-	height: 170px;
-	width: 200px;
-	padding: 20px;
-	background-color: white;
-	border-radius: 12px;
-	font-weight: bold;
-	border: 2px solid #5D9CEC;
-}
-
-.sidebar ul {
-	list-style: none;
-	padding: 0;
-}
-
-.sidebar ul li {
-	margin-bottom: 20px;
-}
-
-.sidebar ul li a {
-	text-decoration: none;
-	color: black;
-}
-
-.sidebar ul li a:hover {
-	color: #3b82f6;
-}
-
-.sidebar button {
-	display: block;
-	font-size: large;
-	margin: 60px auto 0 auto;
-	padding: 6px 20px;
-	border-radius: 20px;
-	border: 1px solid #3b82f6;
-	background-color: white;
-	color: #3b82f6;
-	cursor: pointer;
-}
 
 .info-panel {
 	border: 2px solid #5D9CEC;

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>마이페이지</title>
+<title>마이페이지 - 멤버십</title>
 <style>
 body {
 	margin: 0;
@@ -19,12 +19,6 @@ body {
 	text-align: left;
 }
 
-.info-panel h3{
-	position: relative;
-	top: -30px;
-	left: 30px;
-}
-
 .container {
 	font-size: large;
 	display: flex;
@@ -34,13 +28,14 @@ body {
 	justify-content: center;
 }
 
+
 .info-panel {
 	border: 2px solid #5D9CEC;
 	width: 700px;
 	background-color: white;
 	padding: 40px;
 	border-radius: 12px;
-	height: 510px;
+	height: 530px;
 }
 
 .info-panel h1 {
@@ -49,53 +44,48 @@ body {
 	text-align: center;
 }
 
-.form-wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 24px;
+.membership-panel .membership-box {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #5D9CEC;
+  padding: 12px;
+  border-radius: 8px;
 }
 
-.form-group {
-	margin-top: -20px;
-	margin-bottom: 30px;
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	max-width: 500px;
-	gap: 6px;
+.membership-panel .membership-name {
+  font-size: 18px;
 }
 
-.form-group label {
-margin-bottom:7px;
-	font-weight: bold;
+.membership-panel .membership-btn {
+  background-color: #5D9CEC;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-.input-button-wrapper {
-	margin-bottom:15px;
-
-	display: flex;
-	gap: 12px;
+.membership-panel .membership-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
 }
 
-.input-button-wrapper input {
-	flex: 1;
-	width: 350px;
-	padding: 10px;
-	border: 1px solid #5D9CEC;
-	border-radius: 8px;
-	font-size: 16px;
+.membership-panel .membership-input-row {
+  display: flex;
+  gap: 10px;
 }
 
-.form-group button {
-	padding: 10px 16px;
-	background-color: #5D9CEC;
-	color: white;
-	border: none;
-	border-radius: 8px;
-	cursor: pointer;
-}
-
+.membership-panel .membership-input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #5D9CEC;
+ }
+ 
+ 
 </style>
 </head>
 <body>
@@ -103,8 +93,7 @@ margin-bottom:7px;
 	<div class="container">
 		<%@ include file="../header.jsp"%>
 		<%@ include file="sidebar.jsp"%>
-		<%@ include file="securityFrame.jsp"%>
-
+		<%@ include file="membershipFrame.jsp"%>
 	</div>
 
 </body>
