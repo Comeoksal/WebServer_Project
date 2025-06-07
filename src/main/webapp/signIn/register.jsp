@@ -4,6 +4,35 @@
 <html>
 <head>
 <title>회원가입</title>
+<%
+String error = request.getParameter("error");
+if (error != null) {
+    String message = "";
+    switch (error) {
+        case "empty":
+            message = "모든 항목을 입력해주세요.";
+            break;
+        case "mismatch":
+            message = "비밀번호가 일치하지 않습니다.";
+            break;
+        case "exists":
+            message = "이미 존재하는 이메일입니다.";
+            break;
+        case "fail":
+            message = "회원가입에 실패했습니다. 다시 시도해주세요.";
+            break;
+        case "exception":
+            message = "서버 오류가 발생했습니다.";
+            break;
+    }
+%>
+<script>
+    alert("<%= message %>");
+</script>
+<%
+}
+%>
+
 <style>
 body {
 	font-family: 'Noto Sans KR', sans-serif;
