@@ -54,7 +54,7 @@
     <a href="<c:url value='/home.jsp' />">홈</a>
       <a href="<c:url value='/movie/movies.jsp' />">영화</a>
       <a href="<c:url value='/mylist/mylists.jsp' />">마이리스트</a>
-      <a href="<c:url value='/cart/carts.jsp' />">찜 목록</a>
+      <a href="<c:url value='/wishlist/wishlists.jsp' />">찜 목록</a>
       <a href="<c:url value='/community.jsp' />">커뮤니티</a>
   </div>
   <div class="nav-right">
