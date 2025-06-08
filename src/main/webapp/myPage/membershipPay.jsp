@@ -1,7 +1,7 @@
-<%@ page contentType="text/html; charset=utf-8" %>
-<%@ page import="java.sql.*" %>
-<%@ include file="../dbconn.jsp" %>
-<%@ page session="true" %>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page import="java.sql.*"%>
+<%@ include file="../dbconn.jsp"%>
+<%@ page session="true"%>
 
 <%
     String userEmail = (String) session.getAttribute("user_email");
@@ -54,66 +54,69 @@
 %>
 
 <style>
-  .pay-container {
-    max-width: 500px;
-    margin: 40px auto;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    font-family: 'Segoe UI', sans-serif;
-  }
-  .pay-container h2 {
-    margin-bottom: 25px;
-    color: #333;
-  }
-  .pay-container label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
-  }
-  .pay-container input, .pay-container select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  .pay-container .info-line {
-    font-size: 14px;
-    margin-bottom: 15px;
-    color: #555;
-  }
-  .pay-container button {
-    width: 100%;
-    padding: 12px;
-    background-color: #5D9CEC;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  .pay-container button:hover {
-    background-color: #4a8be0;
-  }
+.pay-container {
+	max-width: 500px;
+	margin: 200px auto;
+	background: #fff;
+	border-radius: 10px;
+	padding: 30px;
+	border: 2px solid #5D9CEC;
+	font-family: 'Segoe UI', sans-serif;
+}
+
+.pay-container h2 {
+	margin-bottom: 25px;
+	color: #333;
+}
+
+.pay-container label {
+	font-weight: bold;
+	margin-bottom: 5px;
+	display: block;
+}
+
+.pay-container input, .pay-container select {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.pay-container .info-line {
+	font-size: 14px;
+	margin-bottom: 15px;
+	color: #555;
+}
+
+.pay-container button {
+	margin-top: 40px;
+	width: 100%;
+	padding: 12px;
+	background-color: #5D9CEC;
+	color: white;
+	font-weight: bold;
+	border: none;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+}
+
+.pay-container button:hover {
+	background-color: #4a8be0;
+}
 </style>
 
 <div class="pay-container">
 	<h2>결제 정보 입력</h2>
 	<div class="info-line">
-		선택한 멤버십: <strong><%= planName %></strong><br>
-		결제 금액: <strong><%= planPrice %>원</strong>
+		선택한 멤버십: <strong><%= planName %></strong><br> 결제 금액: <strong><%= planPrice %>원</strong>
 	</div>
-	<form method="post" action="processPayment.jsp" onsubmit="return validateForm(event)">
+	<form method="post" action="processPayment.jsp"
+		onsubmit="return validateForm(event)">
 		<input type="hidden" name="membership_id" value="<%= planId %>">
-		<label>이름</label>
-		<input type="text" name="user_name" value="<%= userName %>" required />
-		<label>카드번호</label>
-		<input type="text" name="card_number" value="<%= cardNumber %>" pattern="\d{16}" title="16자리 숫자" required />
-		<label>은행 선택</label>
-		<select name="bank" required>
+		<label>카드번호</label> <input type="text" name="card_number"
+			value="<%= cardNumber %>" pattern="\d{16}" title="16자리 숫자" required />
+		<label>은행 선택</label><select name="bank" required>
 			<option value="">은행을 선택하세요</option>
 			<option value="국민은행">국민은행</option>
 			<option value="신한은행">신한은행</option>
@@ -122,7 +125,9 @@
 			<option value="농협은행">농협은행</option>
 			<option value="카카오뱅크">카카오뱅크</option>
 			<option value="토스뱅크">토스뱅크</option>
-		</select>
+		</select> 
+		<label>비밀번호 확인</label> <input type="password" name="password"
+			placeholder="비밀번호를 입력하세요" required />
 		<button type="submit">결제하기</button>
 		<button type="button" onclick="window.location.href='membership.jsp'">돌아가기</button>
 	</form>
