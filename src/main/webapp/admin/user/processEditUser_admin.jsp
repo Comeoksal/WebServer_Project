@@ -10,20 +10,22 @@
     String password = request.getParameter("password");
     String nickname = request.getParameter("nickname");
     String role = request.getParameter("role");
-    String membership_id = request.getParameter("membership_id");
+    int membership_id = Integer.parseInt(request.getParameter("membership_id"));
+    String card_number = request.getParameter("card_number");
 %>
 
 <%@ include file="../../dbconn.jsp" %>
 
 <sql:update dataSource="${ds}">
     UPDATE user
-    SET email = ?, password = ?, nickname = ?, role = ?, membership_id = ?
+    SET email = ?, password = ?, nickname = ?, role = ?, membership_id = ?, card_number = ?
     WHERE id = ?
     <sql:param value="<%= email %>" />
     <sql:param value="<%= password %>" />
     <sql:param value="<%= nickname %>" />
     <sql:param value="<%= role %>" />
     <sql:param value="<%= membership_id %>" />
+    <sql:param value="<%= card_number %>" />
     <sql:param value="<%= id %>" />
 </sql:update>
 

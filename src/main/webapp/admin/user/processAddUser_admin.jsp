@@ -19,19 +19,21 @@
 	String nickname = request.getParameter("nickname");
 	String role = request.getParameter("role");
 	int membership_id = Integer.parseInt(request.getParameter("membership_id"));
+	String card_number = request.getParameter("card_number");
 	
 %>
 
 <%@ include file="../../dbconn.jsp" %>
 
 <sql:update dataSource="${ds}">
-    INSERT INTO user (email, password, nickname, role, membership_id)
-    VALUES (?, ?, ?, ?, ?)
+    INSERT INTO user (email, password, nickname, role, membership_id, card_number)
+    VALUES (?, ?, ?, ?, ?, ?)
     <sql:param value="<%= email %>" />
     <sql:param value="<%= password %>" />
     <sql:param value="<%= nickname %>" />
     <sql:param value="<%= role %>" />
     <sql:param value="<%= membership_id %>" />
+    <sql:param value="<%= card_number %>" />
 </sql:update>
 
 <script>

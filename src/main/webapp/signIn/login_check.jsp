@@ -25,7 +25,7 @@
 		<c:set var="role" value="${user.role}" scope="session" />
     	<c:set var="membership_id" value="${user.membership_id}" scope="session" />
 		<%
-    		response.sendRedirect("../header.jsp");
+    		response.sendRedirect("../home.jsp");
 		%>
     </c:when>
     <c:otherwise>

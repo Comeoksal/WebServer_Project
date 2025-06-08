@@ -50,6 +50,10 @@
        			    </c:forEach>
     			</select>
 			</div>
+			<div class="mb-3">
+    			<label class="form-label"><fmt:message key="admin_users_cardnumber" /></label>
+                <input type="text" name="card_number" class="form-control" required />
+			</div>
             <button type="submit" class="btn btn-primary"><fmt:message key="admin_users_add" /></button>
         </form>
     </div>
