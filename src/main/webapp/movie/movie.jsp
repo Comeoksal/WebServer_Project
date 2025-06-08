@@ -160,7 +160,10 @@ body {
 
         <div class="meta-row">
           <span>평점: ${detail.rows[0].score} / 5.0</span>
-          <button class="btn">리뷰 남기기</button>
+          <form action="${pageContext.request.contextPath}/review/review.jsp" method="get" style="display:inline;">
+    		<input type="hidden" name="id" value="${detail.rows[0].id}" />
+    		<button type="submit" class="btn">리뷰 남기기</button>
+  		</form>
         </div>
 
         <a href="${detail.rows[0].link}" class="btn btn-large" target="_blank">영화 보기</a>

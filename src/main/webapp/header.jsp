@@ -75,7 +75,7 @@ String nickname = (String) session.getAttribute("nickname");
         <a href="<c:url value='/movie/movies/movies.jsp' />">영화</a> 
         <a href="<c:url value='/movie/mylist/mylists.jsp' />">마이리스트</a> 
         <a href="<c:url value='/movie/wishlist/wishlists.jsp' />">찜 목록</a> 
-        <a href="<c:url value='/community.jsp' />">커뮤니티</a>
+        <a href="<c:url value='/review/community.jsp' />">커뮤니티</a>
     </div>
     <div class="nav-right">
         <%
