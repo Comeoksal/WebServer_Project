@@ -1,0 +1,9 @@
+<Context>
+  <Resource name="jdbc/MovitDB" auth="Container"
+            type="javax.sql.DataSource"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            url="jdbc:mysql://shortline.proxy.rlwy.net:58435/railway"
+            username="root"
+            password="pZCeLltpdUdDDzaYfEpPwBIIRTrIomgt"
+            maxTotal="20" maxIdle="10" maxWaitMillis="10000"/>
+</Context>
