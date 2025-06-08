@@ -33,6 +33,7 @@
                     <th><fmt:message key="admin_users_nickname" /></th>
                     <th><fmt:message key="admin_users_role" /></th>
                     <th><fmt:message key="admin_membership_membershipId" /></th>
+                    <th><fmt:message key="admin_users_cardnumber" /></th>
                     <th><fmt:message key="admin_update" /></th>
                     <th><fmt:message key="admin_delete" /></th>
                 </tr>
@@ -46,6 +47,7 @@
                         <td>${row.nickname}</td>
                         <td>${row.role}</td>
                         <td>${row.membership_id}</td>
+                        <td>${row.card_number}</td>
                          <td>
                 			<a href="editUser_admin.jsp?id=${row.id}" class="btn btn-primary btn-sm"><fmt:message key="admin_update" /></a>
             			</td>

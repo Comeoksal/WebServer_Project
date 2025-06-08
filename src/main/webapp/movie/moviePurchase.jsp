@@ -140,7 +140,7 @@ try {
 			placeholder="비밀번호를 입력하세요" required />
 		<button type="submit">구매하기</button>
 		<button type="button"
-			onclick="window.location.href='../../movie/movie.jsp?id=<%=movieId%>'">돌아가기</button>
+			onclick="window.location.href='movie.jsp?id=<%=movieId%>'">돌아가기</button>
 	</form>
 </div>
 

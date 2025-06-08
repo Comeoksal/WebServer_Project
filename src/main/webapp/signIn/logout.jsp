@@ -3,3 +3,4 @@
   session.invalidate(); 
   response.sendRedirect(request.getContextPath() + "/home.jsp");  // 헤더 페이지로 이동
 %>
+
