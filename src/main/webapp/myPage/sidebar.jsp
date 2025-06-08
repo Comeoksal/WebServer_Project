@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%
-  String uri = request.getRequestURI();
+String uri = request.getRequestURI();
 %>
 <style>
 .sidebar ul li a {
@@ -53,23 +53,24 @@
 	color: #3b82f6;
 	cursor: pointer;
 }
-
 </style>
 <div class="sidebar">
 	<ul>
 		<li><a href="info.jsp"
-			class="<%= uri.contains("info.jsp") ? "active" : "" %>">내 정보</a></li>
+			class="<%=uri.contains("info.jsp") ? "active" : ""%>">내 정보</a></li>
 		<li><a href="membership.jsp"
-			class="<%= uri.contains("membership.jsp") ? "active" : "" %>">멤버십</a></li>
+			class="<%=uri.contains("membership.jsp") ? "active" : ""%>">멤버십</a></li>
 		<%-- <li><a href="language.jsp"
 			class="<%= uri.contains("language.jsp") ? "active" : "" %>">언어 설정</a></li> --%>
 		<li><a href="security.jsp"
-			class="<%= uri.contains("security.jsp") ? "active" : "" %>">보안</a></li>
+			class="<%=uri.contains("security.jsp") ? "active" : ""%>">보안</a></li>
 	</ul>
-	<button onclick="history.back()">돌아가기</button>
+	<button onclick="window.location.href='home.jsp'">돌아가기</button>
 	<form action="<%=request.getContextPath()%>/signIn/logout.jsp"
 		method="post" style="text-align: center; margin-top: 20px;">
 		<button type="submit">로그아웃</button>
 	</form>
 
 </div>
+
+

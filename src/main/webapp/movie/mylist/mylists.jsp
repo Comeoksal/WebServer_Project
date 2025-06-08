@@ -9,7 +9,7 @@
 
 body {
     margin: 0;
-    background-color: #0d1117; /* 어두운 배경색 */
+    background-color: #0F111A; 
     color: #e0e0e0;
     font-family: 'Arial', sans-serif;
 }
