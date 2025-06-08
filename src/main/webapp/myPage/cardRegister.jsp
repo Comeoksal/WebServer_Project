@@ -11,7 +11,7 @@
     if (card == null || email == null || !card.matches("^\\d{16}$")) {
 %>
 <script>
-    alert("카드번호는 정확히 16자리 숫자여야 합니다.");
+    alert("카드번호는 16자리 숫자여야 합니다.");
     history.back();
 </script>
 <%
