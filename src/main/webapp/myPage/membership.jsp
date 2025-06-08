@@ -14,9 +14,9 @@ body {
 .info-panel h1 {	
 	position: relative;
 	top: -25px;
-	left: -280px;
+	left: -220px;
 	margin-bottom: 32px;
-	text-align: left;
+	text-align: left
 }
 
 .container {
