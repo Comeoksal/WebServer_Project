@@ -212,7 +212,6 @@ body {
 						</c:otherwise>
 					</c:choose>
 				</div>
-
 				<div class="meta-row">
 					<span>평점: <c:choose>
 							<c:when test="${empty avgScore.rows[0].avg}">
@@ -232,17 +231,14 @@ body {
 						</c:when>
 
 						<c:otherwise>
-							<form
-								action="${pageContext.request.contextPath}/review/review.jsp"
-								method="get" style="display: inline;">
-								<input type="hidden" name="id" value="${detail.rows[0].id}" />
-								<button type="submit" class="btn">리뷰 남기기</button>
-							</form>
+
+							<form action="${pageContext.request.contextPath}/review/review.jsp" method="get" style="display:inline;">
+    							<input type="hidden" name="id" value="${detail.rows[0].id}" />
+    							<button type="submit" class="btn">리뷰 남기기</button>
+  							</form>
 						</c:otherwise>
 					</c:choose>
 				</div>
-
-
 				<c:choose>
 					<c:when test="${empty sessionScope.userId}">
 						<button class="btn btn-large"
