@@ -29,9 +29,9 @@ a {
 </head>
 <body>
 
-<%@ include file="../../header.jsp" %>
+<%@ include file="../header.jsp" %>
 <div style="margin-top: 60px;"></div>
-<%@ include file="../../search_header.jsp" %>
+<%@ include file="../search_header.jsp" %>
 <%@ include file="../dbconn.jsp" %>
 
 <%
@@ -50,7 +50,7 @@ a {
 <!-- 정렬 기준 설정 -->
 <c:choose>
   <c:when test="${param.sort eq 'popular'}">
-    <c:set var="orderBy" value="r.views DESC" />
+    <c:set var="orderBy" value="like_count DESC" />
   </c:when>
   <c:when test="${param.sort eq 'oldest'}">
     <c:set var="orderBy" value="r.created_at ASC" />
@@ -62,17 +62,18 @@ a {
 
 <!-- 리뷰 데이터 조회 -->
 <sql:query dataSource="${ds}" var="result">
-  SELECT 
-    r.id,
+  SELECT
+  	r.id as review_id,
     r.content,
     r.score,
     m.title,
+    m.id AS movie_id,
     COUNT(l.id) AS like_count
   FROM review r
   JOIN movie m ON r.movie_id = m.id
   LEFT JOIN like_review l ON r.id = l.review_id
   WHERE m.title LIKE ?
-  GROUP BY r.id, r.content, r.score, m.title
+  GROUP BY r.id, r.content, r.score, m.title, m.id
   ORDER BY ${orderBy}
   LIMIT ?
   OFFSET ?
@@ -94,7 +95,11 @@ a {
   <tbody>
    <c:forEach var="row" items="${result.rows}">
   <tr>
-    <td style="padding: 8px; border: 1px solid #ccc;">${row.title}</td>
+    <td style="padding: 8px; border: 1px solid #ccc;">
+	  <a href="../movie/movie.jsp?id=${row.id}" style="color: #007bff; text-decoration: none;">
+	    ${row.title}
+	  </a>
+	</td>
     <td style="padding: 8px; border: 1px solid #ccc;">
       <c:choose>
         <c:when test="${fn:length(row.content) > 50}">

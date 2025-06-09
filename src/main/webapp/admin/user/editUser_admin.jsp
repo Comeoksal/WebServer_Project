@@ -44,7 +44,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label"><fmt:message key="admin_users_password" /></label>
-                <input type="password" name="password" class="form-control" value="${user.password}" required />
+                <input type="text" name="password" class="form-control" value="${user.password}" required />
             </div>
             <div class="mb-3">
                 <label class="form-label"><fmt:message key="admin_users_nickname" /></label>

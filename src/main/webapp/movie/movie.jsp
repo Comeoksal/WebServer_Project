@@ -100,11 +100,13 @@ body {
 <%@ include file="../dbconn.jsp"%>
 
 <sql:query dataSource="${ds}" var="detail">
-    SELECT * FROM movie WHERE id = ${param.id}
+    SELECT * FROM movie WHERE id = ?
+    <sql:param value="${param.id}" />
 </sql:query>
 
 <sql:query dataSource="${ds}" var="wishCount">
-    SELECT COUNT(*) AS count FROM wishlist WHERE movie_id = ${param.id}
+    SELECT COUNT(*) AS count FROM wishlist WHERE movie_id = ?
+    <sql:param value="${param.id}" />
 </sql:query>
 
 <sql:query dataSource="${ds}" var="user">

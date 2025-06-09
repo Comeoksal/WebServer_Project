@@ -36,7 +36,7 @@
         pstmt = conn.prepareStatement("SELECT id, name, card_number FROM user WHERE email = ?");
         pstmt.setString(1, userEmail);
         rs = pstmt.executeQuery();
-        String userId = null;
+        userId = null;
         if (rs.next()) {
             userId = rs.getString("id");
             userName = rs.getString("name") != null ? rs.getString("name") : "";
