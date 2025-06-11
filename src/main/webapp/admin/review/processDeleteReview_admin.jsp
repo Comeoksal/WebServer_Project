@@ -10,6 +10,11 @@
 <%@ include file="../../dbconn.jsp" %>
 
 <sql:update dataSource="${ds}">
+    DELETE FROM like_review WHERE review_id = ?
+    <sql:param value="<%= reviewId %>" />
+</sql:update>
+
+<sql:update dataSource="${ds}">
     DELETE FROM review WHERE id = ?
     <sql:param value="<%= reviewId %>" />
 </sql:update>

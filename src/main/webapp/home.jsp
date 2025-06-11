@@ -9,8 +9,8 @@
 
 body {
     margin: 0;
-    background-color: #0d1117; /* 어두운 남색 계열 */
-    color: #e0e0e0; /* 기본 글자색 연회색 */
+    background-color: #0F111A; 
+    color: #e0e0e0; 
     font-family: 'Arial', sans-serif;
 }
 
@@ -22,7 +22,7 @@ a {
 .container {
     display: flex;
     padding: 30px;
-    margin-top: 80px;
+    margin-top: 30px;
     gap: 40px;
 }
 
@@ -45,7 +45,8 @@ a {
 }
 
 .movie-box {
-    width: 300px; /* 기존 영화 포스터 크기 유지 */
+	margin: 1px;
+    width: 300px; 
     flex-shrink: 0;
 }
 
@@ -128,13 +129,13 @@ a {
 <div class="container">
     <!-- 왼쪽 추천 포스터 -->
     <div class="left-feature">
+    	<h1>공개 예정</h1>
         <img src="<c:url value='/resources/images/starwars_g.gif' />" alt="추천 영화 포스터">
     </div>
-
     <!-- 오른쪽 영화 목록 -->
     <div class="right-list">
         <%@ include file="dbconn.jsp" %>
-
+		<h1>모두의 인기작</h1>
         <sql:query dataSource="${ds}" var="result">
             SELECT * FROM movie
             WHERE title LIKE '%${param.query}%'

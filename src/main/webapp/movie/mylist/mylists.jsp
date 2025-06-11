@@ -32,11 +32,13 @@ a {
 }
 
 .movie-box {
+	margin: 15px;
     width: 200px;          
     flex-shrink: 0;        
 }
 
 .movie-card {
+	margin-left: 50px;
     position: relative;
     width: 100%;
     padding-bottom: 150%;
