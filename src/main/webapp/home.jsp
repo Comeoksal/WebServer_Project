@@ -9,8 +9,8 @@
 
 body {
     margin: 0;
-    background-color: #0d1117; /* 어두운 남색 계열 */
-    color: #e0e0e0; /* 기본 글자색 연회색 */
+    background-color: #0F111A; 
+    color: #e0e0e0; 
     font-family: 'Arial', sans-serif;
 }
 
@@ -22,12 +22,12 @@ a {
 .container {
     display: flex;
     padding: 30px;
-    margin-top: 80px;
+    margin-top: 30px;
     gap: 40px;
 }
 
 .left-feature {
-    width: 600px; /* GIF 크기 키움 */
+    width: 600px;
     flex-shrink: 0;
 }
 
@@ -45,7 +45,8 @@ a {
 }
 
 .movie-box {
-    width: 300px; /* 기존 영화 포스터 크기 유지 */
+	margin: 1px;
+    width: 300px; 
     flex-shrink: 0;
 }
 
@@ -54,12 +55,12 @@ a {
     }
 
 .movie-card {
-    background-color: #1c1c1c; /* 어두운 카드 배경 */
+    background-color: #1c1c1c;
     border: 1px solid #333;
 }
 
 .movie-desc {
-    background-color: rgba(0, 0, 0, 0.7); /* 살짝 더 어두운 배경 */
+    background-color: rgba(0, 0, 0, 0.7);
     color: #f0f0f0;
 }
 
@@ -116,41 +117,21 @@ a {
     }
 </style>
 
-</head>
 <body>
 <%@ include file="header.jsp"%>
-
-<%
-    String query = request.getParameter("query");
-    String sort = request.getParameter("sort");
-%>
-
+<%@ include file="dbconn.jsp" %>
+<sql:query dataSource="${ds}" var="result">
+            SELECT * FROM movie
+            ORDER BY score DESC
+</sql:query>
+</head>
 <div class="container">
-    <!-- 왼쪽 추천 포스터 -->
     <div class="left-feature">
+    	<h1>공개 예정</h1>
         <img src="<c:url value='/resources/images/starwars_g.gif' />" alt="추천 영화 포스터">
     </div>
-
-    <!-- 오른쪽 영화 목록 -->
     <div class="right-list">
-        <%@ include file="dbconn.jsp" %>
-
-        <sql:query dataSource="${ds}" var="result">
-            SELECT * FROM movie
-            WHERE title LIKE '%${param.query}%'
-            <c:choose>
-                <c:when test="${param.sort == 'popular'}">
-                    ORDER BY score DESC
-                </c:when>
-                <c:when test="${param.sort == 'oldest'}">
-                    ORDER BY release_date ASC
-                </c:when>
-                <c:otherwise>
-                    ORDER BY release_date DESC
-                </c:otherwise>
-            </c:choose>
-        </sql:query>
-
+		<h1>모두의 인기작</h1>
         <div class="clearfix">
             <c:forEach var="row" items="${result.rows}">
                 <div class="movie-box">

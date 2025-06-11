@@ -15,19 +15,20 @@
     <%@ include file="../header_admin.jsp" %>
    	<%@ include file="../../dbconn.jsp" %>
     <sql:query dataSource="${ds}" var="result">
-        SELECT r.id, u.email, u.nickname, m.title, r.content, r.score
+        SELECT r.id, u.email, u.nickname, m.title, r.content, r.score, COUNT(l.id) AS like_count
 		FROM review r
 		JOIN movie m ON r.movie_id = m.id
 		JOIN user u ON r.user_id = u.id
+		LEFT JOIN like_review l ON r.id = l.review_id
+		GROUP BY r.id, r.content, r.score, m.title, m.id
     </sql:query>
 
 <div class="container mt-5">
-    <!-- 상단 타이틀 + 버튼을 flex로 구성 -->
+    
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="mb-0"><fmt:message key="admin_reviews_main" /></h2>
     </div>
 
-    <!-- 테이블을 중앙 정렬 -->
     <div class="table-responsive">
         <table class="table table-bordered text-center mx-auto" style="max-width: 1200px;">
             <thead class="table-light">
@@ -37,6 +38,7 @@
                     <th><fmt:message key="admin_movies_title" /></th>
                     <th><fmt:message key="admin_reviews_content" /></th>
                     <th><fmt:message key="admin_reviews_score" /></th>
+                    <th><fmt:message key="admin_reviews_likes" /></th>
                     <th><fmt:message key="admin_delete" /></th>
                 </tr>
             </thead>
@@ -57,6 +59,7 @@
                         <td>${row.title}</td>
                         <td>${row.content}</td>
                         <td>${row.score}</td>
+                        <td>${row.like_count}</td>
                         <td>
                             <a href="processDeleteReview_admin.jsp?id=${row.id}" class="btn btn-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">
                                 <fmt:message key="admin_delete" />

@@ -5,13 +5,13 @@
 <style>
 body {
 	margin: 0;
-	background: #1c1c1c;
+	background: #0F111A;
 	color: #fff;
 	font-family: Arial, sans-serif;
 }
 
 .wrapper {
-	padding-top: 60px;
+	padding-top: 95px;
 }
 
 .movie-detail-container {
@@ -24,7 +24,7 @@ body {
 
 .movie-poster {
 	flex: 1;
-	min-width: 600px;
+	min-width: 500px;
 }
 
 .movie-poster img {
@@ -40,8 +40,7 @@ body {
 	font-size: 18px;
 }
 
-.movie-info h2 {
-	font-size: 36px;
+.movie-info h1 {
 	margin-bottom: 10px;
 	display: flex;
 	align-items: center;
@@ -178,9 +177,9 @@ body {
 		</div>
 
 		<div class="movie-info">
-			<h2>
+			<h1>
 				${detail.rows[0].title} <span class="release-date">${detail.rows[0].release_date}</span>
-			</h2>
+			</h1>
 
 			<div class="movie-description">
 				<p>${detail.rows[0].content}</p>
