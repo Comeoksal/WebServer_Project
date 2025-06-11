@@ -95,9 +95,7 @@ a {
    <c:forEach var="row" items="${result.rows}">
   <tr>
     <td style="padding: 8px; border: 1px solid #ccc;">
-	  <a href="../movie/movie.jsp?id=${row.id}" style="color: #007bff; text-decoration: none;">
 	    ${row.title}
-	  </a>
 	</td>
     <td style="padding: 8px; border: 1px solid #ccc;">
       <c:choose>

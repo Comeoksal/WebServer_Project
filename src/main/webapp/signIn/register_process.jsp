@@ -9,9 +9,10 @@ request.setCharacterEncoding("utf-8");
 String email = request.getParameter("email");
 String password = request.getParameter("password");
 String confirm = request.getParameter("confirm");
+String phone = request.getParameter("phone");
 
-if (email == null || password == null || confirm == null ||
-    email.trim().equals("") || password.trim().equals("") || confirm.trim().equals("")) {
+if (email == null || password == null || confirm == null || phone == null ||
+    email.trim().equals("") || password.trim().equals("") || confirm.trim().equals("") || phone.trim().equals("")) {
     response.sendRedirect("register.jsp?error=empty");
     return;
 }
@@ -43,13 +44,14 @@ try {
     }
     pstmt.close();
 
-    String insertSql = "INSERT INTO user (email, password, nickname, role, created_at, membership_id) VALUES (?, ?, ?, ?, NOW(), ?)";
+    String insertSql = "INSERT INTO user (email, password, nickname, role, created_at, membership_id, phone) VALUES (?, ?, ?, ?, NOW(), ?, ?)";
     pstmt = conn.prepareStatement(insertSql);
     pstmt.setString(1, email);
     pstmt.setString(2, password);
     pstmt.setString(3, ""); 
     pstmt.setString(4, "user");
     pstmt.setInt(5, 1); 
+    pstmt.setString(6, phone); 
     int result = pstmt.executeUpdate();
 
     if (result > 0) {

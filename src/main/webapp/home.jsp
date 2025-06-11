@@ -9,8 +9,8 @@
 
 body {
     margin: 0;
-    background-color: #0d1117; /* 어두운 남색 계열 */
-    color: #e0e0e0; /* 기본 글자색 연회색 */
+    background-color: #0d1117;
+    color: #e0e0e0;
     font-family: 'Arial', sans-serif;
 }
 
@@ -27,7 +27,7 @@ a {
 }
 
 .left-feature {
-    width: 600px; /* GIF 크기 키움 */
+    width: 600px;
     flex-shrink: 0;
 }
 
@@ -45,7 +45,7 @@ a {
 }
 
 .movie-box {
-    width: 300px; /* 기존 영화 포스터 크기 유지 */
+    width: 300px;
     flex-shrink: 0;
 }
 
@@ -54,12 +54,12 @@ a {
     }
 
 .movie-card {
-    background-color: #1c1c1c; /* 어두운 카드 배경 */
+    background-color: #1c1c1c;
     border: 1px solid #333;
 }
 
 .movie-desc {
-    background-color: rgba(0, 0, 0, 0.7); /* 살짝 더 어두운 배경 */
+    background-color: rgba(0, 0, 0, 0.7);
     color: #f0f0f0;
 }
 
@@ -126,12 +126,10 @@ a {
 %>
 
 <div class="container">
-    <!-- 왼쪽 추천 포스터 -->
     <div class="left-feature">
         <img src="<c:url value='/resources/images/starwars_g.gif' />" alt="추천 영화 포스터">
     </div>
 
-    <!-- 오른쪽 영화 목록 -->
     <div class="right-list">
         <%@ include file="dbconn.jsp" %>
 
