@@ -1,12 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-
 <style>
 html, body {
   margin: 0;
   padding: 0;
 }
+
 .search-header {
   width: 100%;
   display: flex;
@@ -35,10 +35,12 @@ html, body {
 }
 
 .search-form input[type="text"] {
+  background-color: transparent;
   width: 200px;
   padding: 4px 10px;
   border-radius: 4px;
   border: none;
+  border-bottom: 1px solid #E5EAF2;
   font-size: 14px;
 }
 
@@ -49,15 +51,11 @@ html, body {
   font-size: 14px;
 }
 
-.search-form button {
-  background-color: #E5EAF2;
-  color: #5D9CEC;
-  font-weight: 500;
-  padding: 4px 10px;
-  border-radius: 20px;
-  border: none;
-  font-size: 14px;
+.search-form input[type="image"] {
+  width: 24px;
+  height: 24px;
   cursor: pointer;
+  border: none;
 }
 </style>
 
@@ -65,14 +63,13 @@ html, body {
   <div class="search-title">검색</div>
 
   <div class="search-form">
-    <input type="text" name="query" placeholder="영화 제목" value="${param.query}" />
-
+    <input type="text" name="query" value="${param.query}" />
+	<input type="image" src="<c:url value='/resources/images/search.png' />" alt="검색" />
     <select name="sort">
       <option value="latest" ${param.sort == 'latest' ? 'selected' : ''}>최신 순</option>
       <option value="popular" ${param.sort == 'popular' ? 'selected' : ''}>인기 순</option>
       <option value="oldest" ${param.sort == 'oldest' ? 'selected' : ''}>오래된 순</option>
     </select>
 
-    <button type="submit">🔍</button>
   </div>
 </form>
