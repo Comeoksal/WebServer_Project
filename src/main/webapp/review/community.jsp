@@ -64,11 +64,10 @@ a {
 	<!-- 리뷰 데이터 조회 -->
 	<sql:query dataSource="${ds}" var="result">
   SELECT
-  	r.id as review_id,
+  	r.id,
     r.content,
     r.score,
     m.title,
-    m.id AS movie_id,
     COUNT(l.id) AS like_count
   FROM review r
   JOIN movie m ON r.movie_id = m.id
