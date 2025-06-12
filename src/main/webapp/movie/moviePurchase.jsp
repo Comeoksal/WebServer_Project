@@ -8,10 +8,12 @@
 </c:if>
 
 <%
-  String movieId = request.getParameter("movie_id");
-  pageContext.setAttribute("movieId", movieId); 
+	String userEmail = (String) session.getAttribute("user_email");
+	String movieId = request.getParameter("movie_id");
+	
+  	pageContext.setAttribute("movieId", movieId); 
+  	pageContext.setAttribute("userEmail", userEmail);
 %>
-<c:set var="userEmail" value="${sessionScope.user_email}" />
 
 <sql:query dataSource="${ds}" var="userInfo">
   SELECT card_number FROM user WHERE email = ?
@@ -89,7 +91,7 @@
     <input type="hidden" name="movie_id" value="${movieId}" />
 
     <label>카드번호</label>
-    <input type="text" name="card_number"
+    <input type="text" name="card_number"  value="${userInfo.rows[0].card_number}"
       pattern="\d{16}" title="16자리 숫자" required />
 
     <label>은행 선택</label>
