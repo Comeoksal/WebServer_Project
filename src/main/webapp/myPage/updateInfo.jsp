@@ -1,54 +1,67 @@
-<%@ page contentType="text/html; charset=utf-8" %>
-<%@ page import="java.sql.*" %>
-<%@ page session="true" %>
-<%@ include file="../dbconn.jsp" %>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page session="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@ include file="../dbconn.jsp"%>
 
-<%
-request.setCharacterEncoding("UTF-8");
+<c:if test="${empty sessionScope.user_email}">
+	<c:redirect url="../signIn/login.jsp" />
+</c:if>
 
-String userEmail = (String) session.getAttribute("user_email");
-if (userEmail == null) {
-    response.sendRedirect("../signIn/login.jsp");
-    return;
-}
+<c:set var="userEmail" value="${sessionScope.user_email}" />
+<c:set var="action" value="${param.action}" />
+<c:set var="value" value="${param[action]}" />
 
-String action = request.getParameter("action");
-String value = null;
-String sql = "";
+<c:if test="${action eq 'phone'}">
+	<sql:query var="phoneCheck" dataSource="${ds}">
+		SELECT COUNT(*) AS cnt FROM user WHERE phone = ? AND email != ?
+		<sql:param value="${value}" />
+		<sql:param value="${userEmail}" />
+	</sql:query>
 
-if ("nickname".equals(action)) {
-    value = request.getParameter("nickname");
-    sql = "UPDATE user SET nickname = ? WHERE email = ?";
-    session.setAttribute("nickname", value); // ✅ 세션 반영
-} else if ("phone".equals(action)) {
-    value = request.getParameter("phone");
-    sql = "UPDATE user SET phone = ? WHERE email = ?";
-} else if ("email".equals(action)) {
-    value = request.getParameter("email");
-    sql = "UPDATE user SET email = ? WHERE email = ?";
-}
+	<c:if test="${phoneCheck.rows[0].cnt > 0}">
+		<c:redirect url="info.jsp?error=phone_exists" />
+	</c:if>
+</c:if>
 
-if (value != null && !sql.isEmpty()) {
-    try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(
-            "jdbc:mysql://shortline.proxy.rlwy.net:58435/railway", "root", "pZCeLltpdUdDDzaYfEpPwBIIRTrIomgt"
-        );
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, value);
-        pstmt.setString(2, userEmail);
-        pstmt.executeUpdate();
-        pstmt.close();
-        conn.close();
+<c:if test="${action eq 'email'}">
+	<sql:query var="emailCheck" dataSource="${ds}">
+		SELECT COUNT(*) AS cnt FROM user WHERE email = ? AND email != ?
+		<sql:param value="${value}" />
+		<sql:param value="${userEmail}" />
+	</sql:query>
 
-        if ("email".equals(action)) {
-            session.setAttribute("user_email", value);
-        }
+	<c:if test="${emailCheck.rows[0].cnt > 0}">
+		<c:redirect url="info.jsp?error=email_exists" />
+	</c:if>
+</c:if>
 
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
+<c:choose>
+	<c:when test="${action eq 'nickname'}">
+		<sql:update dataSource="${ds}">
+			UPDATE user SET nickname = ? WHERE email = ?
+			<sql:param value="${value}" />
+			<sql:param value="${userEmail}" />
+		</sql:update>
+		<c:set target="sessionScope" property="nickname" value="${value}" />
+	</c:when>
 
-response.sendRedirect("info.jsp?updated=true");
-%>
+	<c:when test="${action eq 'phone'}">
+		<sql:update dataSource="${ds}">
+			UPDATE user SET phone = ? WHERE email = ?
+			<sql:param value="${value}" />
+			<sql:param value="${userEmail}" />
+		</sql:update>
+	</c:when>
+
+	<c:when test="${action eq 'email'}">
+		<sql:update dataSource="${ds}">
+			UPDATE user SET email = ? WHERE email = ?
+			<sql:param value="${value}" />
+			<sql:param value="${userEmail}" />
+		</sql:update>
+		<c:set target="sessionScope" property="user_email" value="${value}" />
+	</c:when>
+</c:choose>
+
+<c:redirect url="info.jsp?updated=true" />
