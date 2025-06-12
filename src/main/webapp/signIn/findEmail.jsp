@@ -78,22 +78,19 @@ h2 {
 }
 
 .input-wrapper input {
+	width: 440px;
 	border: none;
 	outline: none;
 	flex: 1;
-	font-size: 16px;
+	font-size: 18px;
 	background-color: transparent;
 }
 
 .form-group input {
-	width: 380px;
+	width: 440px;
 	padding: 5px;
 	border-radius: 8px;
 	font-size: 16px;
-}
-
-.form-group input[type="checkbox"] {
-	width: auto;
 }
 
 .form-group a {
@@ -110,7 +107,7 @@ h2 {
 	font-size: 16px;
 	border: none;
 	border-radius: 10px;
-	width: 410px;
+	width: 440px;
 	cursor: pointer;
 }
 
@@ -186,7 +183,8 @@ h2 {
 				<label>전화번호</label>
 				<div class="input-wrapper">
 					<img src="<%=request.getContextPath()%>/resources/images/phone.png"
-						alt="전화 아이콘"> <input type="text"
+						alt="전화 아이콘"> 
+						<input type="text"
 						name="phone" required placeholder="전화번호를 입력해주세요.">
 				</div>
 			</div>
