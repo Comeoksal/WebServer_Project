@@ -68,7 +68,7 @@
 <%-- JSP 변수 movieId를 JSTL 변수로 설정 --%>
 <%
   String movieId = request.getParameter("id");
-  String userId = String.valueOf(session.getAttribute("userId"));
+  userId = String.valueOf(session.getAttribute("userId"));
   request.setAttribute("movieId", movieId);  // 이것도 유지
   request.setAttribute("userId", userId);
 %>
