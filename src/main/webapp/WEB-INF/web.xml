@@ -2,23 +2,6 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee"
 xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
 https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/webapp_2_5.xsd" id="WebApp_ID" version="6.0">
-<security-role>
-        <description></description>
-        <role-name>admin</role-name>
-    </security-role>
-    <security-constraint>
-        <display-name>BookMarket Security</display-name>
-        <web-resource-collection>
-            <web-resource-name>BookMarket</web-resource-name>
-            <description></description>
-            <url-pattern>/addBook.jsp</url-pattern>
-            <url-pattern>/editBook.jsp</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <description>권한 관리자명</description>
-            <role-name>admin</role-name>
-        </auth-constraint>
-    </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
@@ -30,4 +13,20 @@ https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd http://xmlns.jcp.org/xml/ns/
     	<error-code>404</error-code>
     	<location>/exceptionNoPage.jsp</location>
     </error-page>
+    <filter>
+    	<filter-name>LogFilter</filter-name>
+    	<filter-class>filter.LogFilter</filter-class>
+    </filter>
+    <filter-mapping>
+    	<filter-name>LogFilter</filter-name>
+    	<url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>filter.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
 </web-app>
