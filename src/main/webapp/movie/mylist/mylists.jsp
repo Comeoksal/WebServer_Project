@@ -32,11 +32,13 @@ a {
 }
 
 .movie-box {
+	margin: 15px;
     width: 200px;          
     flex-shrink: 0;        
 }
 
 .movie-card {
+	margin-left: 50px;
     position: relative;
     width: 100%;
     padding-bottom: 150%;
@@ -93,62 +95,51 @@ a {
 
 </style>
 
-    <title>마이리스트 목록</title>
+      <title>마이리스트 목록</title>
 </head>
 <body>
 <%@ include file="../../header.jsp"%>
 <div style="margin-top: 60px;"></div>
 <%@ include file="../../search_header.jsp" %>
 
-<%
-    String query = request.getParameter("query");
-    String sort = request.getParameter("sort");
-%>
+<%@ include file="../../dbconn.jsp" %>
+
+<c:if test="${empty sessionScope.userId}">
+    <script>
+        alert("로그인 후 이용 가능합니다.");
+        location.href = "${pageContext.request.contextPath}/signIn/login.jsp";
+    </script>
+</c:if>
+
+<sql:query dataSource="${ds}" var="result">
+    SELECT m.id, m.title, m.image, m.content
+    FROM purchase p
+    JOIN movie m ON p.movie_id = m.id
+    WHERE p.user_id = ?
+    <sql:param value="${sessionScope.userId}" />
+</sql:query>
 
 <div class="container">
-    <%@ include file="../../dbconn.jsp" %>
-
-    <c:if test="${empty sessionScope.userId}">
-	    <script>
-	        alert("로그인 후 이용 가능합니다.");
-	        location.href = "${pageContext.request.contextPath}/signIn/login.jsp";
-	    </script>
-	</c:if>
-
-	<c:if test="${param.action == 'wish' && not empty sessionScope.userId}">
-	    <sql:update dataSource="${ds}" var="result">
-	        
-	        <sql:param value="${sessionScope.userId}" />
-	        <sql:param value="${param.id}" />
-	    </sql:update>
-	
-	    <script>
-	        alert("찜 목록에 추가되었습니다.");
-	        location.replace("${pageContext.request.contextPath}/movie/movie.jsp?id=${param.id}");
-	    </script>
-	</c:if>
-
     <div class="clearfix">
         <c:forEach var="row" items="${result.rows}">
-    <div class="movie-box">
-        <div class="movie-card">
-            <a href="../movie.jsp?id=${row.id}">
-                <img src="<c:url value='/resources/images/${row.image}' />" alt="영화 포스터">
-                <div class="movie-desc">
-                    <c:choose>
-                        <c:when test="${fn:length(row.content) > 50}">
-                            ${fn:substring(row.content, 0, 50)}...
-                        </c:when>
-                        <c:otherwise>
-                            ${row.content}
-                        </c:otherwise>
-                    </c:choose>
+            <div class="movie-box">
+                <div class="movie-card">
+                    <a href="../movie.jsp?id=${row.id}">
+                        <img src="<c:url value='/resources/images/${row.image}' />" alt="영화 포스터">
+                        <div class="movie-desc">
+                            <c:choose>
+                                <c:when test="${fn:length(row.content) > 50}">
+                                    ${fn:substring(row.content, 0, 50)}...
+                                </c:when>
+                                <c:otherwise>
+                                    ${row.content}
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
-    </div>
-</c:forEach>
-
+            </div>
+        </c:forEach>
     </div>
 </div>
 </body>

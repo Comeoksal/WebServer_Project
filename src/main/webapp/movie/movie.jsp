@@ -5,13 +5,13 @@
 <style>
 body {
 	margin: 0;
-	background: #1c1c1c;
+	background: #0F111A;
 	color: #fff;
 	font-family: Arial, sans-serif;
 }
 
 .wrapper {
-	padding-top: 60px;
+	padding-top: 95px;
 }
 
 .movie-detail-container {
@@ -24,7 +24,7 @@ body {
 
 .movie-poster {
 	flex: 1;
-	min-width: 600px;
+	min-width: 500px;
 }
 
 .movie-poster img {
@@ -40,8 +40,7 @@ body {
 	font-size: 18px;
 }
 
-.movie-info h2 {
-	font-size: 36px;
+.movie-info h1 {
 	margin-bottom: 10px;
 	display: flex;
 	align-items: center;
@@ -100,11 +99,17 @@ body {
 <%@ include file="../dbconn.jsp"%>
 
 <sql:query dataSource="${ds}" var="detail">
-    SELECT * FROM movie WHERE id = ${param.id}
+    SELECT * FROM movie WHERE id = ?
+    <sql:param value="${param.id}" />
 </sql:query>
 
+<c:if test="${empty detail.rows}">
+    <c:redirect url="exceptionNoMovieId.jsp" />
+</c:if>
+
 <sql:query dataSource="${ds}" var="wishCount">
-    SELECT COUNT(*) AS count FROM wishlist WHERE movie_id = ${param.id}
+    SELECT COUNT(*) AS count FROM wishlist WHERE movie_id = ?
+    <sql:param value="${param.id}" />
 </sql:query>
 
 <sql:query dataSource="${ds}" var="user">
@@ -122,7 +127,12 @@ body {
     SELECT ROUND(AVG(score), 1) AS avg FROM review WHERE movie_id = ?
     <sql:param value="${param.id}" />
 </sql:query>
-
+<sql:query dataSource="${ds}" var="hasReviewed">
+    SELECT COUNT(*) AS cnt FROM review 
+    WHERE user_id = ? AND movie_id = ?
+    <sql:param value="${sessionScope.userId}" />
+		<sql:param value="${detail.rows[0].id}" />
+	</sql:query>
 <c:if test="${param.action == 'wish' && not empty sessionScope.userId}">
 	<sql:query dataSource="${ds}" var="isWished">
 		SELECT COUNT(*) AS cnt FROM wishlist 
@@ -140,7 +150,8 @@ body {
 			</sql:update>
 			<script>
 				alert("찜이 취소되었습니다.");
-				location.replace("${pageContext.request.contextPath}/movie/movie.jsp?id=${param.id}");
+				location
+						.replace("${pageContext.request.contextPath}/movie/movie.jsp?id=${param.id}");
 			</script>
 		</c:when>
 
@@ -152,7 +163,8 @@ body {
 			</sql:update>
 			<script>
 				alert("찜 목록에 추가되었습니다.");
-				location.replace("${pageContext.request.contextPath}/movie/movie.jsp?id=${param.id}");
+				location
+						.replace("${pageContext.request.contextPath}/movie/movie.jsp?id=${param.id}");
 			</script>
 		</c:otherwise>
 	</c:choose>
@@ -169,9 +181,9 @@ body {
 		</div>
 
 		<div class="movie-info">
-			<h2>
+			<h1>
 				${detail.rows[0].title} <span class="release-date">${detail.rows[0].release_date}</span>
-			</h2>
+			</h1>
 
 			<div class="movie-description">
 				<p>${detail.rows[0].content}</p>
@@ -231,10 +243,20 @@ body {
 						</c:when>
 
 						<c:otherwise>
-							<form action="${pageContext.request.contextPath}/review/review.jsp" method="get" style="display:inline;">
-    							<input type="hidden" name="id" value="${detail.rows[0].id}" />
-    							<button type="submit" class="btn">리뷰 남기기</button>
-  							</form>
+							<c:choose>
+								<c:when test="${hasReviewed.rows[0].cnt > 0}">
+									<button class="btn" onclick="alert('리뷰는 한 번만 작성할 수 있습니다.');">리뷰
+										남기기</button>
+								</c:when>
+								<c:otherwise>
+									<form
+										action="${pageContext.request.contextPath}/review/review.jsp"
+										method="get" style="display: inline;">
+										<input type="hidden" name="id" value="${detail.rows[0].id}" />
+										<button type="submit" class="btn">리뷰 남기기</button>
+									</form>
+								</c:otherwise>
+							</c:choose>
 						</c:otherwise>
 					</c:choose>
 				</div>

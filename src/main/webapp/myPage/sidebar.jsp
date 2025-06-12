@@ -42,16 +42,31 @@ String uri = request.getRequestURI();
 	color: #3b82f6;
 }
 
-.sidebar button {
-	display: block;
-	font-size: large;
-	margin: 100px auto 0 auto;
-	padding: 6px 20px;
+.sidebar .btn-group {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 80px;
+	margin-right: 30px;
+	gap: 30px;
+}
+
+.sidebar .btn-group form {
+	flex: 1;
+}
+
+.sidebar .btn-group button {
+	width: 130%;
+	padding: 6px 13px;
 	border-radius: 20px;
 	border: 1px solid #3b82f6;
 	background-color: white;
 	color: #3b82f6;
 	cursor: pointer;
+	font-size: 18px;
+}
+
+.sidebar .btn-group button:hover {
+	background-color: #e6f0ff;
 }
 </style>
 <div class="sidebar">
@@ -65,11 +80,14 @@ String uri = request.getRequestURI();
 		<li><a href="security.jsp"
 			class="<%=uri.contains("security.jsp") ? "active" : ""%>">보안</a></li>
 	</ul>
-	<button onclick="window.location.href='home.jsp'">돌아가기</button>
-	<form action="<%=request.getContextPath()%>/signIn/logout.jsp"
-		method="post" style="text-align: center; margin-top: 20px;">
-		<button type="submit">로그아웃</button>
-	</form>
+	<div class="btn-group">
+		<form action="${pageContext.request.contextPath}/home.jsp">
+			<button type="submit">돌아가기</button>
+		</form>
+		<form action="<%=request.getContextPath()%>/signIn/logout.jsp" method="post">
+			<button type="submit">로그아웃</button>
+		</form>
+	</div>
 
 </div>
 

@@ -3,6 +3,7 @@
 <%@ page session="true"%>
 
 <%
+String userEmail = (String) session.getAttribute("user_email");
 String userId = String.valueOf(session.getAttribute("userId"));
 String role = (String) session.getAttribute("role");
 %>
@@ -48,7 +49,7 @@ String role = (String) session.getAttribute("role");
 }
 
 .nav-right form {
-    margin: 0; /* form의 기본 margin 제거 */
+    margin: 0;
 }
 
 .nav-right .login-btn {
@@ -72,19 +73,21 @@ String role = (String) session.getAttribute("role");
 
 <c:set var="userId" value="${sessionScope.userId}" />
 <sql:query dataSource="${ds}" var="result">
-    SELECT u.*, m.name
+    SELECT u.*, m.name, m.id as membership_id
     FROM user u
     JOIN membership m ON u.membership_id = m.id
     WHERE u.id = ?
     <sql:param value="${userId}" />
 </sql:query>
-
+<c:set var="row" value="${result.rows[0]}" />
 <nav class="navbar">
     <div class="nav-left">
         <a href ="<c:url value='/home.jsp'/>" class="logo">movit</a>
         <a href="<c:url value='/home.jsp' />">홈</a> 
         <a href="<c:url value='/movie/movies/movies.jsp' />">영화</a> 
-        <a href="<c:url value='/movie/mylist/mylists.jsp' />">마이리스트</a> 
+        <c:if test="${row.membership_id == 1}">
+		    <a href="<c:url value='/movie/mylist/mylists.jsp' />">마이리스트</a>
+		</c:if> 
         <a href="<c:url value='/movie/wishlist/wishlists.jsp' />">찜 목록</a> 
         <a href="<c:url value='/review/community.jsp' />">커뮤니티</a>
     </div>
@@ -104,7 +107,7 @@ String role = (String) session.getAttribute("role");
                             </form>
                         </c:when>
                         <c:when test="${row.role eq 'admin'}">
-                            <form action="${pageContext.request.contextPath}/admin/header_admin.jsp" style="margin-right: 15px;">
+                            <form action="${pageContext.request.contextPath}/admin/home_admin.jsp" style="margin-right: 15px;">
                                 <button class="login-btn">관리자 페이지</button>
                             </form>
                         </c:when>

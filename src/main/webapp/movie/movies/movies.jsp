@@ -9,7 +9,7 @@
 
 body {
     margin: 0;
-    background-color: #0d1117; /* 어두운 배경색 */
+    background-color: #0F111A; 
     color: #e0e0e0;
     font-family: 'Arial', sans-serif;
 }
@@ -32,11 +32,13 @@ a {
 }
 
 .movie-box {
+	margin: 15px;
     width: 200px;          
     flex-shrink: 0;        
 }
 
 .movie-card {
+	margin-left: 50px;
     position: relative;
     width: 100%;
     padding-bottom: 150%;
@@ -56,7 +58,6 @@ a {
     transition: filter 0.3s ease;
 }
 
-/* 호버 시 블러 효과 */
 .movie-card:hover img {
     filter: blur(2px) brightness(0.6);
 }
@@ -66,9 +67,9 @@ a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 85%; /* 고정 너비 (예: 포스터의 85%) */
-    max-height: 60%; /* 최대 높이 */
-    background-color: rgba(0, 0, 0, 0.6); /* 반투명한 배경 */
+    width: 85%; 
+    max-height: 60%; 
+    background-color: rgba(0, 0, 0, 0.6); 
     color: #fff;
     font-size: 14px;
     font-weight: 500;
@@ -95,6 +96,7 @@ a {
 
     <title>영화 목록</title>
 </head>
+
 <body>
 <%@ include file="../../header.jsp"%>
 <div style="margin-top: 60px;"></div>
