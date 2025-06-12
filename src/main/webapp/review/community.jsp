@@ -81,7 +81,6 @@ a {
 		<sql:param value="${pageSize}" />
 		<sql:param value="${offset}" />
 	</sql:query>
-
 <div class="container">
 <table style="width: 100%; border-collapse: collapse; color: white; margin-top: 20px;">
  <thead style="background-color: #444;">

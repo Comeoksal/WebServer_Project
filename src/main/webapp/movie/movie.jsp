@@ -131,8 +131,8 @@ body {
     SELECT COUNT(*) AS cnt FROM review 
     WHERE user_id = ? AND movie_id = ?
     <sql:param value="${sessionScope.userId}" />
-		<sql:param value="${detail.rows[0].id}" />
-	</sql:query>
+	<sql:param value="${detail.rows[0].id}" />
+</sql:query>
 <c:if test="${param.action == 'wish' && not empty sessionScope.userId}">
 	<sql:query dataSource="${ds}" var="isWished">
 		SELECT COUNT(*) AS cnt FROM wishlist 
@@ -140,6 +140,16 @@ body {
 		<sql:param value="${sessionScope.userId}" />
 		<sql:param value="${param.id}" />
 	</sql:query>
+
+	<sql:query dataSource="${ds}" var="hasPurchased">
+  SELECT COUNT(*) AS cnt
+  FROM purchase
+  WHERE user_id = ?
+    AND movie_id = ?
+  <sql:param value="${sessionScope.userId}" />
+		<sql:param value="${param.id}" />
+	</sql:query>
+
 
 	<c:choose>
 		<c:when test="${isWished.rows[0].cnt > 0}">
@@ -248,15 +258,26 @@ body {
 									<button class="btn" onclick="alert('리뷰는 한 번만 작성할 수 있습니다.');">리뷰
 										남기기</button>
 								</c:when>
-								<c:otherwise>
+
+								<c:when
+									test="${hasPurchased.rows[0].cnt > 0 
+                  or user.rows[0].membership_id == 2 
+                  or user.rows[0].membership_id == 3}">
 									<form
 										action="${pageContext.request.contextPath}/review/review.jsp"
 										method="get" style="display: inline;">
 										<input type="hidden" name="id" value="${detail.rows[0].id}" />
 										<button type="submit" class="btn">리뷰 남기기</button>
 									</form>
+								</c:when>
+
+								<c:otherwise>
+									<button class="btn"
+										onclick="alert('리뷰는 구매자 혹은 멤버십 사용자만 작성 가능합니다.');">리뷰
+										남기기</button>
 								</c:otherwise>
 							</c:choose>
+
 						</c:otherwise>
 					</c:choose>
 				</div>
