@@ -81,32 +81,25 @@ a {
 		<sql:param value="${pageSize}" />
 		<sql:param value="${offset}" />
 	</sql:query>
-
-	<div class="container">
-		<table
-			style="width: 100%; border-collapse: collapse; color: white; margin-top: 20px;">
-			<thead style="background-color: #444;">
-				<tr>
-					<th
-						style="width: 30%; padding: 8px; border: 1px solid #ccc; text-align: left;">영화
-						제목</th>
-					<th style="padding: 8px; border: 1px solid #ccc; text-align: left;">리뷰
-						내용</th>
-					<th style="padding: 8px; border: 1px solid #ccc; text-align: left;">평점</th>
-					<th style="padding: 8px; border: 1px solid #ccc; text-align: left;">좋아요
-						수</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="row" items="${result.rows}">
-					
-					<tr>
-						<td style="padding: 8px; border: 1px solid #ccc;"><a
-							href="../movie/movie.jsp?id=${row.movie_id}"
-							style="color: #007bff; text-decoration: none;"> ${row.title}
-						</a></td>
-						<td style="padding: 8px; border: 1px solid #ccc;"><c:choose>
-								<c:when test="${fn:length(row.content) > 50}">
+<div class="container">
+<table style="width: 100%; border-collapse: collapse; color: white; margin-top: 20px;">
+ <thead style="background-color: #444;">
+  <tr>
+    <th style="width: 30%; padding: 8px; border: 1px solid #ccc; text-align: left;">영화 제목</th>
+    <th style="padding: 8px; border: 1px solid #ccc; text-align: left;">리뷰 내용</th>
+    <th style="padding: 8px; border: 1px solid #ccc; text-align: left;">평점</th>
+    <th style="padding: 8px; border: 1px solid #ccc; text-align: left;">좋아요 수</th>
+  </tr>
+</thead>
+  <tbody>
+   <c:forEach var="row" items="${result.rows}">
+  <tr>
+    <td style="padding: 8px; border: 1px solid #ccc;">
+	    ${row.title}
+	</td>
+    <td style="padding: 8px; border: 1px solid #ccc;">
+      <c:choose>
+        <c:when test="${fn:length(row.content) > 50}">
           ${fn:substring(row.content, 0, 50)}...
         </c:when>
 								<c:otherwise>
@@ -117,7 +110,7 @@ a {
 						<td style="padding: 8px; border: 1px solid #ccc;">
 							<form action="processLikeReview.jsp" method="post"
 								style="display: inline;">
-								<input type="hidden" name="review_id" value="${row.review_id}" />
+								<input type="hidden" name="review_id" value="${row.id}" />
 								<button type="submit"
 									style="background: none; border: 1px solid #ccc; color: #58a6ff; cursor: pointer; border-radius: 8px; padding: 4px 10px;">
 									❤️ ${row.like_count}</button>

@@ -128,8 +128,8 @@ h2 {
 
 			<div class="link-row">
 				<span><a href="register.jsp"
-					style="text-decoration: none; color: #aaa;'">회원가입</a></span> <span><a>아이디</a>
-					| <a>비밀번호 찾기</a></span>
+					style="text-decoration: none; color: #aaa;'">회원가입</a></span> <span><a href="${pageContext.request.contextPath}/signIn/findEmail.jsp" style="text-decoration: none; color: #aaa;'">이메일</a>
+					| <a href="${pageContext.request.contextPath}/signIn/findPassword.jsp" style="text-decoration: none; color: #aaa;'">비밀번호 찾기</a></span>
 			</div>
 
 		</form>

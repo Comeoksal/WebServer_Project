@@ -96,6 +96,7 @@ a {
 
     <title>영화 목록</title>
 </head>
+
 <body>
 <%@ include file="../../header.jsp"%>
 <div style="margin-top: 60px;"></div>

@@ -9,19 +9,18 @@
 
 <%@ include file="../dbconn.jsp" %>
 
-<sql:query var="userInfo" dataSource="${ds}">
+<sql:query dataSource="${ds}" var="result" >
     SELECT * FROM user WHERE email = ? AND password = ?
     <sql:param value="${param.email}" />
     <sql:param value="${param.password}" />
 </sql:query>
 
 <c:choose>
-    <c:when test="${not empty userInfo.rows}">
-        <c:set var="user" value="${userInfo.rows[0]}" />
-        <c:set var="user" value="${userInfo.rows[0]}" />
+    <c:when test="${not empty result.rows}">
+        <c:set var="user" value="${result.rows[0]}" />
 		<c:set var="userId" value="${user.id}" scope="session" />
 		<c:set var="nickname" value="${user.nickname}" scope="session" />
-		<c:set var="user_email" value="${param.email}" scope="session" />
+		<c:set var="user_email" value="${user.email}" scope="session" />
 		<c:set var="role" value="${user.role}" scope="session" />
     	<c:set var="membership_id" value="${user.membership_id}" scope="session" />
 		<%

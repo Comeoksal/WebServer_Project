@@ -17,7 +17,6 @@
 
     String movieId = request.getParameter("movie_id");
     String cardNumber = "";
-    String userName = "";
     String movieTitle = "";
     int price = 0;
     String errorMsg = "";
@@ -33,13 +32,12 @@
         );
 
         // 사용자 정보 조회
-        pstmt = conn.prepareStatement("SELECT id, name, card_number FROM user WHERE email = ?");
+        pstmt = conn.prepareStatement("SELECT id card_number FROM user WHERE email = ?");
         pstmt.setString(1, userEmail);
         rs = pstmt.executeQuery();
         userId = null;
         if (rs.next()) {
             userId = rs.getString("id");
-            userName = rs.getString("name") != null ? rs.getString("name") : "";
             cardNumber = rs.getString("card_number") != null ? rs.getString("card_number") : "";
         }
         rs.close();
@@ -128,14 +126,10 @@
 			<strong>결제 금액:</strong>
 			<%= price %>원
 		</p>
-		<p>
-			<strong>구매자:</strong>
-			<%= userName %></p>
-		<p>
 			<strong>카드 번호:</strong>
 			<%= cardNumber %></p>
 	</div>
 	<a class="btn" href="movie.jsp?id=<%= movieId %>">영화 보러가기</a> <a
-		class="btn" href="/index.jsp">홈으로</a>
+		class="btn" href="../home.jsp">홈으로</a>
 	<% } %>
 </div>

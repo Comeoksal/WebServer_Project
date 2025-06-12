@@ -5,53 +5,21 @@
 
 <%
     String userEmail = (String) session.getAttribute("user_email");
-    if (userEmail == null) {
-        response.sendRedirect("../signIn/login.jsp");
-        return;
-    }
-
-    String cardNumber = "";
-    String userName = "";
-    String planName = "";
-    int planPrice = 0;
+   
     int planId = Integer.parseInt(request.getParameter("membership_id"));
-
-    Connection conn = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-
-    try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection(
-            "jdbc:mysql://shortline.proxy.rlwy.net:58435/railway", "root", "pZCeLltpdUdDDzaYfEpPwBIIRTrIomgt"
-        );
-
-        pstmt = conn.prepareStatement("SELECT card_number, name FROM user WHERE email = ?");
-        pstmt.setString(1, userEmail);
-        rs = pstmt.executeQuery();
-        if (rs.next()) {
-            cardNumber = rs.getString("card_number") != null ? rs.getString("card_number") : "";
-            userName = rs.getString("name") != null ? rs.getString("name") : "";
-        }
-        rs.close();
-        pstmt.close();
-
-        pstmt = conn.prepareStatement("SELECT name, price FROM membership WHERE id = ?");
-        pstmt.setInt(1, planId);
-        rs = pstmt.executeQuery();
-        if (rs.next()) {
-            planName = rs.getString("name");
-            planPrice = rs.getInt("price");
-        }
-
-    } catch (Exception e) {
-        out.println("<p style='color:red;'>데이터 조회 오류: " + e.getMessage() + "</p>");
-    } finally {
-        try { if (rs != null) rs.close(); } catch (Exception e) {}
-        try { if (pstmt != null) pstmt.close(); } catch (Exception e) {}
-        try { if (conn != null) conn.close(); } catch (Exception e) {}
-    }
+    pageContext.setAttribute("userEmail", userEmail);
+    pageContext.setAttribute("planId", planId);
 %>
+
+<sql:query dataSource="${ds}" var="userInfo">
+    SELECT card_number FROM user WHERE email = ?
+    <sql:param value="${userEmail}" />
+</sql:query>
+
+<sql:query dataSource="${ds}" var="planInfo">
+    SELECT name, price FROM membership WHERE id = ?
+    <sql:param value="${planId}" />
+</sql:query>
 
 <style>
 .pay-container {
@@ -107,31 +75,40 @@
 </style>
 
 <div class="pay-container">
-	<h2>결제 정보 입력</h2>
-	<div class="info-line">
-		선택한 멤버십: <strong><%= planName %></strong><br> 결제 금액: <strong><%= planPrice %>원</strong>
-	</div>
-	<form method="post" action="processPayment.jsp"
-		onsubmit="return validateForm(event)">
-		<input type="hidden" name="membership_id" value="<%= planId %>">
-		<label>카드번호</label> <input type="text" name="card_number"
-			value="<%= cardNumber %>" pattern="\d{16}" title="16자리 숫자" required />
-		<label>은행 선택</label><select name="bank" required>
-			<option value="">은행을 선택하세요</option>
-			<option value="국민은행">국민은행</option>
-			<option value="신한은행">신한은행</option>
-			<option value="우리은행">우리은행</option>
-			<option value="하나은행">하나은행</option>
-			<option value="농협은행">농협은행</option>
-			<option value="카카오뱅크">카카오뱅크</option>
-			<option value="토스뱅크">토스뱅크</option>
-		</select> 
-		<label>비밀번호 확인</label> <input type="password" name="password"
-			placeholder="비밀번호를 입력하세요" required />
-		<button type="submit">결제하기</button>
-		<button type="button" onclick="window.location.href='membership.jsp'">돌아가기</button>
-	</form>
+    <h2>결제 정보 입력</h2>
+    <div class="info-line">
+        선택한 멤버십: <strong>${planInfo.rows[0].name}</strong><br>
+        결제 금액: <strong>${planInfo.rows[0].price}원</strong>
+    </div>
+
+    <form method="post" action="processPayment.jsp" onsubmit="return validateForm(event)">
+        <input type="hidden" name="membership_id" value="${param.membership_id}" />
+
+        <label>카드번호</label>
+        <input type="text" name="card_number"
+               value="${userInfo.rows[0].card_number}"
+               pattern="\d{16}" title="16자리 숫자" required />
+
+        <label>은행 선택</label>
+        <select name="bank" required>
+            <option value="">은행을 선택하세요</option>
+            <option value="국민은행">국민은행</option>
+            <option value="신한은행">신한은행</option>
+            <option value="우리은행">우리은행</option>
+            <option value="하나은행">하나은행</option>
+            <option value="농협은행">농협은행</option>
+            <option value="카카오뱅크">카카오뱅크</option>
+            <option value="토스뱅크">토스뱅크</option>
+        </select>
+
+        <label>비밀번호 확인</label>
+        <input type="password" name="password" placeholder="비밀번호를 입력하세요" required />
+
+        <button type="submit">결제하기</button>
+        <button type="button" onclick="window.location.href='membership.jsp'">돌아가기</button>
+    </form>
 </div>
+
 
 <script>
 function validateForm(event) {
