@@ -1,70 +1,55 @@
 <%@ page contentType="text/html; charset=utf-8" %>
-<%@ page import="java.sql.*" %>
-<%@ include file="../dbconn.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ include file="../dbconn.jsp" %>
 
 <%
-request.setCharacterEncoding("utf-8");
-
-String email = request.getParameter("email");
-String password = request.getParameter("password");
-String confirm = request.getParameter("confirm");
-String phone = request.getParameter("phone");
-
-if (email == null || password == null || confirm == null || phone == null ||
-    email.trim().equals("") || password.trim().equals("") || confirm.trim().equals("") || phone.trim().equals("")) {
-    response.sendRedirect("register.jsp?error=empty");
-    return;
-}
-
-if (!password.equals(confirm)) {
-    response.sendRedirect("register.jsp?error=mismatch");
-    return;
-}
-
-Connection conn = null;
-PreparedStatement pstmt = null;
-
-try {
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    String jdbcUrl = "jdbc:mysql://shortline.proxy.rlwy.net:58435/railway";
-    String dbUser = "root";
-    String dbPassword = "pZCeLltpdUdDDzaYfEpPwBIIRTrIomgt";
-
-    conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
-
-    String checkSql = "SELECT COUNT(*) FROM user WHERE email = ?";
-    pstmt = conn.prepareStatement(checkSql);
-    pstmt.setString(1, email);
-    ResultSet rs = pstmt.executeQuery();
-
-    if (rs.next() && rs.getInt(1) > 0) {
-        response.sendRedirect("register.jsp?error=exists");
-        return;
-    }
-    pstmt.close();
-
-    String insertSql = "INSERT INTO user (email, password, nickname, role, created_at, membership_id, phone) VALUES (?, ?, ?, ?, NOW(), ?, ?)";
-    pstmt = conn.prepareStatement(insertSql);
-    pstmt.setString(1, email);
-    pstmt.setString(2, password);
-    pstmt.setString(3, ""); 
-    pstmt.setString(4, "user");
-    pstmt.setInt(5, 1); 
-    pstmt.setString(6, phone); 
-    int result = pstmt.executeUpdate();
-
-    if (result > 0) {
-        response.sendRedirect("login.jsp?registered=true");
-    } else {
-        response.sendRedirect("register.jsp?error=fail");
-    }
-
-} catch (Exception e) {
-    e.printStackTrace();
-    response.sendRedirect("register.jsp?error=exception");
-} finally {
-    if (pstmt != null) try { pstmt.close(); } catch (Exception e) {}
-    if (conn != null) try { conn.close(); } catch (Exception e) {}
-}
+  request.setCharacterEncoding("UTF-8");
 %>
+
+<c:set var="email" value="${param.email}" />
+<c:set var="password" value="${param.password}" />
+<c:set var="confirm" value="${param.confirm}" />
+<c:set var="phone" value="${param.phone}" />
+
+<c:if test="${empty email or empty password or empty confirm or empty phone}">
+  <c:redirect url="register.jsp?error=empty" />
+</c:if>
+
+<c:if test="${password ne confirm}">
+  <c:redirect url="register.jsp?error=mismatch" />
+</c:if>
+
+<!-- 이메일 중복 확인 -->
+<sql:query dataSource="${ds}" var="emailCheck">
+  SELECT COUNT(*) AS cnt FROM user WHERE email = ?
+  <sql:param value="${email}" />
+</sql:query>
+
+<!-- 전화번호 중복 확인 -->
+<sql:query dataSource="${ds}" var="phoneCheck">
+  SELECT COUNT(*) AS cnt FROM user WHERE phone = ?
+  <sql:param value="${phone}" />
+</sql:query>
+
+<c:choose>
+  <c:when test="${emailCheck.rows[0].cnt > 0}">
+    <c:redirect url="register.jsp?error=email_exists" />
+  </c:when>
+
+  <c:when test="${phoneCheck.rows[0].cnt > 0}">
+    <c:redirect url="register.jsp?error=phone_exists" />
+  </c:when>
+
+  <c:otherwise>
+    <sql:update dataSource="${ds}">
+      INSERT INTO user (email, password, nickname, role, created_at, membership_id, phone)
+      VALUES (?, ?, '', 'user', NOW(), 1, ?)
+      <sql:param value="${email}" />
+      <sql:param value="${password}" />
+      <sql:param value="${phone}" />
+    </sql:update>
+
+    <c:redirect url="login.jsp?registered=true" />
+  </c:otherwise>
+</c:choose>
