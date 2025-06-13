@@ -10,16 +10,16 @@
 	</c:when>
 	<c:otherwise>
 
-		<!-- 현재 유저 정보 조회 (멤버십 ID, 카드번호 등) -->
-			<c:set var="userId" value="${sessionScope.userId}" />
+		<c:set var="userId" value="${sessionScope.userId}" />
 		<sql:query dataSource="${ds}" var="userInfo">
-  SELECT u.id as uid, u.membership_id as u_mem, u.card_number,
-         m.id as m_id, m.name as name
-  FROM user u
-  JOIN membership m ON u.membership_id = m.id
-  WHERE u.id = ?
+SELECT u.id, u.membership_id, u.card_number,
+       m.id as m_id, m.name
+FROM user u
+JOIN membership m ON u.membership_id = m.id
+WHERE u.id = ?
+
   <sql:param value="${sessionScope.userId}" />
-</sql:query>
+		</sql:query>
 
 
 		<c:forEach var="info" items="${userInfo.rows}">
@@ -34,8 +34,8 @@
               </c:otherwise>
 						</c:choose>
 					</span>
-				</h1> 
-				
+				</h1>
+
 				<sql:query dataSource="${ds}" var="plans">
           SELECT id, name, content, price FROM membership
         </sql:query>
@@ -43,6 +43,8 @@
 				<form method="post" action="membershipPay.jsp">
 					<c:forEach var="plan" items="${plans.rows}">
 						<c:set var="isCurrent" value="${plan.id == info.membership_id}" />
+					
+
 						<div class="membership-box"
 							style="<c:if test='${isCurrent}'>background-color:#ECF7FF; border:2px solid #2196F3;</c:if>">
 							<div>
@@ -51,13 +53,22 @@
 								<div class="membership-content" style="font-size: smaller;">${plan.content}</div>
 								<div class="membership-price">${plan.price}원</div>
 							</div>
-							<button type="submit" name="membership_id" value="${plan.id}"
-								class="membership-btn">결제</button>
+
+							<c:choose>
+								<c:when test="${plan.id == info.membership_id}">
+									<button type="button" class="membership-btn"
+										onclick="alert('현재 선택 중인 플랜입니다.')">결제</button>
+								</c:when>
+								<c:otherwise>
+									<button type="submit" name="membership_id" value="${plan.id}"
+										class="membership-btn">결제</button>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</c:forEach>
 				</form>
 
-				<!-- 카드번호 등록 -->
+
 				<form action="cardRegister.jsp" method="post"
 					style="margin-top: 30px;">
 					<label class="membership-label">카드번호 등록</label>
@@ -80,3 +91,4 @@
 		</c:forEach>
 	</c:otherwise>
 </c:choose>
+

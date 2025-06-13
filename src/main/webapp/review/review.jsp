@@ -65,11 +65,9 @@
 
 <%@ include file="../header.jsp" %>
 <%@ include file="../dbconn.jsp" %>
-<%-- JSP 변수 movieId를 JSTL 변수로 설정 --%>
 <%
   String movieId = request.getParameter("id");
-/*   String userId = String.valueOf(session.getAttribute("userId"));
- */  request.setAttribute("movieId", movieId);  // 이것도 유지
+  request.setAttribute("movieId", movieId); 
   request.setAttribute("userId", userId);
 %>
 

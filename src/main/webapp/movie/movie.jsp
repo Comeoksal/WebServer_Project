@@ -103,6 +103,10 @@ body {
     <sql:param value="${param.id}" />
 </sql:query>
 
+<c:if test="${empty detail.rows}">
+    <c:redirect url="exceptionNoMovieId.jsp" />
+</c:if>
+
 <sql:query dataSource="${ds}" var="wishCount">
     SELECT COUNT(*) AS count FROM wishlist WHERE movie_id = ?
     <sql:param value="${param.id}" />

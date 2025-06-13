@@ -28,6 +28,13 @@
     <sql:param value="${movieId}" />
 </sql:update>
 
+<sql:update dataSource="${ds}">
+	update movie set score = (select avg(score) from review where movie_id = ?)
+	where id = ?
+	<sql:param value="${movieId}" />
+	<sql:param value="${movieId}" />
+</sql:update>
+
 <script>
     alert("리뷰가 성공적으로 등록되었습니다.");
     location.href = "../movie/movie.jsp?id=${movieId}";

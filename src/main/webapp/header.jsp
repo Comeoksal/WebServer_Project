@@ -50,7 +50,7 @@ String role = (String) session.getAttribute("role");
 }
 
 .nav-right form {
-    margin: 0; /* form의 기본 margin 제거 */
+    margin: 0;
 }
 
 .nav-right .login-btn {
@@ -108,7 +108,7 @@ String role = (String) session.getAttribute("role");
                             </form>
                         </c:when>
                         <c:when test="${row.role eq 'admin'}">
-                            <form action="${pageContext.request.contextPath}/admin/header_admin.jsp" style="margin-right: 15px;">
+                            <form action="${pageContext.request.contextPath}/admin/home_admin.jsp" style="margin-right: 15px;">
                                 <button class="login-btn">관리자 페이지</button>
                             </form>
                         </c:when>

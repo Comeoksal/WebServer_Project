@@ -15,60 +15,41 @@
     <%@ include file="header_admin.jsp" %>
    	<%@ include file="../dbconn.jsp" %>
     <sql:query dataSource="${ds}" var="result">
-        SELECT r.id, u.email, u.nickname, m.title, r.content, r.score
-		FROM review r
-		JOIN movie m ON r.movie_id = m.id
-		JOIN user u ON r.user_id = u.id
+        select * from log order by start_time desc limit 20
     </sql:query>
 
 <div class="container mt-5">
-    <!-- 상단 타이틀 + 버튼을 flex로 구성 -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="mb-0"><fmt:message key="admin_reviews_main" /></h2>
+        <h2 class="mb-0"><fmt:message key="admin_home_main" /></h2>
     </div>
 
-    <!-- 테이블을 중앙 정렬 -->
     <div class="table-responsive">
         <table class="table table-bordered text-center mx-auto" style="max-width: 1200px;">
             <thead class="table-light">
                 <tr>
-                	<th><fmt:message key="admin_reviews_reviewId" /></th>
-                    <th><fmt:message key="admin_reviews_user" /></th>
-                    <th><fmt:message key="admin_movies_title" /></th>
-                    <th><fmt:message key="admin_reviews_content" /></th>
-                    <th><fmt:message key="admin_reviews_score" /></th>
-                    <th><fmt:message key="admin_delete" /></th>
+                	<th><fmt:message key="admin_home_startTime" /></th>
+                    <th><fmt:message key="admin_users_userId" /></th>
+                    <th><fmt:message key="admin_home_userIp" /></th>
+                    <th><fmt:message key="admin_home_userUrl" /></th>
+                    <th><fmt:message key="admin_home_clearTime" /></th>
+                    <th><fmt:message key="admin_home_userAgent" /></th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="row" items="${result.rows}">
                     <tr>
-                        <td>${row.id}</td>
-                        <td>
-						  <c:choose>
-						    <c:when test="${not empty row.nickname}">
-						      ${row.nickname}
-						    </c:when>
-						    <c:otherwise>
-						      ${row.email}
-						    </c:otherwise>
-						  </c:choose>
-						</td>
-                        <td>${row.title}</td>
-                        <td>${row.content}</td>
-                        <td>${row.score}</td>
-                        <td>
-                            <a href="processDeleteReview_admin.jsp?id=${row.id}" class="btn btn-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">
-                                <fmt:message key="admin_delete" />
-                            </a>
-                        </td>
+                        <td>${row.start_time}</td>
+                        <td>${row.user_id}</td>
+                        <td>${row.ip}</td>
+                        <td>${row.url}</td>
+                        <td>${row.clear_time}</td>
+                        <td>${row.user_agent}</td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
     </div>
 </div>
-
 </fmt:bundle>
 </body>
 </html>

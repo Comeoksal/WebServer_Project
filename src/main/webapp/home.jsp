@@ -47,7 +47,6 @@ a {
 .movie-box {
 	margin: 1px;
     width: 300px; 
-    width: 300px;
     flex-shrink: 0;
 }
 
@@ -118,40 +117,21 @@ a {
     }
 </style>
 
-</head>
 <body>
 <%@ include file="header.jsp"%>
-
-<%
-    String query = request.getParameter("query");
-    String sort = request.getParameter("sort");
-%>
-
+<%@ include file="dbconn.jsp" %>
+<sql:query dataSource="${ds}" var="result">
+            SELECT * FROM movie
+            ORDER BY score DESC
+</sql:query>
+</head>
 <div class="container">
     <div class="left-feature">
     	<h1>공개 예정</h1>
         <img src="<c:url value='/resources/images/starwars_g.gif' />" alt="추천 영화 포스터">
     </div>
-
     <div class="right-list">
-        <%@ include file="dbconn.jsp" %>
 		<h1>모두의 인기작</h1>
-        <sql:query dataSource="${ds}" var="result">
-            SELECT * FROM movie
-            WHERE title LIKE '%${param.query}%'
-            <c:choose>
-                <c:when test="${param.sort == 'popular'}">
-                    ORDER BY score DESC
-                </c:when>
-                <c:when test="${param.sort == 'oldest'}">
-                    ORDER BY release_date ASC
-                </c:when>
-                <c:otherwise>
-                    ORDER BY release_date DESC
-                </c:otherwise>
-            </c:choose>
-        </sql:query>
-
         <div class="clearfix">
             <c:forEach var="row" items="${result.rows}">
                 <div class="movie-box">
