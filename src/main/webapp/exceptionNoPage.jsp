@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,10 +69,7 @@ h2 {
 <body>
 <%@ include file="header.jsp"%>
 <div class="login-container">
-		<img
-			src="<%=request.getContextPath()%>/resources/images/movitLogo.png"
-			alt="movit 로고" class="login-logo" />
-
+		<img src="<%=request.getContextPath()%>/resources/images/movitLogo.png" class="login-logo" />
 		<h2 style="font-size: 45px;">movit</h2>
 		<div class="error-box">
 			<h2>요청하신 페이지는 찾을 수 없습니다.</h2>

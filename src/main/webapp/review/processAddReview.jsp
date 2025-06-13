@@ -2,26 +2,15 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="movieId" value="${param.movie_id}" />
+<c:set var="userId" value="${param.user_id}" />
+<c:set var="score" value="${param.score}" />
+<c:set var="content" value="${param.content}" />
+
 <%@ include file="../dbconn.jsp" %>
-
-<%
-    request.setCharacterEncoding("utf-8");
-
-    String movieId = request.getParameter("movie_id");
-    String userId = request.getParameter("user_id");
-    String score = request.getParameter("score");
-    String content = request.getParameter("content");
-
-    // JSTL에서 사용할 수 있게 request에 저장
-    request.setAttribute("movieId", movieId);
-    request.setAttribute("userId", userId);
-    request.setAttribute("score", score);
-    request.setAttribute("content", content);
-%>
-
 <sql:update dataSource="${ds}">
-    INSERT INTO review (content, score, user_id, movie_id)
-    VALUES (?, ?, ?, ?)
+    insert into review (content, score, user_id, movie_id)
+    values (?, ?, ?, ?)
     <sql:param value="${content}" />
     <sql:param value="${score}" />
     <sql:param value="${userId}" />
