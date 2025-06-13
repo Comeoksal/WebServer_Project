@@ -91,7 +91,7 @@
     <input type="hidden" name="user_id" value="${userId}" />
 
     <label for="score">평점 (0.0 ~ 5.0)</label>
-    <input type="number" name="score" step="0.1" min="0" max="5" required />
+    <input type="number" name="score" step="0.1						" min="0" max="5" required />
 
     <label for="content">리뷰 내용</label>
     <textarea name="content" rows="6" required></textarea>

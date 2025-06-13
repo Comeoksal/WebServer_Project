@@ -124,7 +124,7 @@ body {
 </sql:query>
 
 <sql:query dataSource="${ds}" var="avgScore">
-    SELECT ROUND(AVG(score), 1) AS avg FROM review WHERE movie_id = ?
+    select score from movie where id = ?
     <sql:param value="${param.id}" />
 </sql:query>
 <sql:query dataSource="${ds}" var="hasReviewed">
@@ -236,11 +236,11 @@ body {
 				</div>
 				<div class="meta-row">
 					<span>평점: <c:choose>
-							<c:when test="${empty avgScore.rows[0].avg}">
+							<c:when test="${empty avgScore.rows[0].score}">
             등록된 평점 없음
         </c:when>
 							<c:otherwise>
-            ${avgScore.rows[0].avg} / 5.0
+            ${avgScore.rows[0].score} / 5.0
         </c:otherwise>
 						</c:choose>
 					</span>
