@@ -22,7 +22,6 @@
 		<c:set var="nickname" value="${user.nickname}" scope="session" />
 		<c:set var="user_email" value="${user.email}" scope="session" />
 		<c:set var="role" value="${user.role}" scope="session" />
-    	<c:set var="membership_id" value="${user.membership_id}" scope="session" />
 		<%
     		response.sendRedirect("../home.jsp");
 		%>

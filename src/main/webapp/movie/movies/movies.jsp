@@ -8,7 +8,7 @@
 <style>
 
 body {
-    margin: 0;
+   	margin: 0;
     background-color: #0F111A; 
     color: #e0e0e0;
     font-family: 'Arial', sans-serif;
@@ -93,8 +93,7 @@ a {
 }
 
 </style>
-
-    <title>영화 목록</title>
+	<title>영화 목록</title>
 </head>
 
 <body>
@@ -125,7 +124,6 @@ a {
     		</c:otherwise>
   		</c:choose>
 	</sql:query>
-
     <div class="clearfix">
         <c:forEach var="row" items="${result.rows}">
     <div class="movie-box">
