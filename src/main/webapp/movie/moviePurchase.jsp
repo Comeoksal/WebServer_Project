@@ -25,57 +25,88 @@
   <sql:param value="${movieId}" />
 </sql:query>
 
-
 <style>
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #4f82c0; /* 배경은 이미지처럼 파란색 */
+    font-family: 'Malgun Gothic', '돋움', sans-serif;
+}
+
 .pay-container {
-	max-width: 500px;
-	margin: 40px auto;
-	background: #fff;
-	border: 2px solid #5D9CEC;
-	border-radius: 10px;
-	padding: 30px;
-	font-family: 'Segoe UI', sans-serif;
+    width: 360px;
+    margin: 80px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    box-shadow: none;
 }
 
 .pay-container h2 {
-	margin-bottom: 25px;
-	color: #333;
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
 }
 
-.pay-container label {
-	font-weight: bold;
-	margin-bottom: 5px;
-	display: block;
+.info-line {
+    font-size: 13px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 15px;
+    color: #444;
 }
 
-.pay-container input, .pay-container select {
-	width: 100%;
-	padding: 10px;
-	margin-bottom: 20px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
+label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: #222;
 }
 
-.pay-container .info-line {
-	font-size: 14px;
-	margin-bottom: 15px;
-	color: #555;
+input[type="text"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 7px;
+    font-size: 13px;
+    border: 1px solid #aaa;
+    background-color: #fff;
+    margin-bottom: 15px;
+    box-sizing: border-box;
 }
 
-.pay-container button {
-	margin-top: 40px;
-	width: 100%;
-	padding: 12px;
-	background-color: #5D9CEC;
-	color: white;
-	font-weight: bold;
-	border: none;
-	border-radius: 5px;
-	transition: background-color 0.3s ease;
+select {
+    background-color: #fff;
 }
 
-.pay-container button:hover {
-	background-color: #4a8be0;
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2c68bc;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #215599;
+}
+
+button[type="button"] {
+    background-color: #e4e4e4;
+    color: #222;
+    border: 1px solid #bbb;
+}
+
+button[type="button"]:hover {
+    background-color: #d0d0d0;
 }
 </style>
 
