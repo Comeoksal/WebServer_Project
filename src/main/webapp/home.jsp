@@ -33,8 +33,9 @@ a {
 
 .left-feature img {
 	width: 100%;
-	border-radius: 12px;
+	border-radius: 14px;
 	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+	padding: 10px;
 }
 
 .clearfix {
@@ -124,6 +125,12 @@ a {
 		<div class="left-feature">
 			<h1>공개 예정</h1>
 			<img src="${pageContext.request.contextPath}/resources/images/starwars_g.gif">
+			<img src="${pageContext.request.contextPath}/resources/images/terminate_g.gif">
+			<img src="${pageContext.request.contextPath}/resources/images/girl_g.gif">
+			<img src="${pageContext.request.contextPath}/resources/images/ahladin_g.gif">
+			<img src="${pageContext.request.contextPath}/resources/images/007_g.gif">
+			<img src="${pageContext.request.contextPath}/resources/images/inception_g.gif">
+			<img src="${pageContext.request.contextPath}/resources/images/rara_g.gif">
 		</div>
 		<div class="right-list">
 			<h1>모두의 인기작</h1>

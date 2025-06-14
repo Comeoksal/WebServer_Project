@@ -1,35 +1,14 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="java.sql.*"%>
-<%@ include file="../../dbconn.jsp"%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="true"%>
-
-<c:if test="${empty sessionScope.user_email}">
-  <c:redirect url="../../signIn/login.jsp" />
-</c:if>
-
-<%
-	String userEmail = (String) session.getAttribute("user_email");
-	String movieId = request.getParameter("movie_id");
-	
-  	pageContext.setAttribute("movieId", movieId); 
-  	pageContext.setAttribute("userEmail", userEmail);
-%>
-
-<sql:query dataSource="${ds}" var="userInfo">
-  SELECT card_number FROM user WHERE email = ?
-  <sql:param value="${userEmail}" />
-</sql:query>
-
-<sql:query dataSource="${ds}" var="movieInfo">
-  SELECT title, price FROM movie WHERE id = ?
-  <sql:param value="${movieId}" />
-</sql:query>
 
 <style>
 body {
     margin: 0;
     padding: 0;
-    background-color: #4f82c0; /* 배경은 이미지처럼 파란색 */
+    background-color: #4f82c0;
     font-family: 'Malgun Gothic', '돋움', sans-serif;
 }
 
@@ -110,19 +89,39 @@ button[type="button"]:hover {
 }
 </style>
 
+<c:set var="movieId" value="${param.movie_id}" />
+<c:set var="userId" value="${sessionScope.userId}" />
+
+<c:if test="${empty sessionScope.userId}">
+  <c:redirect url="../../signIn/login.jsp" />
+</c:if>
+
+<%@ include file="../../dbconn.jsp"%>
+<sql:query dataSource="${ds}" var="userInfo">
+  SELECT card_number FROM user WHERE id = ?
+  <sql:param value="${userId}" />
+</sql:query>
+<c:set var="userInfo" value="${userInfo.rows[0]}" />
+
+<sql:query dataSource="${ds}" var="movieInfo">
+  SELECT title, price FROM movie WHERE id = ?
+  <sql:param value="${movieId}" />
+</sql:query>
+<<c:set var="movieInfo" value="${movieInfo.rows[0]}" />
+
 <div class="pay-container">
   <h2>영화 구매</h2>
 
   <div class="info-line">
-    선택한 영화: <strong>${movieInfo.rows[0].title}</strong><br>
-    결제 금액: <strong>${movieInfo.rows[0].price}원</strong>
+    선택한 영화: <strong>${movieInfo.title}</strong><br>
+    결제 금액: <strong>${movieInfo.price}원</strong>
   </div>
 
-  <form method="post" action="moviePurchaseConfirm.jsp" onsubmit="return validateForm(event)">
+  <form method="post" action="processMoviePurchase.jsp" onsubmit="return validateForm(event)">
     <input type="hidden" name="movie_id" value="${movieId}" />
 
     <label>카드번호</label>
-    <input type="text" name="card_number"  value="${userInfo.rows[0].card_number}"
+    <input type="text" name="card_number"  value="${userInfo.card_number}"
       pattern="\d{16}" title="16자리 숫자" required />
 
     <label>은행 선택</label>

@@ -1,30 +1,14 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="java.sql.*"%>
-<%@ include file="../dbconn.jsp"%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="true"%>
 
-<%
-    String userEmail = (String) session.getAttribute("user_email");
-   
-    int planId = Integer.parseInt(request.getParameter("membership_id"));
-    pageContext.setAttribute("userEmail", userEmail);
-    pageContext.setAttribute("planId", planId);
-%>
-
-<sql:query dataSource="${ds}" var="userInfo">
-    SELECT card_number FROM user WHERE email = ?
-    <sql:param value="${userEmail}" />
-</sql:query>
-
-<sql:query dataSource="${ds}" var="planInfo">
-    SELECT name, price FROM membership WHERE id = ?
-    <sql:param value="${planId}" />
-</sql:query>
 <style>
 body {
     margin: 0;
     padding: 0;
-    background-color: #4f82c0; /* 배경은 이미지처럼 파란색 */
+    background-color: #4f82c0;
     font-family: 'Malgun Gothic', '돋움', sans-serif;
 }
 
@@ -105,21 +89,35 @@ button[type="button"]:hover {
 }
 </style>
 
+<c:set var="userId" value="${sessionScope.userId}" />
+<c:set var="membershipId" value="${param.membership_id}" />
 
+<%@ include file="../dbconn.jsp"%>
+<sql:query dataSource="${ds}" var="userInfo">
+    SELECT card_number FROM user WHERE id = ?
+    <sql:param value="${userId}" />
+</sql:query>
+<c:set var="userInfo" value="${userInfo.rows[0]}" />
+
+<sql:query dataSource="${ds}" var="membershipInfo">
+    SELECT name, price FROM membership WHERE id = ?
+    <sql:param value="${membershipId}" />
+</sql:query>
+<c:set var="membershipInfo" value="${membershipInfo.rows[0]}" />
 
 <div class="pay-container">
     <h2>결제 정보 입력</h2>
     <div class="info-line">
-        선택한 멤버십: <strong>${planInfo.rows[0].name}</strong><br>
-        결제 금액: <strong>${planInfo.rows[0].price}원</strong>
+        선택한 멤버십: <strong>${membershipInfo.name}</strong><br>
+        결제 금액: <strong>${membershipInfo.price}원</strong>
     </div>
 
-    <form method="post" action="processPayment.jsp" onsubmit="return validateForm(event)">
-        <input type="hidden" name="membership_id" value="${param.membership_id}" />
+    <form method="post" action="processMembershipPay.jsp" onsubmit="return validateForm(event)">
+        <input type="hidden" name="membership_id" value="${membershipId}" />
 
         <label>카드번호</label>
         <input type="text" name="card_number"
-               value="${userInfo.rows[0].card_number}"
+               value="${userInfo.card_number}"
                pattern="\d{16}" title="16자리 숫자" required />
 
         <label>은행 선택</label>

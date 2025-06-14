@@ -64,7 +64,7 @@ h2 {
 }
 
 </style>
-<title>전역 오류 페이지</title>
+	<title>전역 오류 페이지</title>
 </head>
 <body>
 <%@ include file="header.jsp"%>
