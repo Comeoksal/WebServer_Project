@@ -19,7 +19,6 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #0F111A;
-	font-family: 'Noto Sans KR', sans-serif;
 	color: white;
 	padding-top: 80px;
 }

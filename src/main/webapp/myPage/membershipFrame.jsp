@@ -9,42 +9,38 @@
 		<c:redirect url="../signIn/login.jsp" />
 	</c:when>
 	<c:otherwise>
-
 		<c:set var="userId" value="${sessionScope.userId}" />
-		<sql:query dataSource="${ds}" var="userInfo">
-SELECT u.id, u.membership_id, u.card_number,
-       m.id as m_id, m.name
-FROM user u
-JOIN membership m ON u.membership_id = m.id
-WHERE u.id = ?
-
-  <sql:param value="${sessionScope.userId}" />
-		</sql:query>
-
-
+			<sql:query dataSource="${ds}" var="userInfo">
+				SELECT u.id, u.membership_id, u.card_number, m.id as m_id, m.name FROM user u
+				JOIN membership m ON u.membership_id = m.id
+				WHERE u.id = ?
+				<sql:param value="${sessionScope.userId}" />
+			</sql:query>
+			
 		<c:forEach var="info" items="${userInfo.rows}">
 			<div class="info-panel membership-panel">
 				<h1 style="font-size: 45px;">
-					멤버십 <span style="font-size: 20px; color: #5D9CEC;"> 현재 플랜: <c:choose>
-							<c:when test="${not empty info.name}">
-                ${info.name}
-              </c:when>
-							<c:otherwise>
-                없음
-              </c:otherwise>
-						</c:choose>
+					멤버십 
+					<span style="font-size: 20px; color: #5D9CEC;"> 현재 플랜: 
+					<c:choose>
+						<c:when test="${not empty info.name}">
+							${info.name}
+						</c:when>
+						<c:otherwise>
+ 							없음
+						</c:otherwise>
+					</c:choose>
 					</span>
 				</h1>
-
+				
 				<sql:query dataSource="${ds}" var="plans">
-          SELECT id, name, content, price FROM membership
-        </sql:query>
+					SELECT id, name, content, price FROM membership
+				</sql:query>
 
 				<form method="post" action="membershipPay.jsp">
 					<c:forEach var="plan" items="${plans.rows}">
 						<c:set var="isCurrent" value="${plan.id == info.membership_id}" />
 					
-
 						<div class="membership-box"
 							style="<c:if test='${isCurrent}'>background-color:#ECF7FF; border:2px solid #2196F3;</c:if>">
 							<div>
@@ -68,23 +64,26 @@ WHERE u.id = ?
 					</c:forEach>
 				</form>
 
-
 				<form action="cardRegister.jsp" method="post"
 					style="margin-top: 30px;">
 					<label class="membership-label">카드번호 등록</label>
 					<div class="membership-input-row">
 						<input type="text" name="card" placeholder="카드번호 입력" required
 							class="membership-input" pattern="\d{16}" title="16자리 숫자를 입력하세요" />
-						<button type="submit" class="membership-btn">등록</button>
+							<button type="submit" class="membership-btn">등록</button>
 					</div>
 					<div style="margin-top: 10px; font-size: 14px; color: #333;">
-						현재 등록된 카드번호: <strong> <c:choose>
-								<c:when test="${not empty info.card_number}">
-                  ${info.card_number}
-                </c:when>
-								<c:otherwise>등록된 카드가 없습니다.</c:otherwise>
-							</c:choose>
-						</strong>
+						현재 등록된 카드번호:
+					<strong> 
+						<c:choose>
+							<c:when test="${not empty info.card_number}">
+                  				${info.card_number}
+                			</c:when>
+						<c:otherwise>
+							등록된 카드가 없습니다.
+						</c:otherwise>
+						</c:choose>
+					</strong>
 					</div>
 				</form>
 			</div>

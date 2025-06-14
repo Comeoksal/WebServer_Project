@@ -4,11 +4,11 @@
 <%@ page session="true"%>
 
 <%
-    String userEmail = (String) session.getAttribute("user_email");
+	String userEmail = (String) session.getAttribute("user_email");
    
-    int planId = Integer.parseInt(request.getParameter("membership_id"));
-    pageContext.setAttribute("userEmail", userEmail);
-    pageContext.setAttribute("planId", planId);
+	int planId = Integer.parseInt(request.getParameter("membership_id"));
+	pageContext.setAttribute("userEmail", userEmail);
+	pageContext.setAttribute("planId", planId);
 %>
 
 <sql:query dataSource="${ds}" var="userInfo">
@@ -20,12 +20,12 @@
     SELECT name, price FROM membership WHERE id = ?
     <sql:param value="${planId}" />
 </sql:query>
+
 <style>
 body {
     margin: 0;
     padding: 0;
-    background-color: #4f82c0; /* 배경은 이미지처럼 파란색 */
-    font-family: 'Malgun Gothic', '돋움', sans-serif;
+    background-color: #4f82c0; 
 }
 
 .pay-container {
@@ -105,8 +105,6 @@ button[type="button"]:hover {
 }
 </style>
 
-
-
 <div class="pay-container">
     <h2>결제 정보 입력</h2>
     <div class="info-line">
@@ -142,15 +140,14 @@ button[type="button"]:hover {
     </form>
 </div>
 
-
 <script>
 function validateForm(event) {
-  const card = document.querySelector('input[name="card_number"]').value;
-  if (!/^\d{16}$/.test(card)) {
-    alert("카드번호는 16자리 숫자여야 합니다.");
-    event.preventDefault();
-    return false;
-  }
-  return true;
+	const card = document.querySelector('input[name="card_number"]').value;
+	if (!/^\d{16}$/.test(card)) {
+		alert("카드번호는 16자리 숫자여야 합니다.");
+		event.preventDefault();
+		return false;
+	}
+	return true;
 }
 </script>

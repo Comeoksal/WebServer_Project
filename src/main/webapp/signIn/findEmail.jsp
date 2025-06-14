@@ -107,7 +107,7 @@ h2 {
 	font-size: 16px;
 	border: none;
 	border-radius: 10px;
-	width: 440px;
+	width: 400px;
 	cursor: pointer;
 }
 
@@ -128,8 +128,9 @@ h2 {
 .link-row {
 	display: flex;
 	justify-content: space-between;
-	width: 440px;
+	width: 390px;
 	font-size: 14px;
+	margin-left: 20px;
 	margin-top: 20px;
 	color: #aaa;
 }

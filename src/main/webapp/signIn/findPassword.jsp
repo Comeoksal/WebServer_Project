@@ -186,9 +186,9 @@ h2 {
 .link-row {
 	display: flex;
 	justify-content: space-between;
-	width: 440px;
+	width: 410px;
 	font-size: 14px;
-	margin-top: 20px;
+	margin-left: 20px;
 	color: #aaa;
 }
 </style>

@@ -30,7 +30,6 @@
 		<sql:param value="${value}" />
 		<sql:param value="${userEmail}" />
 	</sql:query>
-
 	<c:if test="${emailCheck.rows[0].cnt > 0}">
 		<c:redirect url="info.jsp?error=email_exists" />
 	</c:if>

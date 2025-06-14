@@ -9,12 +9,10 @@
 		<c:redirect url="../signIn/login.jsp" />
 	</c:when>
 	<c:otherwise>
-
 		<c:set var="userId" value="${sessionScope.userId}" />
-
 		<sql:query dataSource="${ds}" var="userResult">
-            SELECT nickname, phone, email FROM user WHERE id = ?
-            <sql:param value="${userId}" />
+			SELECT nickname, phone, email FROM user WHERE id = ?
+			<sql:param value="${userId}" />
 		</sql:query>
 
 		<c:forEach var="user" items="${userResult.rows}">
@@ -42,9 +40,9 @@
 					alert('정보가 성공적으로 수정되었습니다.');
 				</script>
 			</c:if>
+			
 			<div class="info-panel">
 				<h1 style="font-size: 45px;">내 정보</h1>
-
 				<div class="form-wrapper">
 					<form action="updateInfo.jsp" method="post">
 						<div class="form-group">
@@ -77,8 +75,5 @@
 				</div>
 			</div>
 		</c:forEach>
-
-
-
 	</c:otherwise>
 </c:choose>
