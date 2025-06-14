@@ -64,7 +64,7 @@ h2 {
 }
 
 </style>
-<title>인가 오류 페이지</title>
+	<title>인가 오류 페이지</title>
 </head>
 <body>
 <%@ include file="header.jsp"%>

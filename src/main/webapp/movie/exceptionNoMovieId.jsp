@@ -65,15 +65,12 @@ h2 {
 }
 
 </style>
-<title>영화 아이디 오류 페이지</title>
+	<title>영화 아이디 오류 페이지</title>
 </head>
 <body>
 <%@ include file="../header.jsp"%>
 <div class="login-container">
-		<img
-			src="<%=request.getContextPath()%>/resources/images/movitLogo.png"
-			alt="movit 로고" class="login-logo" />
-
+		<img src="<%=request.getContextPath()%>/resources/images/movitLogo.png" class="login-logo" />
 		<h2 style="font-size: 45px;">movit</h2>
 		<div class="error-box">
 			<h2>요청하신 영화는 존재하지 않습니다.</h2>

@@ -3,19 +3,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+	body {
+		margin: 0;
+		background-color: #0d1117;
+		color: #e0e0e0;
+		font-family: 'Arial', sans-serif;
+	}
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+	.container {
+		max-width: 1000px;
+		margin: 0 auto;
+		margin-top: 20px;
+	}
+</style>
+	<title>커뮤니티</title>
 <c:set var="sort" value="${param.sort}" />
-
-<c:choose>
-	<c:when test="${sort eq 'popular'}">
-		<c:set var="orderBy" value="like_count desc" />
-	</c:when>
-	<c:when test="${sort eq 'oldest'}">
-		<c:set var="orderBy" value="r.created_at asc" />
-	</c:when>
-	<c:otherwise>
-		<c:set var="orderBy" value="r.created_at desc" />
-	</c:otherwise>
-</c:choose>
 
 <%@ include file="../dbconn.jsp"%>
 <sql:query dataSource="${ds}" var="reviews">
@@ -25,37 +34,26 @@
 	left join like_review l on r.id = l.review_id
 	where m.title like ?
 	group by r.id, r.content, r.score, m.title, m.id
-	order by ${orderBy}
+	<c:choose>
+		<c:when test="${sort == 'popular'}">
+			order by like_count desc
+		</c:when>
+		<c:when test="${sort == 'oldest'}">
+			order by r.created_at asc
+		</c:when>
+		<c:otherwise>
+			order by r.created_at desc
+		</c:otherwise>
+	</c:choose>
 	limit 50
 	<sql:param value="%${param.query}%" />
 </sql:query>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<style>
-		body {
-			margin: 0;
-			background-color: #0d1117;
-			color: #e0e0e0;
-			font-family: 'Arial', sans-serif;
-		}
-		a {
-			color: inherit;
-			text-decoration: none;
-		}
-		.container {
-			max-width: 1000px;
-			margin: 0 auto;
-			margin-top: 20px;
-		}
-	</style>
-	<title>커뮤니티</title>
 </head>
 <body>
-	<%@ include file="../header.jsp"%>
-	<div style="margin-top: 60px;"></div>
-	<%@ include file="../search_header.jsp"%>
+<%@ include file="../header.jsp"%>
+<div style="margin-top: 60px;"></div>
+<%@ include file="../search_header.jsp"%>
 	<div class="container">
 		<table style="width: 100%; border-collapse: collapse; color: white; margin-top: 20px;">
 			<thead style="background-color: #444;">
