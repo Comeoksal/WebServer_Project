@@ -4,7 +4,6 @@
 
 <%
 String userEmail = (String) session.getAttribute("user_email");
-
 String userId = String.valueOf(session.getAttribute("userId"));
 String role = (String) session.getAttribute("role");
 %>

@@ -2,24 +2,18 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-    request.setCharacterEncoding("utf-8");
-    String reviewId = request.getParameter("id");
-%>
-
 <%@ include file="../../dbconn.jsp" %>
-
 <sql:update dataSource="${ds}">
-    DELETE FROM like_review WHERE review_id = ?
-    <sql:param value="<%= reviewId %>" />
+	delete from like_review where review_id = ?
+	<sql:param value="${param.id}" />
 </sql:update>
 
 <sql:update dataSource="${ds}">
-    DELETE FROM review WHERE id = ?
-    <sql:param value="<%= reviewId %>" />
+	delete from review where id = ?
+	<sql:param value="${param.id}" />
 </sql:update>
 
 <script>
-    alert("리뷰가 삭제되었습니다.");
-    location.href = "reviews_admin.jsp";
+	alert("리뷰가 삭제되었습니다.");
+	location.href = "reviews_admin.jsp";
 </script>
