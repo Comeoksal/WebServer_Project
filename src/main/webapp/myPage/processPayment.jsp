@@ -4,17 +4,17 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ include file="../dbconn.jsp" %>
 
-<c:set var="userEmail" value="${sessionScope.user_email}" />
+<c:set var="userId" value="${sessionScope.userId}" />
 <c:set var="inputPassword" value="${param.password}" />
 <c:set var="membershipId" value="${param.membership_id}" />
 
-<c:if test="${empty userEmail}">
+<c:if test="${empty userId}">
 	<c:redirect url="../signIn/login.jsp" />
 </c:if>
 
 <sql:query var="userCheck" dataSource="${ds}">
-	SELECT password FROM user WHERE email = ?
-	<sql:param value="${userEmail}" />
+	SELECT password FROM user WHERE id = ?
+	<sql:param value="${userId}" />
 </sql:query>
 
 <c:set var="storedPassword" value="${userCheck.rows[0].password}" />
@@ -22,9 +22,9 @@
 
 <c:if test="${passwordMatch}">
 	<sql:update dataSource="${ds}">
-		UPDATE user SET membership_id = ? WHERE email = ?
+		UPDATE user SET membership_id = ? WHERE id = ?
 		<sql:param value="${membershipId}" />
-		<sql:param value="${userEmail}" />
+		<sql:param value="${userId}" />
 	</sql:update>
 
 	<script>
@@ -55,3 +55,4 @@
 		history.back();
 	</script>
 </c:if>
+

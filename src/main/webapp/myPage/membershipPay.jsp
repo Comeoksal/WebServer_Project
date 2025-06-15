@@ -88,7 +88,6 @@ button[type="button"]:hover {
 }
 </style>
 
-
 <c:set var="userId" value="${sessionScope.userId}" />
 <c:set var="membershipId" value="${param.membership_id}" />
 
