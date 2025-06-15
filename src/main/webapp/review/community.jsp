@@ -79,7 +79,6 @@ td:first-child {
 	<title>커뮤니티</title>
 <c:set var="sort" value="${param.sort}" />
 <c:set var="userId" value="${sessionScope.userId}" />
-<%@ include file="../dbconn.jsp"%>
 
 </head>
 <body>
