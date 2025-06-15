@@ -71,8 +71,7 @@ html, body {
 
 	<div class="search-form">
 		<input type="text" name="query" value="${param.query}" /> <input
-			type="image" src="<c:url value='/resources/images/search.png' />"
-			alt="검색" /> <select name="sort">
+			type="image" src="<c:url value='/resources/images/search.png' />" /> <select name="sort">
 			<option value="latest" ${param.sort == 'latest' ? 'selected' : ''}>최신
 				순</option>
 			<option value="popular" ${param.sort == 'popular' ? 'selected' : ''}>인기
