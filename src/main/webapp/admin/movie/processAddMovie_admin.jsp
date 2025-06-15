@@ -4,21 +4,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.io.*, java.util.*, com.oreilly.servlet.*, com.oreilly.servlet.multipart.*" %>
 
-<c:if test="${not empty param.lang}">
-	<fmt:setLocale value="${param.lang}" scope="session" />
-</c:if>
-<fmt:bundle basename="bundle.admin" />
-
 <%
 	request.setCharacterEncoding("utf-8");
-	
+
 	String relativePath = "/resources/images";
 	String realFolder = application.getRealPath(relativePath);
 
 	int maxSize = 5 * 1024 * 1024;
 	String encType = "utf-8";
+
 	MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
 
+	String lang = multi.getParameter("lang");
 	String title = multi.getParameter("title");
 	String content = multi.getParameter("content");
 	String price = multi.getParameter("price");
@@ -28,9 +25,17 @@
 	Enumeration files = multi.getFileNames();
 	String fname = (String) files.nextElement();
 	String image = multi.getFilesystemName(fname);
+
+	if (lang != null && !lang.isEmpty()) {
+%>
+	<fmt:setLocale value="<%= lang %>" scope="session" />
+<%
+	}
 %>
 
+<fmt:bundle basename="bundle.admin" />
 <%@ include file="../../dbconn.jsp" %>
+
 <sql:update dataSource="${ds}">
 	insert into movie (title, content, price, score, release_date, image, link)
 	values (?, ?, ?, 0, ?, ?, ?)

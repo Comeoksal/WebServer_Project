@@ -95,139 +95,110 @@ body {
 }
 </style>
 
-<%@ include file="../header.jsp"%>
+<c:set var="userId" value="${sessionScope.userId}" />
+<c:set var="movieId" value="${param.id}" />
+
 <%@ include file="../dbconn.jsp"%>
-
-<sql:query dataSource="${ds}" var="detail">
-    SELECT * FROM movie WHERE id = ?
-    <sql:param value="${param.id}" />
+<sql:query dataSource="${ds}" var="movie">
+    select * from movie where id = ?
+    <sql:param value="${movieId}" />
 </sql:query>
+<c:set var="movie" value="${movie.rows[0]}" />
 
-<c:if test="${empty detail.rows}">
+<c:if test="${empty movie}">
     <c:redirect url="exceptionNoMovieId.jsp" />
 </c:if>
 
-<sql:query dataSource="${ds}" var="wishCount">
-    SELECT COUNT(*) AS count FROM wishlist WHERE movie_id = ?
-    <sql:param value="${param.id}" />
-</sql:query>
-
 <sql:query dataSource="${ds}" var="user">
-    SELECT membership_id FROM user WHERE id = ?
-    <sql:param value="${sessionScope.userId}" />
+    select * from user where id = ?
+    <sql:param value="${userId}" />
 </sql:query>
+<c:set var="user" value="${user.rows[0]}" />
+
+<sql:query dataSource="${ds}" var="wishCount">
+    select COUNT(*) as count from wishlist where movie_id = ?
+    <sql:param value="${movieId}" />
+</sql:query>
+<c:set var="wishCount" value="${wishCount.rows[0]}" />
 
 <sql:query dataSource="${ds}" var="hasPurchased">
-    SELECT COUNT(*) AS cnt FROM purchase WHERE user_id = ? AND movie_id = ?
-    <sql:param value="${sessionScope.userId}" />
-	<sql:param value="${param.id}" />
+    select COUNT(*) as count from purchase where user_id = ? and movie_id = ?
+    <sql:param value="${userId}" />
+	<sql:param value="${movieId}" />
 </sql:query>
+<c:set var="hasPurchased" value="${hasPurchased.rows[0]}" />
 
-<sql:query dataSource="${ds}" var="avgScore">
-    select score from movie where id = ?
-    <sql:param value="${param.id}" />
-</sql:query>
 <sql:query dataSource="${ds}" var="hasReviewed">
-    SELECT COUNT(*) AS cnt FROM review 
-    WHERE user_id = ? AND movie_id = ?
-    <sql:param value="${sessionScope.userId}" />
-	<sql:param value="${detail.rows[0].id}" />
+    select COUNT(*) AS count from review 
+    where user_id = ? and movie_id = ?
+    <sql:param value="${userId}" />
+	<sql:param value="${movieId}" />
 </sql:query>
-<c:if test="${param.action == 'wish' && not empty sessionScope.userId}">
-	<sql:query dataSource="${ds}" var="isWished">
-		SELECT COUNT(*) AS cnt FROM wishlist 
-		WHERE user_id = ? AND movie_id = ?
-		<sql:param value="${sessionScope.userId}" />
-		<sql:param value="${param.id}" />
-	</sql:query>
+<c:set var="hasReviewed" value="${hasReviewed.rows[0]}" />
 
-	<sql:query dataSource="${ds}" var="hasPurchased">
-  SELECT COUNT(*) AS cnt
-  FROM purchase
-  WHERE user_id = ?
-    AND movie_id = ?
-  <sql:param value="${sessionScope.userId}" />
-		<sql:param value="${param.id}" />
-	</sql:query>
+<sql:query dataSource="${ds}" var="isWished">
+  select COUNT(*) as count from wishlist
+  where user_id = ? and movie_id = ?
+  <sql:param value="${userId}" />
+  <sql:param value="${movieId}" />
+</sql:query>
+<c:set var="isWished" value="${isWished.rows[0]}" />
 
-
+<c:if test="${param.action == 'wish' && not empty userId}">
 	<c:choose>
-		<c:when test="${isWished.rows[0].cnt > 0}">
+		<c:when test="${isWished.count > 0}">
 			<sql:update dataSource="${ds}">
-				DELETE FROM wishlist WHERE user_id = ? AND movie_id = ?
-				<sql:param value="${sessionScope.userId}" />
-				<sql:param value="${param.id}" />
+				delete from wishlist where user_id = ? and movie_id = ?
+				<sql:param value="${userId}" />
+				<sql:param value="${movieId}" />
 			</sql:update>
 			<script>
 				alert("찜이 취소되었습니다.");
-				location
-						.replace("${pageContext.request.contextPath}/movie/movie.jsp?id=${param.id}");
+				location.replace("${pageContext.request.contextPath}/movie/movie.jsp?id=${movieId}");
 			</script>
 		</c:when>
-
 		<c:otherwise>
 			<sql:update dataSource="${ds}">
-				INSERT INTO wishlist (user_id, movie_id) VALUES (?, ?)
-				<sql:param value="${sessionScope.userId}" />
-				<sql:param value="${param.id}" />
+				insert into wishlist (user_id, movie_id) values (?, ?)
+				<sql:param value="${userId}" />
+				<sql:param value="${movieId}" />
 			</sql:update>
 			<script>
 				alert("찜 목록에 추가되었습니다.");
-				location
-						.replace("${pageContext.request.contextPath}/movie/movie.jsp?id=${param.id}");
+				location.replace("${pageContext.request.contextPath}/movie/movie.jsp?id=${movieId}");
 			</script>
 		</c:otherwise>
 	</c:choose>
 </c:if>
 
-
-
+<%@ include file="../header.jsp"%>
 <div class="wrapper">
 	<div class="movie-detail-container">
 		<div class="movie-poster">
-			<img
-				src="<c:url value='/resources/images/${detail.rows[0].image}' />"
-				alt="영화 포스터">
+			<img src="<c:url value='/resources/images/${movie.image}' />">
 		</div>
-
 		<div class="movie-info">
 			<h1>
-				${detail.rows[0].title} <span class="release-date">${detail.rows[0].release_date}</span>
+				${movie.title} <span class="release-date">${movie.release_date}</span>
 			</h1>
-
 			<div class="movie-description">
-				<p>${detail.rows[0].content}</p>
+				<p>${movie.content}</p>
 			</div>
-
 			<div class="movie-bottom">
 				<div class="meta-row">
-					<span>찜한 수: ${wishCount.rows[0].count} 개</span>
-
+					<span>찜한 수: ${wishCount.count} 개</span>
 					<c:choose>
-						<c:when test="${empty sessionScope.userId}">
-							<button class="btn"
-								onclick="alert('로그인 후 이용 가능합니다.'); location.href='${pageContext.request.contextPath}/signIn/login.jsp';">
-								영화 찜하기</button>
+						<c:when test="${empty userId}">
+							<button class="btn" onclick="alert('로그인 후 이용 가능합니다.'); location.href='${pageContext.request.contextPath}/signIn/login.jsp';"> 
+							영화 찜하기</button>
 						</c:when>
-
 						<c:otherwise>
-							<sql:query dataSource="${ds}" var="isWished">
-				SELECT COUNT(*) AS cnt FROM wishlist
-				WHERE user_id = ? AND movie_id = ?
-				<sql:param value="${sessionScope.userId}" />
-								<sql:param value="${param.id}" />
-							</sql:query>
-
 							<form method="post">
 								<input type="hidden" name="action" value="wish" />
 								<button type="submit" class="btn">
 									<c:choose>
-										<c:when test="${isWished.rows[0].cnt > 0}">
-							찜 취소하기
-						</c:when>
-										<c:otherwise>
-							영화 찜하기
-						</c:otherwise>
+										<c:when test="${isWished.count > 0}">찜 취소하기</c:when>
+										<c:otherwise>영화 찜하기</c:otherwise>
 									</c:choose>
 								</button>
 							</form>
@@ -235,77 +206,55 @@ body {
 					</c:choose>
 				</div>
 				<div class="meta-row">
-					<span>평점: <c:choose>
-							<c:when test="${empty avgScore.rows[0].score}">
-            등록된 평점 없음
-        </c:when>
-							<c:otherwise>
-            ${avgScore.rows[0].score} / 5.0
-        </c:otherwise>
+					<span>평점: 
+						<c:choose>
+							<c:when test="${empty movie.score}"> 등록된 평점 없음</c:when>
+							<c:otherwise> ${movie.score} / 5.0 </c:otherwise>
 						</c:choose>
 					</span>
-
 					<c:choose>
-						<c:when test="${empty sessionScope.userId}">
-							<button class="btn"
-								onclick="alert('로그인 후 이용 가능합니다.'); location.href='${pageContext.request.contextPath}/signIn/login.jsp';">리뷰
-								남기기</button>
+						<c:when test="${empty userId}">
+							<button class="btn" onclick="alert('로그인 후 이용 가능합니다.'); location.href='${pageContext.request.contextPath}/signIn/login.jsp';">리뷰 남기기</button>
 						</c:when>
-
 						<c:otherwise>
 							<c:choose>
-								<c:when test="${hasReviewed.rows[0].cnt > 0}">
-									<button class="btn" onclick="alert('리뷰는 한 번만 작성할 수 있습니다.');">리뷰
-										남기기</button>
+								<c:when test="${hasReviewed.count > 0}">
+									<button class="btn" onclick="alert('리뷰는 한 번만 작성할 수 있습니다.');">리뷰남기기</button>
 								</c:when>
-
-								<c:when
-									test="${hasPurchased.rows[0].cnt > 0 
-                  or user.rows[0].membership_id == 2 
-                  or user.rows[0].membership_id == 3}">
+								<c:when test="${hasPurchased.count > 0 or user.membership_id == 2 or user.membership_id == 3}">
 									<form
 										action="${pageContext.request.contextPath}/ReviewWriteForm.do"
 										method="get" style="display: inline;">
-										<input type="hidden" name="id" value="${detail.rows[0].id}" />
+										<input type="hidden" name="id" value="${movieId}" />
 										<button type="submit" class="btn">리뷰 남기기</button>
 									</form>
 								</c:when>
-
 								<c:otherwise>
-									<button class="btn"
-										onclick="alert('리뷰는 구매자 혹은 멤버십 사용자만 작성 가능합니다.');">리뷰
-										남기기</button>
+									<button class="btn"onclick="alert('리뷰는 구매자 혹은 멤버십 사용자만 작성 가능합니다.');">리뷰 남기기</button>
 								</c:otherwise>
 							</c:choose>
-
 						</c:otherwise>
 					</c:choose>
 				</div>
 				<c:choose>
-					<c:when test="${empty sessionScope.userId}">
-						<button class="btn btn-large"
-							onclick="alert('로그인 후 이용 가능합니다.'); location.href='${pageContext.request.contextPath}/signIn/login.jsp';">영화
-							보기</button>
+					<c:when test="${empty userId}">
+						<button class="btn btn-large" onclick="alert('로그인 후 이용 가능합니다.'); location.href='${pageContext.request.contextPath}/signIn/login.jsp';">영화 보기</button>
 					</c:when>
 					<c:otherwise>
 						<c:choose>
-							<c:when test="${hasPurchased.rows[0].cnt > 0}">
-								<a href="${detail.rows[0].link}" class="btn btn-large"
-									target="_blank">영화 보기</a>
+							<c:when test="${hasPurchased.count > 0}">
+								<a href="${movie.link}" class="btn btn-large" target="_blank">영화 보기</a>
 							</c:when>
-							<c:when test="${user.rows[0].membership_id == 1}">
+							<c:when test="${user.membership_id == 1}">
 								<form action="moviePurchase.jsp" method="post">
-									<input type="hidden" name="movie_id" value="${param.id}" />
+									<input type="hidden" name="movie_id" value="${movieId}" />
 									<button type="submit" class="btn btn-large">영화 보기</button>
 								</form>
 							</c:when>
-
 							<c:when
-								test="${user.rows[0].membership_id == 2 || user.rows[0].membership_id == 3}">
-								<a href="${detail.rows[0].link}" class="btn btn-large"
-									target="_blank">영화 보기</a>
+								test="${user.membership_id == 2 || user.membership_id == 3}">
+								<a href="${movie.link}" class="btn btn-large" target="_blank">영화 보기</a>
 							</c:when>
-
 							<c:otherwise>
 								<span class="btn btn-large disabled">회원 정보 오류</span>
 							</c:otherwise>

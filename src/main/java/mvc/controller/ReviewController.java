@@ -16,7 +16,6 @@ import mvc.model.ReviewDTO;
 public class ReviewController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	static final int LISTCOUNT = 10;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

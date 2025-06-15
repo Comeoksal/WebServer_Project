@@ -163,27 +163,4 @@ public class ReviewDAO {
             }
         }
     }
-
-    public void deleteReview(long id) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-
-        String sql = "delete from review where id = ?";
-
-        try {
-            conn = getConnection();
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, id);
-            pstmt.executeUpdate();
-        } catch (Exception ex) {
-            System.out.println("deleteReview 예외: " + ex);
-        } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex.getMessage());
-            }
-        }
-    }
 }

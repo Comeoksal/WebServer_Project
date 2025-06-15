@@ -10,6 +10,7 @@
 
 <style>
 body {
+<<<<<<< HEAD
 	background-color: #0F111A;
 	margin: 0;
 	padding: 0;
@@ -78,7 +79,6 @@ td:first-child {
 
 <c:set var="sort" value="${param.sort}" />
 <%@ include file="../dbconn.jsp"%>
-
 	<title>커뮤니티</title>
 <c:set var="sort" value="${param.sort}" />
 <c:set var="userId" value="${sessionScope.userId}" />
