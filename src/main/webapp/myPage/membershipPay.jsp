@@ -8,8 +8,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #4f82c0;
-    font-family: 'Malgun Gothic', '돋움', sans-serif;
+    background-color: #4f82c0; 
 }
 
 .pay-container {
@@ -89,6 +88,7 @@ button[type="button"]:hover {
 }
 </style>
 
+
 <c:set var="userId" value="${sessionScope.userId}" />
 <c:set var="membershipId" value="${param.membership_id}" />
 
@@ -140,15 +140,14 @@ button[type="button"]:hover {
     </form>
 </div>
 
-
 <script>
 function validateForm(event) {
-  const card = document.querySelector('input[name="card_number"]').value;
-  if (!/^\d{16}$/.test(card)) {
-    alert("카드번호는 16자리 숫자여야 합니다.");
-    event.preventDefault();
-    return false;
-  }
-  return true;
+	const card = document.querySelector('input[name="card_number"]').value;
+	if (!/^\d{16}$/.test(card)) {
+		alert("카드번호는 16자리 숫자여야 합니다.");
+		event.preventDefault();
+		return false;
+	}
+	return true;
 }
 </script>

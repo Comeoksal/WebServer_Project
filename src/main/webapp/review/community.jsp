@@ -6,48 +6,79 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <style>
-	body {
-		margin: 0;
-		background-color: #0d1117;
-		color: #e0e0e0;
-		font-family: 'Arial', sans-serif;
-	}
-	a {
-		color: inherit;
-		text-decoration: none;
-	}
-	.container {
-		max-width: 1000px;
-		margin: 0 auto;
-		margin-top: 20px;
-	}
+body {
+    background-color: #0F111A;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 960px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+th {
+    text-align: left;
+    padding: 14px 16px;
+    font-size: 18px;
+    color: #f9fafe;
+    background-color: #5D9CEC;
+}
+
+tbody tr {
+    background-color: #f9fafe;
+    border-radius: 12px;
+}
+
+td {
+    padding: 16px;
+    color: #333;
+    font-size: 17px;
+    vertical-align: top;
+}
+
+td:first-child {
+    font-weight: bold;
+    color: #2c2c2c;
+}
+
+.like-btn {
+    display: inline-flex;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #5D9CEC;
+    color: #5D9CEC;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.like-btn:hover {
+    background-color: #5D9CEC;
+    color: #5D9CEC;
+}
+
+.like-btn img {
+    margin-right: 6px;
+    width: 16px;
+}
 </style>
+
 	<title>커뮤니티</title>
 <c:set var="sort" value="${param.sort}" />
-
+<c:set var="userId" value="${sessionScope.userId}" />
 <%@ include file="../dbconn.jsp"%>
-<sql:query dataSource="${ds}" var="reviews">
-	select r.id, r.content, r.score, m.title, count(l.id) as like_count
-	from review r
-	join movie m on r.movie_id = m.id
-	left join like_review l on r.id = l.review_id
-	where m.title like ?
-	group by r.id, r.content, r.score, m.title, m.id
-	<c:choose>
-		<c:when test="${sort == 'popular'}">
-			order by like_count desc
-		</c:when>
-		<c:when test="${sort == 'oldest'}">
-			order by r.created_at asc
-		</c:when>
-		<c:otherwise>
-			order by r.created_at desc
-		</c:otherwise>
-	</c:choose>
-	limit 50
-	<sql:param value="%${param.query}%" />
-</sql:query>
 
 </head>
 <body>
@@ -65,7 +96,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="review" items="${reviews.rows}">
+				<c:forEach var="review" items="${reviewList}">
 					<tr>
 						<td style="padding: 8px; border: 1px solid #ccc;">
 							${review.title}
@@ -84,12 +115,14 @@
 							${review.score}
 						</td>
 						<td style="padding: 8px; border: 1px solid #ccc;">
-							<form action="processLikeReview.jsp" method="post" style="display: inline;">
-								<input type="hidden" name="review_id" value="${review.id}" />
-								<button type="submit"
-									style="background: none; border: 1px solid #ccc; color: #58a6ff; cursor: pointer; border-radius: 8px; padding: 4px 10px;">
-									❤️ ${review.like_count}
-								</button>
+							<form action="${pageContext.request.contextPath}/ReviewLikeToggle.do" method="post" style="display: inline;">
+							    <input type="hidden" name="review_id" value="${review.id}" />
+							    <input type="hidden" name="user_id" value="${userId}" />
+							    <button type="submit" class="like-button"
+							        <c:if test="${empty userId}">disabled</c:if>>
+							        <img src="${pageContext.request.contextPath}/resources/images/heart.png" width="15px"/>
+							        ${review.likes}
+							    </button>
 							</form>
 						</td>
 					</tr>

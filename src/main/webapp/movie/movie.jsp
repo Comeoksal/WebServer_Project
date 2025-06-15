@@ -264,7 +264,7 @@ body {
                   or user.rows[0].membership_id == 2 
                   or user.rows[0].membership_id == 3}">
 									<form
-										action="${pageContext.request.contextPath}/review/review.jsp"
+										action="${pageContext.request.contextPath}/ReviewWriteForm.do"
 										method="get" style="display: inline;">
 										<input type="hidden" name="id" value="${detail.rows[0].id}" />
 										<button type="submit" class="btn">리뷰 남기기</button>

@@ -45,56 +45,52 @@ body {
 }
 
 .membership-panel .membership-box {
-  margin-bottom: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid #5D9CEC;
-  padding: 12px;
-  border-radius: 8px;
+	margin-bottom: 16px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border: 1px solid #5D9CEC;
+	padding: 12px;
+	border-radius: 8px;
 }
 
 .membership-panel .membership-name {
-  font-size: 18px;
+	font-size: 18px;
 }
 
 .membership-panel .membership-btn {
-  background-color: #5D9CEC;
-  color: white;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 6px;
-  cursor: pointer;
+	background-color: #5D9CEC;
+	color: white;
+	border: none;
+	padding: 6px 14px;
+	border-radius: 6px;
+	cursor: pointer;
 }
 
 .membership-panel .membership-label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 6px;
+	font-weight: bold;
+	display: block;
+	margin-bottom: 6px;
 }
 
 .membership-panel .membership-input-row {
-  display: flex;
-  gap: 10px;
+	display: flex;
+	gap: 10px;
 }
 
 .membership-panel .membership-input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #5D9CEC;
+	flex: 1;
+	padding: 10px;
+	border-radius: 6px;
+	border: 1px solid #5D9CEC;
  }
- 
- 
 </style>
 </head>
 <body>
-
 	<div class="container">
 		<%@ include file="../header.jsp"%>
 		<%@ include file="sidebar.jsp"%>
 		<%@ include file="membershipFrame.jsp"%>
 	</div>
-
 </body>
 </html>

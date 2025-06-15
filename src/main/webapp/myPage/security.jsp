@@ -95,17 +95,14 @@ margin-bottom:7px;
 	border-radius: 8px;
 	cursor: pointer;
 }
-
 </style>
+
 </head>
 <body>
-
 	<div class="container">
 		<%@ include file="../header.jsp"%>
 		<%@ include file="sidebar.jsp"%>
 		<%@ include file="securityFrame.jsp"%>
-
 	</div>
-
 </body>
 </html>

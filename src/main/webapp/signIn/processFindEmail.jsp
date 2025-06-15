@@ -9,8 +9,8 @@
 <%@ include file="../dbconn.jsp" %>
 
 <sql:query dataSource="${ds}" var="result">
-            select count(*) as cnt from user where phone = ?
-            <sql:param value = "${param.phone}" />
+	select count(*) as cnt from user where phone = ?
+	<sql:param value = "${param.phone}" />
 </sql:query>
 
 <c:choose>
@@ -19,5 +19,5 @@
     </c:when>
     <c:otherwise>
         <c:redirect url="findEmail.jsp?findemail=true&phone=${param.phone}" />
-    </c:otherwise>
+	</c:otherwise>
 </c:choose>

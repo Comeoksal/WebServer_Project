@@ -13,43 +13,40 @@
 <c:set var="phone" value="${param.phone}" />
 
 <c:if test="${empty email or empty password or empty confirm or empty phone}">
-  <c:redirect url="register.jsp?error=empty" />
+	<c:redirect url="register.jsp?error=empty" />
 </c:if>
 
 <c:if test="${password ne confirm}">
-  <c:redirect url="register.jsp?error=mismatch" />
+	<c:redirect url="register.jsp?error=mismatch" />
 </c:if>
 
-<!-- 이메일 중복 확인 -->
 <sql:query dataSource="${ds}" var="emailCheck">
-  SELECT COUNT(*) AS cnt FROM user WHERE email = ?
-  <sql:param value="${email}" />
+	SELECT COUNT(*) AS cnt FROM user WHERE email = ?
+	<sql:param value="${email}" />
 </sql:query>
 
-<!-- 전화번호 중복 확인 -->
 <sql:query dataSource="${ds}" var="phoneCheck">
-  SELECT COUNT(*) AS cnt FROM user WHERE phone = ?
-  <sql:param value="${phone}" />
+	SELECT COUNT(*) AS cnt FROM user WHERE phone = ?
+	<sql:param value="${phone}" />
 </sql:query>
 
 <c:choose>
-  <c:when test="${emailCheck.rows[0].cnt > 0}">
-    <c:redirect url="register.jsp?error=email_exists" />
-  </c:when>
+	<c:when test="${emailCheck.rows[0].cnt > 0}">
+		<c:redirect url="register.jsp?error=email_exists" />
+	</c:when>
 
-  <c:when test="${phoneCheck.rows[0].cnt > 0}">
-    <c:redirect url="register.jsp?error=phone_exists" />
-  </c:when>
+	<c:when test="${phoneCheck.rows[0].cnt > 0}">
+		<c:redirect url="register.jsp?error=phone_exists" />
+	</c:when>
 
-  <c:otherwise>
-    <sql:update dataSource="${ds}">
-      INSERT INTO user (email, password, nickname, role, created_at, membership_id, phone)
-      VALUES (?, ?, '', 'user', NOW(), 1, ?)
-      <sql:param value="${email}" />
-      <sql:param value="${password}" />
-      <sql:param value="${phone}" />
-    </sql:update>
-
-    <c:redirect url="login.jsp?registered=true" />
-  </c:otherwise>
+	<c:otherwise>
+		<sql:update dataSource="${ds}">
+			INSERT INTO user (email, password, nickname, role, created_at, membership_id, phone)
+			VALUES (?, ?, '', 'user', NOW(), 1, ?)
+			<sql:param value="${email}" />
+			<sql:param value="${password}" />
+			<sql:param value="${phone}" />
+		</sql:update>
+		<c:redirect url="login.jsp?registered=true" />
+	</c:otherwise>
 </c:choose>

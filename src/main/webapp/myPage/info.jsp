@@ -96,13 +96,10 @@ body {
 </style>
 </head>
 <body>
-
 	<div class="container">
 		<%@ include file="../header.jsp"%>
 		<%@ include file="sidebar.jsp"%>
 		<%@ include file="infoFrame.jsp"%>
-
-	</div>
-
+	</div>	
 </body>
 </html>

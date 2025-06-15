@@ -47,8 +47,8 @@ a {
 
 .movie-box {
 	margin: 1px;
-	width: 300px;
-	flex-shrink: 0;
+    width: 300px; 
+    flex-shrink: 0;
 }
 
 .right-list {

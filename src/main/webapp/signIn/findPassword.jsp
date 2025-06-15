@@ -9,7 +9,6 @@
 
 <style>
 body {
-	font-family: 'Noto Sans KR', sans-serif;
 	background-color: #0F111A;
 	margin: 0;
 	padding-top: 80px;
@@ -186,14 +185,14 @@ h2 {
 .link-row {
 	display: flex;
 	justify-content: space-between;
-	width: 440px;
+	width: 410px;
 	font-size: 14px;
-	margin-top: 20px;
+	margin-left: 20px;
 	color: #aaa;
 }
 </style>
-</head>
 
+</head>
 <%@ include file="../dbconn.jsp" %>
 
 <c:choose>
