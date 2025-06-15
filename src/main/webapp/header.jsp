@@ -90,7 +90,7 @@ String role = (String) session.getAttribute("role");
 		<c:if test="${user.membership_id == 1}">
 			<a href="${pageContext.request.contextPath}/movie/mylist/mylists.jsp">마이리스트</a>
 		</c:if> 
-		<a href="${pageContext.request.contextPath}/movie/wishlist/wishlists.jsp">찜 목록</a> 
+		<a href="${pageContext.request.contextPath}/movie/wishlist/wishlists.jsp">찜 목록</a>
 		<a href="${pageContext.request.contextPath}/review/community.jsp">커뮤니티</a>
 	</div>
 	<div class="nav-right">

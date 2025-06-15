@@ -218,106 +218,118 @@ h2 {
 <body>
 	<%@ include file="../header.jsp"%>
 
-<c:if test="${param.error == 'empty'}">
-    <script>
+	<c:if test="${param.error == 'empty'}">
+		<script>
         alert("모든 입력란을 채워주세요.");
     </script>
-</c:if>
+	</c:if>
 
-<c:if test="${param.error == 'mismatch'}">
-    <script>
+	<c:if test="${param.error == 'mismatch'}">
+		<script>
         alert("비밀번호가 일치하지 않습니다.");
     </script>
-</c:if>
+	</c:if>
 
-<c:if test="${param.error == 'email_exists'}">
-    <script>
+	<c:if test="${param.error == 'email_exists'}">
+		<script>
         alert("이미 사용 중인 이메일입니다.");
     </script>
-</c:if>
+	</c:if>
 
-<c:if test="${param.error == 'phone_exists'}">
-    <script>
+	<c:if test="${param.error == 'phone_exists'}">
+		<script>
         alert("이미 사용 중인 전화번호입니다.");
     </script>
-</c:if>
+	</c:if>
 
-<c:if test="${param.error == 'fail'}">
-    <script>
+	<c:if test="${param.error == 'fail'}">
+		<script>
         alert("회원가입에 실패했습니다. 다시 시도해주세요.");
     </script>
-</c:if>
+	</c:if>
 
-<c:if test="${param.error == 'exception'}">
-    <script>
+	<c:if test="${param.error == 'exception'}">
+		<script>
         alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
     </script>
-</c:if>
+	</c:if>
 
-<div class="register-container">
-    <div style="text-align: center; margin-bottom: 20px;">
-        <img src="<%=request.getContextPath()%>/resources/images/movitLogo.png" alt="movit 로고" class="login-logo"
-            style="width: 80px; height: auto; margin-top: 80px; margin-bottom: 10px;" />
-        <h2 style="font-size: 45px; margin: 10px 0;">movit</h2>
-    </div>
-    <form action="register_process.jsp" method="post">
-        <div class="form-group">
-            <label>이메일</label>
-            <div class="input-wrapper">
-                <img src="<%=request.getContextPath()%>/resources/images/email.png" alt="이메일 아이콘"> <input type="email"
-                    name="email" required placeholder="이메일 주소를 입력해주세요.">
-            </div>
-        </div>
+	<div class="register-container">
+		<div style="text-align: center; margin-bottom: 20px;">
+			<img
+				src="<%=request.getContextPath()%>/resources/images/movitLogo.png"
+				alt="movit 로고" class="login-logo"
+				style="width: 80px; height: auto; margin-top: 80px; margin-bottom: 10px;" />
+			<h2 style="font-size: 45px; margin: 10px 0;">movit</h2>
+		</div>
+		<form action="register_process.jsp" method="post">
+			<div class="form-group">
+				<label>이메일</label>
+				<div class="input-wrapper">
+					<img src="<%=request.getContextPath()%>/resources/images/email.png"
+						alt="이메일 아이콘"> <input type="email" name="email" required
+						placeholder="이메일 주소를 입력해주세요.">
+				</div>
+			</div>
 
-        <div class="form-group">
-            <label>비밀번호</label>
-            <div class="input-wrapper">
-                <img src="<%=request.getContextPath()%>/resources/images/lock.png" alt="비밀번호 아이콘"> <input
-                    type="password" name="password" required placeholder="비밀번호를 입력해주세요.">
-            </div>
-        </div>
+			<div class="form-group">
+				<label>비밀번호</label>
+				<div class="input-wrapper">
+					<img src="<%=request.getContextPath()%>/resources/images/lock.png"
+						alt="비밀번호 아이콘"> <input type="password" name="password"
+						required placeholder="비밀번호를 입력해주세요."
+						pattern="^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+						title="8자 이상, 대문자와 특수문자를 포함해야 합니다.">
+				</div>
+			</div>
 
-        <div class="form-group">
-            <label>비밀번호 확인</label>
-            <div class="input-wrapper">
-                <img src="<%=request.getContextPath()%>/resources/images/lock.png" alt="비밀번호 확인 아이콘"> <input
-                    type="password" name="confirm" required placeholder="비밀번호를 다시 입력해주세요.">
-            </div>
-        </div>
+			<div class="form-group">
+				<label>비밀번호 확인</label>
+				<div class="input-wrapper">
+					<img src="<%=request.getContextPath()%>/resources/images/lock.png"
+						alt="비밀번호 확인 아이콘"> <input type="password" name="confirm"
+						required placeholder="비밀번호를 다시 입력해주세요."
+						pattern="^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+						title="8자 이상, 대문자와 특수문자를 포함해야 합니다.">
+				</div>
+			</div>
 
-        <div class="form-group">
-            <label>전화번호</label>
-            <div class="input-wrapper">
-                <img src="<%=request.getContextPath()%>/resources/images/phone.png" alt="전화 아이콘"> <input type="text"
-                    name="phone" required placeholder="전화번호를 입력해주세요.">
-            </div>
-        </div>
 
-        <div class="form-group terms-group">
-            <label for="agree" class="terms-label"> <input type="checkbox" id="agree" required /> 약관에 동의합니다.
-            </label> <a onclick="openModal()" class="terms-detail">[자세히 보기]</a>
-        </div>
+			<div class="form-group">
+				<label>전화번호</label>
+				<div class="input-wrapper">
+					<img src="<%=request.getContextPath()%>/resources/images/phone.png"
+						alt="전화 아이콘"> <input type="text" name="phone" required
+						placeholder="전화번호를 입력해주세요.">
+				</div>
+			</div>
 
-        <div class="form-group">
-            <button type="submit">가입하기</button>
-        </div>
-    </form>
+			<div class="form-group terms-group">
+				<label for="agree" class="terms-label"> <input
+					type="checkbox" id="agree" required /> 약관에 동의합니다.
+				</label> <a onclick="openModal()" class="terms-detail">[자세히 보기]</a>
+			</div>
 
-</div>
+			<div class="form-group">
+				<button type="submit">가입하기</button>
+			</div>
+		</form>
 
-<div id="termsModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        <h3>이용약관 및 개인정보처리방침</h3>
-        <p>
-            Movit는 사용자의 개인정보 보호를 최우선으로 생각합니다. 본 약관은 서비스 이용과 관련한 기본적인 조건을 정한
-            것입니다.<br> <br> 수집 항목: 이메일, 비밀번호, 닉네임<br> 이용 목적: 서비스
-            제공, 개인 맞춤 서비스, 문의 응대 등<br> <br> 자세한 내용은 관리자에게 문의해 주세요.
-        </p>
-    </div>
-</div>
+	</div>
 
-<script>
+	<div id="termsModal" class="modal">
+		<div class="modal-content">
+			<span class="close-btn" onclick="closeModal()">&times;</span>
+			<h3>이용약관 및 개인정보처리방침</h3>
+			<p>
+				Movit는 사용자의 개인정보 보호를 최우선으로 생각합니다. 본 약관은 서비스 이용과 관련한 기본적인 조건을 정한
+				것입니다.<br> <br> 수집 항목: 이메일, 비밀번호, 닉네임<br> 이용 목적: 서비스
+				제공, 개인 맞춤 서비스, 문의 응대 등<br> <br> 자세한 내용은 관리자에게 문의해 주세요.
+			</p>
+		</div>
+	</div>
+
+	<script>
     function openModal() {
         document.getElementById('termsModal').style.display = 'block';
     }
@@ -338,7 +350,7 @@ h2 {
         }
     }
 </script>
-<script>
+	<script>
     try {
         navigator.mediaSession.setActionHandler("enterpictureinpicture",
             null);
