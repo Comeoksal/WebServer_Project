@@ -18,7 +18,6 @@
 		<sql:param value="${value}" />
 		<sql:param value="${userEmail}" />
 	</sql:query>
-
 	<c:if test="${phoneCheck.rows[0].cnt > 0}">
 		<c:redirect url="info.jsp?error=phone_exists" />
 	</c:if>
@@ -42,7 +41,7 @@
 			<sql:param value="${value}" />
 			<sql:param value="${userEmail}" />
 		</sql:update>
-		<c:set target="sessionScope" property="nickname" value="${value}" />
+		<c:set var="nickname" value="${value}" scope="session" />
 	</c:when>
 
 	<c:when test="${action eq 'phone'}">
@@ -59,7 +58,7 @@
 			<sql:param value="${value}" />
 			<sql:param value="${userEmail}" />
 		</sql:update>
-		<c:set target="sessionScope" property="user_email" value="${value}" />
+		<c:set var="user_email" value="${value}" scope="session" />
 	</c:when>
 </c:choose>
 

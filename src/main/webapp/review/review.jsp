@@ -86,7 +86,7 @@
 			<strong>${displayName}</strong>님! <strong>${movie.title}</strong> 어떠셨나요?
 		</p>
 
-		<form action="processAddReview.jsp" method="post">
+		<form action="${pageContext.request.contextPath}/ReviewWriteAction.do" method="post">
 			<input type="hidden" name="movie_id" value="${movieId}" />
 			<input type="hidden" name="user_id" value="${userId}" />
 

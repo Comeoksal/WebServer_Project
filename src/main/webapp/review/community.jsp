@@ -76,34 +76,14 @@ td:first-child {
 }
 </style>
 
-
-
-<title>커뮤니티</title>
-
 <c:set var="sort" value="${param.sort}" />
-
 <%@ include file="../dbconn.jsp"%>
-<sql:query dataSource="${ds}" var="reviews">
-	select r.id, r.content, r.score, m.title, count(l.id) as like_count
-	from review r
-	join movie m on r.movie_id = m.id
-	left join like_review l on r.id = l.review_id
-	where m.title like ?
-	group by r.id, r.content, r.score, m.title, m.id
-	<c:choose>
-		<c:when test="${sort == 'popular'}">
-			order by like_count desc
-		</c:when>
-		<c:when test="${sort == 'oldest'}">
-			order by r.created_at asc
-		</c:when>
-		<c:otherwise>
-			order by r.created_at desc
-		</c:otherwise>
-	</c:choose>
-	limit 50
-	<sql:param value="%${param.query}%" />
-</sql:query>
+
+	<title>커뮤니티</title>
+<c:set var="sort" value="${param.sort}" />
+<c:set var="userId" value="${sessionScope.userId}" />
+<%@ include file="../dbconn.jsp"%>
+
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -125,7 +105,7 @@ td:first-child {
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="review" items="${reviews.rows}">
+				<c:forEach var="review" items="${reviewList}">
 					<tr>
 						<td style="padding: 8px; border: 1px solid #ccc;">
 							${review.title}</td>
@@ -140,14 +120,14 @@ td:first-child {
 						<td style="padding: 8px; border: 1px solid #ccc;">
 							${review.score}</td>
 						<td style="padding: 8px; border: 1px solid #ccc;">
-							<form action="processLikeReview.jsp" method="post"
-								style="display: inline;">
-								<input type="hidden" name="review_id" value="${review.id}" />
-								<button type="submit"
-									style="background: none; border: 1px solid #ccc; color: #58a6ff; cursor: pointer; border-radius: 8px; padding: 4px 10px;">
-									<img src="../resources/images/heart.png" width="15px">️
-									${review.like_count}
-								</button>
+							<form action="${pageContext.request.contextPath}/ReviewLikeToggle.do" method="post" style="display: inline;">
+							    <input type="hidden" name="review_id" value="${review.id}" />
+							    <input type="hidden" name="user_id" value="${userId}" />
+							    <button type="submit" class="like-button"
+							        <c:if test="${empty userId}">disabled</c:if>>
+							        <img src="${pageContext.request.contextPath}/resources/images/heart.png" width="15px"/>
+							        ${review.likes}
+							    </button>
 							</form>
 						</td>
 					</tr>

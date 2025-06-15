@@ -59,7 +59,13 @@ html, body {
 }
 </style>
 
-<form action="<%=request.getRequestURI()%>" method="GET"
+<%
+    String uri = request.getRequestURI();
+    String action = uri.contains("/review/community.jsp") ? 
+                    request.getContextPath() + "/Review.do" : uri;
+%>
+
+<form action="<%= action %>" method="GET"
 	class="search-header">
 	<div class="search-title">검색</div>
 
