@@ -54,11 +54,11 @@ body {
 .form-group {
 	margin-top: -20px;
 	display: flex;
-	margin-bottom: 30px;
+	margin-bottom: 13px;
 	flex-direction: column;
 	width: 100%;
 	max-width: 500px;
-	gap: 6px;
+	gap: 2px;
 }
 
 .form-group label {
@@ -96,13 +96,10 @@ body {
 </style>
 </head>
 <body>
-
 	<div class="container">
 		<%@ include file="../header.jsp"%>
 		<%@ include file="sidebar.jsp"%>
 		<%@ include file="infoFrame.jsp"%>
-
-	</div>
-
+	</div>	
 </body>
 </html>

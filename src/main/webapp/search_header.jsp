@@ -1,7 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <style>
 html, body {
 	margin: 0;
@@ -60,15 +59,26 @@ html, body {
 }
 </style>
 
-<form action="<%= request.getRequestURI() %>" method="get"  class="search-header">
+<%
+    String uri = request.getRequestURI();
+    String action = uri.contains("/review/community.jsp") ? 
+                    request.getContextPath() + "/Review.do" : uri;
+%>
+
+<form action="<%= action %>" method="GET"
+	class="search-header">
 	<div class="search-title">검색</div>
+
 	<div class="search-form">
-		<input type="text" name="query" value="${param.query}" />
-		<input type="image" src="${pageContext.request.contextPath}/resources/images/search.png" />
-		<select name="sort">
-			<option value="latest" ${param.sort == 'latest' ? 'selected' : ''}>최신 순</option>
-			<option value="popular" ${param.sort == 'popular' ? 'selected' : ''}>인기 순</option>
-			<option value="oldest" ${param.sort == 'oldest' ? 'selected' : ''}>오래된 순</option>
+		<input type="text" name="query" value="${param.query}" /> <input
+			type="image" src="<c:url value='/resources/images/search.png' />" /> <select name="sort">
+			<option value="latest" ${param.sort == 'latest' ? 'selected' : ''}>최신
+				순</option>
+			<option value="popular" ${param.sort == 'popular' ? 'selected' : ''}>인기
+				순</option>
+			<option value="oldest" ${param.sort == 'oldest' ? 'selected' : ''}>오래된
+				순</option>
 		</select>
+
 	</div>
 </form>

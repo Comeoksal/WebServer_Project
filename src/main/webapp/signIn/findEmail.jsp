@@ -8,7 +8,6 @@
 <title>이메일 찾기</title>
 <style>
 body {
-	font-family: 'Noto Sans KR', sans-serif;
 	background-color: #0F111A;
 	margin: 0;
 	padding-top: 80px;
@@ -107,7 +106,7 @@ h2 {
 	font-size: 16px;
 	border: none;
 	border-radius: 10px;
-	width: 440px;
+	width: 400px;
 	cursor: pointer;
 }
 
@@ -128,13 +127,14 @@ h2 {
 .link-row {
 	display: flex;
 	justify-content: space-between;
-	width: 440px;
+	width: 390px;
 	font-size: 14px;
+	margin-left: 20px;
 	margin-top: 20px;
 	color: #aaa;
 }
-
 </style>
+
 </head>
 <%@ include file="../dbconn.jsp" %>
 
@@ -166,9 +166,8 @@ h2 {
 </c:if>
 
 <body>
-
 	<%@ include file="../header.jsp"%>
-
+	
 	<div class="findemail-container">
 		<div style="text-align: center; margin-bottom: 20px;">
 			<img
@@ -177,14 +176,14 @@ h2 {
 				style="width: 80px; height: auto; margin-top: 80px; margin-bottom: 10px;" />
 			<h2 style="font-size: 45px; margin: 10px 0;">movit</h2>
 		</div>
+		
 		<form action="processFindEmail.jsp" method="post">
-
 			<div class="form-group">
 				<label>전화번호</label>
 				<div class="input-wrapper">
 					<img src="<%=request.getContextPath()%>/resources/images/phone.png"
 						alt="전화 아이콘"> 
-						<input type="text"
+					<input type="text"
 						name="phone" required placeholder="전화번호를 입력해주세요.">
 				</div>
 			</div>
@@ -197,7 +196,6 @@ h2 {
 				<span><a href="login.jsp" style="text-decoration: none; color: #aaa;'">로그인</a></span><span><a href="findPassword.jsp" style="text-decoration: none; color: #aaa;'">비밀번호 찾기</a></span>
 			</div>
 		</form>
-
 	</div>
 </body>
 </html>

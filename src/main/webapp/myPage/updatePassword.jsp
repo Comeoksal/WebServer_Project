@@ -1,62 +1,52 @@
 <%@ page contentType="text/html; charset=utf-8" %>
-<%@ page import="java.sql.*" %>
 <%@ page session="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ include file="../dbconn.jsp" %>
 
-<%
-request.setCharacterEncoding("UTF-8");
+<c:set var="userId" value="${sessionScope.userId}" />
+<c:set var="currentPw" value="${param.currentPw}" />
+<c:set var="newPw" value="${param.newPw}" />
+<c:set var="confirmPw" value="${param.confirmPw}" />
 
-String userEmail = (String) session.getAttribute("user_email");
-if (userEmail == null) {
-    response.sendRedirect("../signIn/login.jsp");
-    return;
-}
+<c:choose>
+	<c:when test="${empty userId}">
+		<c:redirect url="../signIn/login.jsp" />
+	</c:when>
 
-String currentPw = request.getParameter("currentPw");
-String newPw = request.getParameter("newPw");
-String confirmPw = request.getParameter("confirmPw");
+	<c:when test="${newPw ne confirmPw}">
+		<script>
+			alert("새 비밀번호가 일치하지 않습니다.");
+			history.back();
+		</script>
+	</c:when>
 
-boolean isValid = false;
+	<c:otherwise>
+		<sql:query dataSource="${ds}" var="userInfo">
+			SELECT * FROM user WHERE id = ? AND password = ?
+			<sql:param value="${userId}" />
+			<sql:param value="${currentPw}" />
+		</sql:query>
 
-if (newPw != null && newPw.equals(confirmPw)) {
-    try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(
-            "jdbc:mysql://shortline.proxy.rlwy.net:58435/railway", "root", "pZCeLltpdUdDDzaYfEpPwBIIRTrIomgt"
-        );
+		<c:choose>
+			<c:when test="${not empty userInfo.rows}">
+				<sql:update dataSource="${ds}">
+					UPDATE user SET password = ? WHERE id = ?
+					<sql:param value="${newPw}" />
+					<sql:param value="${userId}" />
+				</sql:update>
 
-        // 현재 비밀번호 확인
-        PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM user WHERE email = ? AND password = ?");
-        checkStmt.setString(1, userEmail);
-        checkStmt.setString(2, currentPw);
-        ResultSet rs = checkStmt.executeQuery();
-
-        if (rs.next()) {
-            isValid = true;
-        }
-
-        rs.close();
-        checkStmt.close();
-
-        if (isValid) {
-            PreparedStatement updateStmt = conn.prepareStatement("UPDATE user SET password = ? WHERE email = ?");
-            updateStmt.setString(1, newPw);
-            updateStmt.setString(2, userEmail);
-            updateStmt.executeUpdate();
-            updateStmt.close();
-            conn.close();
-
-            out.println("<script>alert('비밀번호가 변경되었습니다.'); location.href='info.jsp';</script>");
-        } else {
-            conn.close();
-            out.println("<script>alert('현재 비밀번호가 일치하지 않습니다.'); history.back();</script>");
-        }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        out.println("<script>alert('오류가 발생했습니다.'); history.back();</script>");
-    }
-} else {
-    out.println("<script>alert('새 비밀번호가 일치하지 않습니다.'); history.back();</script>");
-}
-%>
+				<script>
+					alert("비밀번호가 변경되었습니다.");
+					location.href = "info.jsp";
+				</script>
+			</c:when>
+			<c:otherwise>
+				<script>
+					alert("현재 비밀번호가 일치하지 않습니다.");
+					history.back();
+				</script>
+			</c:otherwise>
+		</c:choose>
+	</c:otherwise>
+</c:choose>

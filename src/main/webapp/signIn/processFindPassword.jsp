@@ -9,9 +9,9 @@
 <%@ include file="../dbconn.jsp" %>
 
 <sql:query dataSource="${ds}" var="result">
-            select count(*) as cnt from user where phone = ? and email = ?
-            <sql:param value = "${param.phone}" />
-            <sql:param value = "${param.email}" />
+	select count(*) as cnt from user where phone = ? and email = ?
+	<sql:param value = "${param.phone}" />
+	<sql:param value = "${param.email}" />
 </sql:query>
 
 <c:choose>
@@ -19,6 +19,6 @@
         <c:redirect url="findPassword.jsp?error=noexist" />
     </c:when>
     <c:otherwise>
-        <c:redirect url="findPassword.jsp?findpassword=true&phone=${param.phone}&email=${param.email}" />
+		<c:redirect url="findPassword.jsp?findpassword=true&phone=${param.phone}&email=${param.email}" />
     </c:otherwise>
 </c:choose>

@@ -4,6 +4,7 @@
 <html>
 <head>
 <title>로그인</title>
+
 <%
 String registered = request.getParameter("registered");
 if ("true".equals(registered)) {
@@ -14,12 +15,12 @@ if ("true".equals(registered)) {
 <%
 }
 %>
+
 <style>
 body {
 	margin: 0;
 	padding: 0;
 	background-color: #0F111A;
-	font-family: 'Noto Sans KR', sans-serif;
 	color: white;
 	padding-top: 80px;
 }
@@ -101,7 +102,6 @@ h2 {
 </style>
 </head>
 <body>
-
 	<%@ include file="../header.jsp"%>
 
 	<div class="login-container">
@@ -125,15 +125,14 @@ h2 {
 			</div>
 
 			<button type="submit" class="login-submit-btn">로그인</button>
-
 			<div class="link-row">
 				<span><a href="register.jsp"
 					style="text-decoration: none; color: #aaa;'">회원가입</a></span> <span><a href="${pageContext.request.contextPath}/signIn/findEmail.jsp" style="text-decoration: none; color: #aaa;'">이메일</a>
 					| <a href="${pageContext.request.contextPath}/signIn/findPassword.jsp" style="text-decoration: none; color: #aaa;'">비밀번호 찾기</a></span>
 			</div>
-
 		</form>
 	</div>
+	
 	<%
 	if (request.getParameter("error") != null) {
 	%>

@@ -10,9 +10,8 @@
 	<style>
 		body {
 			margin: 0;
-			background-color: #0d1117;
+			background-color: #0F111A;
 			color: #e0e0e0;
-			font-family: 'Arial', sans-serif;
 		}
 
 		.review-form-container {
@@ -87,7 +86,7 @@
 			<strong>${displayName}</strong>님! <strong>${movie.title}</strong> 어떠셨나요?
 		</p>
 
-		<form action="processAddReview.jsp" method="post">
+		<form action="${pageContext.request.contextPath}/ReviewWriteAction.do" method="post">
 			<input type="hidden" name="movie_id" value="${movieId}" />
 			<input type="hidden" name="user_id" value="${userId}" />
 
@@ -95,8 +94,7 @@
 			<input type="number" name="score" step="0.1" min="0" max="5" required />
 
 			<label for="content">리뷰 내용</label>
-			<textarea name="content" rows="6" required />
-
+			<textarea name="content" rows="6" required ></textarea>
 			<button type="submit">작성 완료</button>
 		</form>
 	</div>

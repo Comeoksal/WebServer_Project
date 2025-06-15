@@ -75,11 +75,10 @@ String uri = request.getRequestURI();
 			class="<%=uri.contains("info.jsp") ? "active" : ""%>">내 정보</a></li>
 		<li><a href="membership.jsp"
 			class="<%=uri.contains("membership.jsp") ? "active" : ""%>">멤버십</a></li>
-		<%-- <li><a href="language.jsp"
-			class="<%= uri.contains("language.jsp") ? "active" : "" %>">언어 설정</a></li> --%>
 		<li><a href="security.jsp"
 			class="<%=uri.contains("security.jsp") ? "active" : ""%>">보안</a></li>
 	</ul>
+	
 	<div class="btn-group">
 		<form action="${pageContext.request.contextPath}/home.jsp">
 			<button type="submit">돌아가기</button>
@@ -88,7 +87,6 @@ String uri = request.getRequestURI();
 			<button type="submit">로그아웃</button>
 		</form>
 	</div>
-
 </div>
 
 

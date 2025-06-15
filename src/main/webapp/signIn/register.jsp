@@ -4,6 +4,7 @@
 <html>
 <head>
 <title>회원가입</title>
+
 <%
 String error = request.getParameter("error");
 if (error != null) {
@@ -26,6 +27,7 @@ if (error != null) {
 	break;
 	}
 %>
+
 <script>
     alert("<%=message%>
 	");
@@ -211,44 +213,45 @@ h2 {
 	color: #333;
 }
 </style>
+
 </head>
 <body>
-
 	<%@ include file="../header.jsp"%>
+
 	<c:if test="${param.error == 'empty'}">
 		<script>
-			alert("모든 입력란을 채워주세요.");
-		</script>
+        alert("모든 입력란을 채워주세요.");
+    </script>
 	</c:if>
 
 	<c:if test="${param.error == 'mismatch'}">
 		<script>
-			alert("비밀번호가 일치하지 않습니다.");
-		</script>
+        alert("비밀번호가 일치하지 않습니다.");
+    </script>
 	</c:if>
 
 	<c:if test="${param.error == 'email_exists'}">
 		<script>
-			alert("이미 사용 중인 이메일입니다.");
-		</script>
+        alert("이미 사용 중인 이메일입니다.");
+    </script>
 	</c:if>
 
 	<c:if test="${param.error == 'phone_exists'}">
 		<script>
-			alert("이미 사용 중인 전화번호입니다.");
-		</script>
+        alert("이미 사용 중인 전화번호입니다.");
+    </script>
 	</c:if>
 
 	<c:if test="${param.error == 'fail'}">
 		<script>
-			alert("회원가입에 실패했습니다. 다시 시도해주세요.");
-		</script>
+        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+    </script>
 	</c:if>
 
 	<c:if test="${param.error == 'exception'}">
 		<script>
-			alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-		</script>
+        alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    </script>
 	</c:if>
 
 	<div class="register-container">
@@ -274,7 +277,9 @@ h2 {
 				<div class="input-wrapper">
 					<img src="<%=request.getContextPath()%>/resources/images/lock.png"
 						alt="비밀번호 아이콘"> <input type="password" name="password"
-						required placeholder="비밀번호를 입력해주세요.">
+						required placeholder="비밀번호를 입력해주세요."
+						pattern="^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+						title="8자 이상, 대문자와 특수문자를 포함해야 합니다.">
 				</div>
 			</div>
 
@@ -283,9 +288,12 @@ h2 {
 				<div class="input-wrapper">
 					<img src="<%=request.getContextPath()%>/resources/images/lock.png"
 						alt="비밀번호 확인 아이콘"> <input type="password" name="confirm"
-						required placeholder="비밀번호를 다시 입력해주세요.">
+						required placeholder="비밀번호를 다시 입력해주세요."
+						pattern="^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+						title="8자 이상, 대문자와 특수문자를 포함해야 합니다.">
 				</div>
 			</div>
+
 
 			<div class="form-group">
 				<label>전화번호</label>
@@ -322,35 +330,33 @@ h2 {
 	</div>
 
 	<script>
-		function openModal() {
-			document.getElementById('termsModal').style.display = 'block';
-		}
+    function openModal() {
+        document.getElementById('termsModal').style.display = 'block';
+    }
 
-		function closeModal() {
-			document.getElementById('termsModal').style.display = 'none';
-		}
+    function closeModal() {
+        document.getElementById('termsModal').style.display = 'none';
+    }
 
-		window.addEventListener('keydown', function(event) {
-			if (event.key === 'Escape')
-				closeModal();
-		});
+    window.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape')
+            closeModal();
+    });
 
-		window.onclick = function(event) {
-			const modal = document.getElementById('termsModal');
-			if (event.target == modal) {
-				closeModal();
-			}
-		}
-	</script>
+    window.onclick = function (event) {
+        const modal = document.getElementById('termsModal');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
 	<script>
-		try {
-			navigator.mediaSession.setActionHandler("enterpictureinpicture",
-					null);
-		} catch (e) {
-			console.warn("enterpictureinpicture is not supported.");
-		}
-	</script>
-
-
+    try {
+        navigator.mediaSession.setActionHandler("enterpictureinpicture",
+            null);
+    } catch (e) {
+        console.warn("enterpictureinpicture is not supported.");
+    }
+</script>
 </body>
 </html>

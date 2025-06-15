@@ -2,6 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page session="true"%>
 
+<%
+String userEmail = (String) session.getAttribute("user_email");
+String userId = String.valueOf(session.getAttribute("userId"));
+String role = (String) session.getAttribute("role");
+%>
+
 <style>
 .navbar {
     position: fixed;
@@ -83,9 +89,11 @@
 		<a href="${pageContext.request.contextPath}/movie/movies/movies.jsp">영화</a> 
 		<c:if test="${user.membership_id == 1}">
 			<a href="${pageContext.request.contextPath}/movie/mylist/mylists.jsp">마이리스트</a>
-		</c:if> 
-		<a href="${pageContext.request.contextPath}/movie/wishlist/wishlists.jsp">찜 목록</a>
-		<a href="${pageContext.request.contextPath}/review/community.jsp">커뮤니티</a>
+		</c:if>
+		<c:if test="${not empty userId}">
+			<a href="${pageContext.request.contextPath}/movie/wishlist/wishlists.jsp">찜 목록</a>
+		</c:if>
+		<a href="${pageContext.request.contextPath}/Review.do">커뮤니티</a>
 	</div>
 	<div class="nav-right">
 		<c:choose>
