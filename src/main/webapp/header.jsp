@@ -2,12 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page session="true"%>
 
-<%
-String userEmail = (String) session.getAttribute("user_email");
-String userId = String.valueOf(session.getAttribute("userId"));
-String role = (String) session.getAttribute("role");
-%>
-
 <style>
 .navbar {
     position: fixed;
@@ -69,7 +63,9 @@ String role = (String) session.getAttribute("role");
 }
 
 </style>
-
+<%
+String role = (String) session.getAttribute("role");
+%>
 <c:set var="userId" value="${sessionScope.userId}" />
 
 <%@ include file="dbconn.jsp" %>

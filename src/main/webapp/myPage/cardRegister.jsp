@@ -5,12 +5,12 @@
 <%@ include file="../dbconn.jsp" %>
 
 <c:set var="card" value="${param.card}" />
-<c:set var="email" value="${sessionScope.user_email}" />
+<c:set var="userId" value="${sessionScope.userId}" />
 
 <sql:update dataSource="${ds}" var="updateResult">
-	UPDATE user SET card_number = ? WHERE email = ?
+	UPDATE user SET card_number = ? WHERE id = ?
 	<sql:param value="${card}" />
-	<sql:param value="${email}" />
+	<sql:param value="${userId}" />
 </sql:update>
 
 <c:choose>
